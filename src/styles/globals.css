@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --theme-color-rgb: 255, 121, 0;
+  --theme-color-green: #009688;
+  --theme-color: #ff7900;
+  --border-color: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  } */
+}
+@font-face {
+  font-family: "dana VF";
+  src: url("../../public/fonts/variable/DanaVF.woff2") format("woff-variations"),
+    /* will be the standard and works in Safari now */
+      url("../../public/fonts/variable/DanaVF.woff") format("woff");
+  /* for the other supporting browsers */
+  font-display: swap;
+}
+
+/* @font-face {
+  font-family: dana;
+  src: url("../../public/fonts/woff2/Dana-Thin.woff2") format("woff2") ,
+  url("../../public/fonts/woff/Dana-Thin.woff") format("woff");;
+  font-weight: 100;
+  font-display: fallback;
+  
+}
+@font-face {
+  font-family: dana;
+  src: url("../../public/fonts/woff2/Dana-UltraLight.woff2") format("woff2"),
+  url("../../public/fonts/woff/Dana-UltraLight.woff") format("woff");
+  font-weight: 200;
+  font-display: fallback;
+  
+}
+@font-face {
+  font-family: dana;
+  src: url("../../public/fonts/woff2/Dana-Light.woff2") format("woff2"),
+  url("../../public/fonts/woff/Dana-Light.woff") format("woff");
+  font-weight: 300;
+  font-display: fallback;
+  
+} */
+
+@font-face {
+  font-family: 'dana';
+  src: url("../../public/fonts/woff2/Dana-Regular.woff2") format("woff2"),
+  url("../../public/fonts/woff/Dana-Regular.woff") format("woff");
+  font-weight: 400;
+  font-display: fallback;
+}
+@font-face {
+  font-family: 'dana';
+  src: url("../../public/fonts/woff2/Dana-Medium.woff2") format("woff2"),
+  url("../../public/fonts/woff/Dana-Medium.woff") format("woff");
+  font-weight: 500;
+  font-display: fallback;
+}
+
+/* @font-face {
+  font-family: dana;
+  src: url("../../public/fonts/woff2/Dana-Bold.woff2") format("woff2"),
+  url("../../public/fonts/woff/Dana-Bold.woff") format("woff");
+  font-weight: 600;
+  font-display: fallback;
+}
+@font-face {
+  font-family: dana;
+  src: url("../../public/fonts/woff2/Dana-ExtraBold.woff2") format("woff2"),
+  url("../../public/fonts/woff/Dana-ExtraBold.woff") format("woff");
+  font-weight: 700;
+  font-display: fallback;
+} */
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #fff;
+  font-family: 'dana';
+}
+
+.MuiTypography-root {
+  font-family: 'dana';
+}
+
+@supports (font-variation-settings: normal) {
+  * {
+    font-family: "dana VF";
+    -moz-font-feature-settings: "ss02";
+    -webkit-font-feature-settings: "ss02";
+    font-feature-settings: "ss02";
+  }
+}
+
+.rmdp-container {
+  height: 100% !important;
+}
+
+.custom-input {
+  border-radius: 15px;
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+  padding: 4px 12px;
+  background-color: white;
+  height: 40px !important;
+}
+
+.custom-input:focus {
+  outline: none;
+  border: 1px solid var(--theme-color);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.google-map-code > p {
+  width: 100%;
+}
+
+.swiper-pagination-bullet {
+  top: 0;
+}
+
+.trust > p {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mobile_menu {
+  display: none;
+}
+@media (max-width: 540px) {
+  .mobile_menu {
+    display: block;
+  }
+}
+
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  display: none;
+}
+
+
+
+.main_container {
+  max-width: 1358px;
+  padding: 1rem;
+  margin: 0 auto;
+}
+.row_container {
+  display: flex;
+  align-items: center;
+}
+
+
+
+@media(max-width:500px) {
+  .google-map-code img {
+    width: 164px !important;
+    height: 82px !important;
+  }
+}
+
+
+.ckeditor-list.css-1h1hi72 tr img, .ckeditor-list.css-1h1hi72 p img {
+  width: fit-content !important;
+  height: auto !important;
+  margin: 0 auto;
+}

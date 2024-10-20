@@ -1,0 +1,8 @@
+.MuiAccordionSummary{
+    min-height: 12px !important;
+    padding: 0;
+    margin: 0;
+}
+.MuiAccordionSummary>div{
+    margin: 10px 0 !important;
+}

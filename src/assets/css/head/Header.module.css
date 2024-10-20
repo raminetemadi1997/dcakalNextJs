@@ -1,0 +1,40 @@
+.container {
+  position: sticky;
+  z-index: 30;
+  top: 0;
+  height: auto;
+}
+
+.container > div:first-child {
+  padding: 0.5rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem ;
+  position: relative;
+  z-index: 20;
+  border-bottom-right-radius: 1rem ;
+  border-bottom-left-radius: 1rem;
+  align-items: center;
+}
+
+.mobile_menu_icon {
+  color: #fff;
+  grid-column: 1 span;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .container > div:first-child {
+    padding: 1rem;
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    border-radius: 0px;
+  }
+ 
+}
+
+@media (min-width: 1280px) {
+  .mobile_menu_icon {
+    display: none;
+  }
+}

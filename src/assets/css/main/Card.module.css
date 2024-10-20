@@ -1,0 +1,31 @@
+.layer {
+    background: url('../../../../public/images/card/layer\ \(2\).png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.vector::before{
+    content: '';
+    width: 0;
+    height: 0;
+    border: 41px solid transparent;
+    border-top: 0;
+    border-bottom: 42px solid #fff;
+    position: absolute;
+    left: -28px;
+    top: -8px;
+    transform: rotate(315deg);
+}
+
+.shadowCards {
+    box-shadow: 0px 0px 12px 0px #00000040;
+}
+
+
+.truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+  }
+  

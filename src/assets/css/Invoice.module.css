@@ -1,0 +1,11 @@
+.table {
+  border: 1px solid black;
+}
+
+.tr > td {
+  border-left: 1px solid black;
+  padding: 0 .5rem;
+}
+.tr > td:last-child {
+  border-left: none;
+}

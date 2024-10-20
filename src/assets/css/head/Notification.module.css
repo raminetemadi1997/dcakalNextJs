@@ -1,0 +1,26 @@
+.container {
+    background-color:#009587;
+}
+
+.dashboard {
+    border: 1px solid #828282;
+    padding: .5rem 2rem .5rem 1rem; 
+    border-radius: .5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bell {
+    position: absolute;
+    left: calc(100% - 28px/2);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid #828282;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}

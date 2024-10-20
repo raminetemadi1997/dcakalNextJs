@@ -1,0 +1,29 @@
+.pHover{
+    width: 100%;
+}
+.pHover::after{
+    content: '';
+    width: 40%;
+    height: 2px;
+    background: #ff7900;
+    display: block;
+    /* position: absolute; */
+    margin: 0 auto;
+    margin-top: 5px;
+    transition: .4s;
+}
+.pType2{
+    width: 100%;
+}
+.pType2::after{
+    content: '';
+    width: 10%;
+    height: 2px;
+    background: #ff7900;
+    display: block;
+    margin-top: 5px;
+    transition: .4s;
+}
+.list:hover >a >div >p::after{
+    width: 50%;
+}

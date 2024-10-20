@@ -1,0 +1,155 @@
+.body {
+    background: #c1c1c1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.body .parentPage {
+    width: 80%;
+    height: 80%;
+    background: #6a91ff;
+    border-radius: 1rem;
+    position: relative;
+}
+
+.formReturn {
+    position: absolute;
+    left: 5%;
+    top: 15%;
+    width: 305px;
+    height: 200px;
+    text-align: justify;
+}
+
+.formReturn>p {
+    margin: 0;
+    padding: 5px 0;
+    padding-right: 0;
+    font-size: 2vw;
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-weight: 800;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
+
+.formReturn span {
+    width: auto;
+    height: auto;
+    display: block;
+    text-align: right;
+    line-height: 50px;
+    font-size: 16px;
+    color: #ffff;
+    background: #190100;
+    padding: 8px 30px;
+    border-radius: 5rem;
+    position: relative;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.formReturn span i {
+    margin-left: 5px;
+    font-size: 26px;
+    position: absolute;
+    right: 40px;
+    top: 25%;
+}
+
+.formReturn span p {
+    margin: 0;
+    text-align: center;
+    padding: 0px 0px;
+    border-left: 3px solid #6a91ff;
+    border-right: 3px solid #6a91ff;
+    margin: 0 -23px;
+    border-radius: 25px;
+}
+
+.body .parentPage .errorReturn {
+    width: 340px;
+    text-align: center;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+}
+
+
+.body .parentPage .errorReturn h1 {
+    font-size: 3em;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.25;
+}
+
+.body .parentPage .errorReturn h1:nth-of-type(2) {
+    font-size: 10em;
+    font-weight: 900;
+}
+
+.body .parentPage img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media(max-width:991px) {
+    .body {
+        margin: 0;
+    }
+
+    .body .parentPage {
+        width: 95%;
+        height: 95%;
+    }
+
+    .formReturn {
+        left: 5%;
+        top: 5%;
+        width: 180px;
+        height: 150px;
+    }
+
+    .body .parentPage .errorReturn {
+        width: 100px;
+    }
+
+    .formReturn span p {
+        font-size: 14px;
+    }
+
+    .body .parentPage .errorReturn h1 {
+        font-size: 1em;
+    }
+
+    .body .parentPage .errorReturn h1:nth-of-type(2) {
+        font-size: 3em;
+        font-weight: 900;
+    }
+
+    .formReturn>p {
+        font-size: 20px;
+    }
+
+    .formReturn span p {
+        font-size: 12px;
+    }
+
+    .formReturn span {
+        font-size: 12px !important;
+    }
+
+    .formReturn span i {
+        font-size: 16px;
+        right: 15px;
+        top: 36%;
+    }
+}

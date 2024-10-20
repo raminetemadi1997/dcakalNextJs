@@ -1,0 +1,42 @@
+/* .container {
+  background-image: url(../../../../public/images/Main/SpecialCategory/layer.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+} */
+
+.cards {
+  box-shadow: 0px 0px 13px 0px #00000040;
+}
+
+.card_origin > a:first-child {
+  transform-origin: bottom left;
+}
+.card_origin > a:nth-child(2) {
+  transform-origin: bottom right;
+}
+.card_origin > a:nth-child(3) {
+  transform-origin: top left;
+}
+.card_origin > a:last-child {
+  transform-origin: top right;
+}
+
+
+@media only screen and (max-width: 540px)  {
+  .card_origin > a:first-child {
+    transform-origin: unset;
+  }
+  .card_origin > a:nth-child(2) {
+    transform-origin: unset;
+  }
+  .card_origin > a:nth-child(3) {
+    transform-origin: unset;
+  }
+  .card_origin > a:last-child {
+    transform-origin: unset;
+  }
+  
+}
+
+

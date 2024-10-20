@@ -1,0 +1,6 @@
+.container{
+    background: none;
+}
+.container>div>div.slick-slider{
+    border: 1px solid black;
+}

@@ -1,0 +1,15 @@
+.arrows {
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(255 121 0);
+    opacity: .8;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+}
+
+.item:hover > p {
+    transform: rotateY(360deg);
+    opacity: 0;
+}

@@ -1,0 +1,10 @@
+.container {
+    right: calc(50% - 91.666667%/2);
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    max-height: 84vh;
+    overflow-y: auto;
+}
+
+.items {
+    width: 49%;
+}

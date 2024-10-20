@@ -1,0 +1,7 @@
+.container {
+    background: linear-gradient(180deg, #02685C 0%, #009688 100%);
+}
+
+.content {
+    box-shadow: 0px 4px 4px 0px #00000040;
+}

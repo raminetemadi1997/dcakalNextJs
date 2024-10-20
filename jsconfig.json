@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/app/components/Logo.jsx", "src/app/components/Cart.jsx", "src/app/components/Menu.jsx", "src/layouts/Footer.jsx", "src/layouts/Header.jsx", "src/layouts/Main.jsx", "src/app/components/Navbar.jsx", "src/app/components/Notification.jsx", "src/app/components/SearchBar.jsx", "src/app/components/SearchBox.jsx", "src/app/components/Submenu.jsx", "src/app/components/User.jsx", "src/app/components/Map.jsx", "src/app/page.jsx", "src/app/layout.jsx"],
+  "exclude": ["node_modules"]
+}

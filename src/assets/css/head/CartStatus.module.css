@@ -1,0 +1,108 @@
+.container {
+  position: absolute;
+  width: 350px;
+  height: auto;
+  background-color: #fff;
+  top: 100%;
+  left: 0;
+  border-radius: 0.3rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.12s ease-in;
+  cursor: auto;
+  padding: 0.8rem;
+  border: 0.5px solid var(--border-color);
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.head > p {
+  font-size: 0.875rem;
+}
+
+.head > a {
+  font-size: 0.75rem;
+  color: var(--theme-color);
+  display: flex;
+  align-items: center;
+}
+
+.body {
+  height: 50vh;
+  margin-bottom: 0.5rem;
+  overflow-y: auto;
+  padding: 0 .5rem;
+}
+
+.body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.body::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* .body li > a {
+  display: flex;
+  font-size: 0.875rem;
+}
+
+.body li > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.body li {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+} */
+
+.footer {
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.5rem;
+}
+
+.footer > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  font-size: 0.875rem;
+}
+
+.footer p:last-child,
+.body li > div .price {
+  font-weight: bold;
+}
+
+.footer p:last-child > span,
+.body li > div .price span {
+  margin-right: 0.2rem;
+  font-weight: normal;
+  font-size: 0.75rem;
+}

@@ -1,0 +1,36 @@
+.container {
+  box-shadow: rgb(0 0 0 / 18%) 0px 2px 4px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.12s ease-in;
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.navbar {
+  right: calc(50% - 95vw / 3.4);
+  top: 100%;
+}
+
+.body {
+  height: calc(100% - 36px);
+}
+
+.items::-webkit-scrollbar {
+  width: 8px;
+}
+
+.items::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.items::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.items::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

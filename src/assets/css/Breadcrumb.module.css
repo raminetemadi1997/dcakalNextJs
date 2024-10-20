@@ -1,0 +1,40 @@
+.arrow::after {
+    content: '/';
+    margin: 0 .5rem;
+
+}
+
+.container {
+    max-width: 1358px;
+    height: auto;
+    width: 100%;
+    padding: 0 1rem;
+    overflow-x: auto;
+    margin: .5rem 0;
+    -ms-overflow-style: none
+}
+.container > nav {
+    width:max-content
+}
+.container::-webkit-scrollbar {
+    display: none;
+    width:0
+}
+
+
+.container ul {
+    display: flex;
+    align-items: center;
+}
+
+.container ul >li:last-child {
+    color: var(--theme-color) !important;
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 600px) {
+    .container {
+        padding: 0 .5rem;
+    }
+}
+

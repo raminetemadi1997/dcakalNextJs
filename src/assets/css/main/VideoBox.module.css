@@ -1,0 +1,13 @@
+.container {
+    /* width: 90%; */
+    height: 455px;
+    position: absolute;
+    top: calc(50% - 455px/2);
+}
+
+@media only screen and (max-width: 640px) {
+    .container {
+        height: 200px;
+        top: calc(50% - 200px/2);
+    }
+}

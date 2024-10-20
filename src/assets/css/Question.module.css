@@ -1,0 +1,16 @@
+.truncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+}
+
+.expanded {
+  display: block;
+}
+
+.slide {
+    height: auto !important;
+    box-sizing: border-box !important;
+}
