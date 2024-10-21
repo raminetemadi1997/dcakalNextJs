@@ -20,16 +20,14 @@ const GalleryModal = ({
   pageSelect,
   pageHandler,
 }) => {
-  
   const mobile = useMediaQuery("(max-width : 540px)");
-  const desktop = useMediaQuery("(min-width : 1610px)")
+  const desktop = useMediaQuery("(min-width : 1610px)");
 
   const [page, setPage] = useState(0);
 
   const [videoSelect, setVideoSelect] = useState(null);
 
   const [videoIndex, setVideoIndex] = useState(0);
-
 
   const style = {
     position: "absolute",
@@ -41,7 +39,7 @@ const GalleryModal = ({
     boxShadow: 24,
     p: 2,
     borderRadius: ".5rem",
-    outline:'none'
+    outline: "none",
   };
 
   return (
@@ -67,7 +65,7 @@ const GalleryModal = ({
             <div className="grid grid-cols-3 gap-4">
               {/* main */}
               {pageSelect == 0 ? (
-                (data.type == 2 ? (
+                data.type == 2 ? (
                   <ImageCustom
                     data={selectImage ? selectImage : data.active_galleries[0]}
                     alt={data.image_alt}
@@ -75,23 +73,35 @@ const GalleryModal = ({
                     size="large_2x"
                     className="col-span-2 flex justify-center items-end"
                     fullWidth={false}
-                    width={desktop ? 760:380}
-                    height={desktop ? 760:380}
-                    style={{ height: "fit-content"}}
+                    width={desktop ? 760 : 380}
+                    height={desktop ? 760 : 380}
+                    style={{ height: "fit-content" }}
                   />
                 ) : (
                   <ImageCustom
-                    data={selectImage ? selectImage.image : data.active_galleries[0].image}
-                    alt={selectImage ? selectImage.image_alt :data.active_galleries[0].image_alt }
-                    title={selectImage ? selectImage.image_alt : data.active_galleries[0].image_alt }
+                    data={
+                      selectImage
+                        ? selectImage.image
+                        : data.active_galleries[0].image
+                    }
+                    alt={
+                      selectImage
+                        ? selectImage.image_alt
+                        : data.active_galleries[0].image_alt
+                    }
+                    title={
+                      selectImage
+                        ? selectImage.image_alt
+                        : data.active_galleries[0].image_alt
+                    }
                     size="large_2x"
                     className="col-span-2 flex justify-center items-end"
                     fullWidth={false}
-                    width={desktop ? 760:380}
-                    height={desktop ? 760:380}
-                    style={{ height: "fit-content"}}
+                    width={desktop ? 760 : 380}
+                    height={desktop ? 760 : 380}
+                    style={{ height: "fit-content" }}
                   />
-                ))
+                )
               ) : data.active_video_galleries.length > 0 ? (
                 videoSelect == null ? (
                   <video
@@ -168,7 +178,15 @@ const GalleryModal = ({
                               fullWidth={false}
                               width={100}
                               height={100}
-                              className={`${selectImageIndex ? selectImageIndex == i? ` border-theme border-2` : `border-2` : i==0 ? ` border-theme border-2` : `border-2`} cursor-pointer rounded-md overflow-hidden`}
+                              className={`${
+                                selectImageIndex
+                                  ? selectImageIndex == i
+                                    ? ` border-theme border-2`
+                                    : `border-2`
+                                  : i == 0
+                                  ? ` border-theme border-2`
+                                  : `border-2`
+                              } cursor-pointer rounded-md overflow-hidden`}
                             />
                           ))}
                         </div>
@@ -233,14 +251,14 @@ const GalleryModal = ({
               {pageSelect == 0 ? (
                 selectImage && (
                   <ImageCustom
-                    data={selectImage.image}
-                    alt={selectImage.image_alt}
-                    title={selectImage.image_alt}
-                    size="large"
+                    data={selectImage ? selectImage : data.active_galleries[0]}
+                    alt={data.image_alt}
+                    title={data.image_alt}
+                    size="medium"
                     className="flex justify-center"
                     fullWidth={false}
-                    width={350}
-                    height={350}
+                    width={210}
+                    height={210}
                   />
                 )
               ) : data.active_video_galleries.length > 0 ? (
@@ -285,77 +303,100 @@ const GalleryModal = ({
                 />
 
                 {
-                  pageSelect == 0
-                    ? // mini pictures
-                      data.active_galleries.length > 0 && (
-                        <Swiper
-                          slidesPerView={3}
-                          loop={true}
-                          spaceBetween={15}
-                          navigation={false}
-                          modules={[Navigation]}
-                          className="mySwiper"
-                        >
-                          {data.active_galleries.map((pictures, i) => (
-                            <SwiperSlide key={pictures.id}>
-                              <ImageCustom
-                                onClick={() => selectHandler(pictures, i)}
-                                size="small"
-                                data={pictures.image}
-                                alt={pictures.image_alt}
-                                title={pictures.image_alt}
-                                fullWidth={false}
-                                width={100}
-                                height={100}
-                                className={`${
-                                  selectImageIndex == i
-                                    ? `opacity-100`
-                                    : `opacity-50`
-                                }  rounded-md overflow-hidden`}
-                              />
-                            </SwiperSlide>
-                          ))}
-                        </Swiper>
-                      )
-                    : // mini pictures
+                  pageSelect == 0 ? (
+                    // mini pictures
+                    data.active_galleries.length > 0 ? (
+                      <Swiper
+                        slidesPerView={3}
+                        loop={true}
+                        spaceBetween={15}
+                        navigation={false}
+                        modules={[Navigation]}
+                        className="mySwiper"
+                      >
+                        {data.active_galleries.map((pictures, i) => (
+                          <SwiperSlide key={pictures.id}>
+                            <ImageCustom
+                              onClick={() => selectHandler(pictures, i)}
+                              size="small"
+                              data={pictures.image}
+                              alt={pictures.image_alt}
+                              title={pictures.image_alt}
+                              fullWidth={false}
+                              width={100}
+                              height={100}
+                              className={`${
+                                selectImageIndex == i
+                                  ? `opacity-100`
+                                  : `opacity-50`
+                              }  rounded-md overflow-hidden`}
+                            />
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    ) : (
+                      <Swiper
+                        slidesPerView={3}
+                        loop={true}
+                        spaceBetween={15}
+                        navigation={false}
+                        modules={[Navigation]}
+                        className="mySwiper"
+                      >
+                        <SwiperSlide>
+                          <ImageCustom
+                            size="small"
+                            data={
+                              selectImage
+                                ? selectImage
+                                : data.active_galleries[0]
+                            }
+                            alt={data.image_alt}
+                            title={data.image_alt}
+                            fullWidth={false}
+                            width={100}
+                            height={100}
+                            className={`opacity-100 rounded-md overflow-hidden`}
+                          />
+                        </SwiperSlide>
+                      </Swiper>
+                    )
+                  ) : (
+                    // mini pictures
 
-                      // mini videos
-                      data.active_video_galleries.length > 0 && (
-                        <Swiper
-                          slidesPerView={3}
-                          loop={true}
-                          spaceBetween={15}
-                          navigation={false}
-                          modules={[Navigation]}
-                          className="mySwiper"
-                        >
-                          {data.active_video_galleries.map((videos, i) => (
-                            <SwiperSlide key={videos.id}>
-                              <picture>
-                                <source
-                                  srcSet={videos.poster}
-                                  type="image/jpg"
-                                />
-                                <img
-                                  srcSet={videos.poster}
-                                  src={videos.poster}
-                                  alt={videos.title}
-                                  title={videos.title}
-                                  decoding="async"
-                                  className={`${
-                                    videoIndex == i
-                                      ? `opacity-100`
-                                      : `opacity-50`
-                                  } rounded-md overflow-hidden`}
-                                  onClick={() => {
-                                    setVideoSelect(videos), setVideoIndex(i);
-                                  }}
-                                />
-                              </picture>
-                            </SwiperSlide>
-                          ))}
-                        </Swiper>
-                      )
+                    // mini videos
+                    data.active_video_galleries.length > 0 && (
+                      <Swiper
+                        slidesPerView={3}
+                        loop={true}
+                        spaceBetween={15}
+                        navigation={false}
+                        modules={[Navigation]}
+                        className="mySwiper"
+                      >
+                        {data.active_video_galleries.map((videos, i) => (
+                          <SwiperSlide key={videos.id}>
+                            <picture>
+                              <source srcSet={videos.poster} type="image/jpg" />
+                              <img
+                                srcSet={videos.poster}
+                                src={videos.poster}
+                                alt={videos.title}
+                                title={videos.title}
+                                decoding="async"
+                                className={`${
+                                  videoIndex == i ? `opacity-100` : `opacity-50`
+                                } rounded-md overflow-hidden`}
+                                onClick={() => {
+                                  setVideoSelect(videos), setVideoIndex(i);
+                                }}
+                              />
+                            </picture>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    )
+                  )
                   // mini videos
                 }
               </div>

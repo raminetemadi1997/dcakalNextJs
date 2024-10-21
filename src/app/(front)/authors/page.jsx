@@ -6,7 +6,7 @@ import Link from "next/link";
 import styles from "@/assets/css/Authors.module.css";
 
 export const metadata = {
-  title: "نویسنده ها",
+  title: "نویسنده های دی سی ای کالا",
   description: "نویسنده ها",
   keywords: "نویسنده ها",
 };
@@ -22,6 +22,7 @@ export default async function Authors({ params }) {
           parentId={null}
           categorySlug={null}
           categoryName={"نویسنده ها"}
+          uniqueSlug={`authors`}
         />
 
         <h1 className="mb-12 text-xl">نویسنده ها</h1>

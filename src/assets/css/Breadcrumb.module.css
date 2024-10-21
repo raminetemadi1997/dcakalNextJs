@@ -10,7 +10,7 @@
     width: 100%;
     padding: 0 1rem;
     overflow-x: auto;
-    margin: .5rem 0;
+    margin: .5rem auto;
     -ms-overflow-style: none
 }
 .container > nav {

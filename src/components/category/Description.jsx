@@ -26,6 +26,14 @@ const Description = ({ type, summary, body, descriptions , className }) => {
     "& tr td , & p  ": {
       textAlign: "justify",
       lineHeight: "1.75rem",
+      display:'flex',
+      flexDirection:'column',
+      gap:'1rem'
+    },
+    "@media (max-width: 540px)": {
+      "& tr td , & p  ": {
+        gap:'1rem'
+      },
     },
   });
 
@@ -50,7 +58,7 @@ const Description = ({ type, summary, body, descriptions , className }) => {
           <CkSection
             ref={descriptionScroll}
             dangerouslySetInnerHTML={{ __html: summary }}
-            className={`category-list w-full h-auto rounded-2xl mb-16 ${styles.category_list}`}
+            className={`category-list w-full h-auto rounded-2xl mb-16 mt-4 ${styles.category_list}`}
           />
         </>
       ) : type === "customized" ? (

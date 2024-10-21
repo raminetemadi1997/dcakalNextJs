@@ -4,10 +4,6 @@ import Image from "next/image";
 import UnPower from "../../public/images/page/unpower.png";
 import styles from "@/assets/css/NotFound.module.css";
 import HomeIcon from '@mui/icons-material/Home';
-import Skeleton from '@mui/material/Skeleton';
-
-
-import dynamic from "next/dynamic";
 
 
 

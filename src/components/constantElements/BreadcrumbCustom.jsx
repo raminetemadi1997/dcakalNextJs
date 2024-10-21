@@ -3,10 +3,8 @@ import styles from "../../assets/css/Breadcrumb.module.css";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 
-
 const HomeIcon = dynamic(() => import("@mui/icons-material/Home"), {
   ssr: true,
-
 });
 
 export default function BreadcrumbCustom({
@@ -20,8 +18,40 @@ export default function BreadcrumbCustom({
   uniqueSlug,
 }) {
   let counter = 2;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "خانه",
+        item: "https://dcakala.com",
+      },
+
+      {
+        "@type": "ListItem",
+        position: counter,
+        name: categoryName,
+        item: `https://dcakala.com/${uniqueSlug}`,
+      },
+    ],
+  };
   return (
     <>
+      {structure ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structure),
+          }}
+        />
+      ) : (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <section className={styles.container}>
         <nav className="w-full mt-2">
           <ul className="w-full flex items-center row_container">
@@ -92,40 +122,6 @@ export default function BreadcrumbCustom({
           </ul>
         </nav>
       </section>
-
-      {structure ? (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structure),
-          }}
-        />
-      ) : (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "خانه",
-                  item: "https://dcakala.com",
-                },
-
-                {
-                  "@type": "ListItem",
-                  position: counter,
-                  name: categoryName,
-                  item: `https://dcakala.com/${uniqueSlug}`,
-                },
-              ],
-            }),
-          }}
-        />
-      )}
     </>
   );
 }

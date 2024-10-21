@@ -28,10 +28,8 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
 
                                 <source
                                     srcSet={`${backendUrl}${data.indexArray.large_2x} 2x , ${backendUrl}${data.indexArray.large_2x}`}
-                                    //type={data.indexArray.large_2x.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                    type={data.indexArray.large_2x.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                 />
-
-
 
 
                                 <img
@@ -52,7 +50,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                     />
                                     <source
                                         srcSet={`${backendUrl}${data.indexArray.large} , ${backendUrl}${data.indexArray.large_2x} 2x`}
-                                        //type={data.indexArray.large.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                        type={data.indexArray.large.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                     />
 
 
@@ -75,7 +73,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                         />
                                         <source
                                             srcSet={`${backendUrl}${data.indexArray.medium} , ${backendUrl}${data.indexArray.medium_2x} 2x`}
-                                            //type={data.indexArray.medium.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                            type={data.indexArray.medium.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                         />
 
 
@@ -99,7 +97,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                             />
                                             <source
                                                 srcSet={`${backendUrl}${data.indexArray.samll} , ${backendUrl}${data.indexArray.samll_2x} 2x`}
-                                                //type={data.indexArray.samll.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                                type={data.indexArray.samll.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                             />
 
 
@@ -123,7 +121,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                                 />
                                                 <source
                                                     srcSet={`${backendUrl}${data.indexArray.original} , ${backendUrl}${data.indexArray.double_ratio} 2x , ${backendUrl}${data.indexArray.triple_ratio} 3x`}
-                                                    //type={data.indexArray.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                                    type={data.indexArray.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                                 />
 
 
@@ -151,7 +149,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
 
                                 <source
                                     srcSet={`${backendUrl}${data.original}`}
-                                    //type={data.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                    type={data.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                 />
 
 
@@ -174,7 +172,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                 />
                                 <source
                                     srcSet={`${backendUrl}${data}`}
-                                    //type={data.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                    type={data.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                 />
 
                                 <img
@@ -286,7 +284,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                         />
                                         <source
                                             srcSet={`${backendUrl}${data.indexArray.large} , ${backendUrl}${data.indexArray.large_2x} 2x`}
-                                            //type={data.indexArray.large.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                            type={data.indexArray.large.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                         />
 
                                         <img
@@ -308,7 +306,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                             />
                                             <source
                                                 srcSet={`${backendUrl}${data.indexArray.medium} , ${backendUrl}${data.indexArray.medium_2x} 2x`}
-                                                //type={data.indexArray.medium.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                                type={data.indexArray.medium.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                             />
 
                                             <img
@@ -330,7 +328,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                                 />
                                                 <source
                                                     srcSet={`${backendUrl}${data.indexArray.samll} , ${backendUrl}${data.indexArray.samll_2x} 2x`}
-                                                    //type={data.indexArray.samll.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                                    type={data.indexArray.samll.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                                 />
 
                                                 <img
@@ -351,7 +349,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                                     />
                                                     <source
                                                         srcSet={`${backendUrl}${data.indexArray.original} , ${backendUrl}${data.indexArray.double_ratio} 2x , ${backendUrl}${data.indexArray.triple_ratio} 3x`}
-                                                        //type={data.indexArray.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                                        type={data.indexArray.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                                     />
 
 
@@ -376,7 +374,7 @@ const ImageCustom = ({ size = 'medium', fullWidth = true, mobileAlt, mobileTitle
                                     />
                                     <source
                                         srcSet={`${backendUrl}${data.original}`}
-                                        //type={data.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
+                                        type={data.original && data.original.split(".")[1] == "png" ? "image/png" : "image/jpg"}
                                     />
 
                                     <img
