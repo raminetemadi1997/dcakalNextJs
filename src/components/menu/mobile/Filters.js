@@ -23,7 +23,7 @@ import {
     useSearchParams,
 } from "next/navigation";
 
-const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scrollTo }) => {
+const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scrollTo, currentSlug }) => {
     const mobile = useMediaQuery("(max-width : 540px)");
 
     let productValue;
@@ -53,7 +53,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
     const [chechedValue, setCheckedValue] = useState([])
 
 
-    
+
 
 
 
@@ -103,10 +103,6 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         submitHandler();
 
     }
-
-
-
-
 
 
 
@@ -196,6 +192,18 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
 
 
+    function resetHandler() {
+        router.push(`/${currentSlug}`);
+        setCheckedValue([]);
+        // const findElems = document.querySelectorAll(".attr-class");
+        // [...findElems].map((elem) => {
+        //   if (elem.querySelector("input").checked == true) {
+        //     elem.querySelector("input").click();
+        //   }
+        // });
+    }
+
+
 
     return (
         <>
@@ -272,8 +280,15 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                                 <IconButton onClick={() => setOpen(false)}>
                                     <CloseIcon />
                                 </IconButton >
+                                <div className='flex gap-2'>
+                                    {
+                                        urlValue.length > 0
+                                        &&
+                                        <ButtonCustom color={'#DE1616'} text="حذف فیلتر" onClick={resetHandler} />
+                                    }
 
-                                <ButtonCustom color={chechedValue.length > 0 ? "var(--theme-color)":'#A4A4A4'} text="اعمال فیلتر" onClick={submitHandler} />
+                                    <ButtonCustom color={chechedValue.length > 0 ? "var(--theme-color)" : '#A4A4A4'} text="اعمال فیلتر" onClick={submitHandler} />
+                                </div>
                             </div>
                             {/* head */}
 

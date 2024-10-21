@@ -631,6 +631,7 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
                     // sendData={data}
                     // urlValue={urlValue}
                     scrollTo={scrollTo}
+                    currentSlug={currentSlug}
                   />
                 </>
               )}
