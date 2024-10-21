@@ -6,15 +6,11 @@ import ImageCustom from "@/components/constantElements/ImageCustom";
 import SearchIcon from "@mui/icons-material/Search";
 import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import Link from "next/link";
-import Skeleton from "@mui/material/Skeleton";
-import dynamic from "next/dynamic";
 export async function generateMetadata({ params, searchParams }) {
   const fetchedData = await getSsrData(`api/author/${params.authors}`);
   return{
-
     title: fetchedData.data.data.full_name,
     description: "نویسنده و پژوهشگر سیستم های حفاظتی و نظارتی در دی سی ای کالا",
-    
   }
 };
 
@@ -36,8 +32,8 @@ export default async function AuthorsItems({ params }) {
             <ImageCustom
               size="original"
               data={fetchedData.data.data.image_path}
-              alt={fetchedData.data.data.full_name}
-              title={fetchedData.data.data.full_name}
+              alt={`نویسنده ${fetchedData.data.data.full_name}`}
+              title={`نویسنده ${fetchedData.data.data.full_name}`}
               fullWidth={false}
               width={295}
               height={295}

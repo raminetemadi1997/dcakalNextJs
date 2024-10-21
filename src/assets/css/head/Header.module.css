@@ -33,7 +33,7 @@
  
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 990px) {
   .mobile_menu_icon {
     display: none;
   }

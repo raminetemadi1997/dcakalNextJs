@@ -30,6 +30,7 @@
 .container ul >li:last-child {
     color: var(--theme-color) !important;
     font-weight: 600;
+    font-size: 14px;
 }
 
 @media only screen and (max-width: 600px) {
