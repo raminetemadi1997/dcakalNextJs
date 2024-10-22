@@ -51,13 +51,14 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
     }
 
     const [chechedValue, setCheckedValue] = useState([])
+    const [chipValue, setChipValue] = useState([]);
 
-
-
-
+    // تعریف state برای وضعیت checked هر چک باکس
+    const [checkedItems, setCheckedItems] = useState(data.map(e => Array(e.values.length).fill(false)));
 
 
     const myMap = new Map();
+    const myMapChip = new Map();
 
     useEffect(() => {
         if (urlValue.length > 0) {
@@ -73,7 +74,32 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         if (JSON.stringify(newData) !== JSON.stringify(chechedValue)) {
             setCheckedValue(newData);
         }
+
+        if (data.length > 0) {
+            if (type != "brand") {
+                data.map((items) => {
+                    return items.values.map((subItems, i) => {
+                        if (urlValue.indexOf(subItems.id) != -1) {
+                            myMapChip.set(i, subItems.value);
+                        }
+                    });
+                });
+            }
+        }
+
+        const newDataChip = Array.from(myMapChip.values());
+
+        if (JSON.stringify(newDataChip) !== JSON.stringify(chipValue)) {
+            setChipValue(newDataChip);
+        }
+
+
+
     }, []);
+
+
+
+
 
     const router = useRouter();
     const pathName = usePathname();
@@ -103,8 +129,6 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         submitHandler();
 
     }
-
-
 
     function collectSelectedValues() {
         const selectedValues = {};
@@ -178,6 +202,30 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
             setCheckedValue([...chechedValue]);
         }
 
+
+
+        if (type != "brand") {
+            if (event.target.checked) {
+                if (!chipValue.includes(elem.value)) {
+                    setChipValue((prev) => [...chipValue, elem.value]);
+                }
+            } else {
+                let duplicateElem = chipValue.indexOf(elem.value);
+                chipValue.splice(duplicateElem, 1);
+                setChipValue([...chipValue]);
+            }
+        } else {
+            if (event.target.checked) {
+                if (!chipValue.includes(elem.name)) {
+                    setChipValue((prev) => [...chipValue, elem.name]);
+                }
+            } else {
+                let duplicateElem = chipValue.indexOf(elem.name);
+                chipValue.splice(duplicateElem, 1);
+                setChipValue([...chipValue]);
+            }
+        }
+
         // const newArrayService = [...checked];
 
 
@@ -203,6 +251,19 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         // });
     }
 
+
+    const handleDelete = (event, value) => {
+    
+        const findElems = document.querySelectorAll(".attr-class");
+
+    
+        [...findElems].map((elem) => {
+          if (elem.getAttribute("data-name") == value) {
+            elem.querySelector("input").click();
+          }
+        });
+        submitHandler();
+      };
 
 
     return (
@@ -263,9 +324,6 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
                 :
                 <>
-
-
-
                     <div className="flex items-center gap-2 border rounded-lg px-2" onClick={() => setOpen(true)}>
                         <IconButton >
                             <TuneIcon />
@@ -276,20 +334,46 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                     <Drawer open={open} anchor={'bottom'} onClose={open}>
                         <div>
                             {/* head */}
-                            <div className='p-2 border-b bg-white sticky top-0 flex items-center justify-between z-10 w-full'>
-                                <IconButton onClick={() => setOpen(false)}>
-                                    <CloseIcon />
-                                </IconButton >
-                                <div className='flex gap-2'>
-                                    {
-                                        urlValue.length > 0
-                                        &&
-                                        <ButtonCustom color={'#DE1616'} text="حذف فیلتر" onClick={resetHandler} />
-                                    }
+                            <div className='p-2 border-b bg-white sticky top-0  z-10 w-full'>
 
-                                    <ButtonCustom color={chechedValue.length > 0 ? "var(--theme-color)" : '#A4A4A4'} text="اعمال فیلتر" onClick={submitHandler} />
+
+                                <div className='flex items-center justify-between'>
+                                    <IconButton onClick={() => setOpen(false)}>
+                                        <CloseIcon />
+                                    </IconButton >
+                                    <div className='flex gap-2'>
+                                        {
+                                            urlValue.length > 0
+                                            &&
+                                            <ButtonCustom color={'#DE1616'} text="حذف فیلتر" onClick={resetHandler} />
+                                        }
+
+                                        <ButtonCustom color={chechedValue.length > 0 ? "var(--theme-color)" : '#A4A4A4'} text="اعمال فیلتر" onClick={submitHandler} />
+                                    </div>
+
                                 </div>
+
+
+                                {chipValue.length > 0
+                                    &&
+                                    <ul className='max-h-28 overflow-y-auto grid grid-cols-1 gap-2 mt-2'>
+                                        {chipValue.map((items, i) => (
+                                            <li key={i} className='text-xs bg-[#f1f1f1] rounded-md p-2 flex items-center justify-between'>
+                                                <div>{items}</div>
+                                                <IconButton size='small' onClick={(event) => handleDelete(event, items)}>
+                                                    <CloseIcon fontSize='small' />
+                                                </IconButton >
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                }
+
                             </div>
+
+
+
+
                             {/* head */}
 
                             {/* body */}
@@ -311,17 +395,19 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                                                 {main.values.map((sub, i) => (
                                                     <li key={sub.id}>
                                                         <CheckboxCustom
+                                                            classAttr="attr-class"
                                                             label={sub.value}
+                                                            data-name={sub.value}
                                                             color='#A4A4A4'
                                                             value={sub.id}
                                                             name={main.name}
-                                                            // checked={checked[index][i]}
                                                             onChange={(event) => changeHandler(event, sub.id, sub)}
                                                             checked={
                                                                 chechedValue.indexOf(sub.id) == -1
                                                                     ? false
                                                                     : true
                                                             }
+                                                        // checked={checkedItems[index][i]}
                                                         />
                                                     </li>
                                                 ))}

@@ -16,11 +16,9 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-
 export default async function AuthorsItems({ params }) {
   const backendUrlImage = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
   const fetchedData = await getSsrData(`api/author/${params.authors}`);
-  
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -30,31 +28,21 @@ export default async function AuthorsItems({ params }) {
     mainEntity: {
       "@type": "Person",
       name: fetchedData.data.data.full_name,
-      alternateName: `${fetchedData.data.data.first_name} ${fetchedData.data.data.last_name}`,
-      identifier: "123475623",
-      interactionStatistic: [
-        {
-          "@type": "InteractionCounter",
-          interactionType: "https://schema.org/FollowAction",
-          userInteractionCount: 1,
-        },
-        {
-          "@type": "InteractionCounter",
-          interactionType: "https://schema.org/LikeAction",
-          userInteractionCount: 5,
-        },
-      ],
+      alternateName: fetchedData.data.data.slug,
+
       agentInteractionStatistic: {
         "@type": "InteractionCounter",
         interactionType: "https://schema.org/WriteAction",
-        userInteractionCount: 2346,
+        userInteractionCount:
+          fetchedData.data.data.products.data.length > 0
+            ? fetchedData.data.data.products.data.length
+            : 0,
       },
-      deScription: fetchedData.data.data.body,
+      deScription: fetchedData.data.data.description,
       image: `${backendUrlImage}/${fetchedData.data.data.image_path.indexArray.original}`,
-      sameAs: [
-        "https://www.example.com/real-angelo",
-        "https://example.com/profile/therealangelohuff",
-      ],
+      ...(fetchedData.data.data.socials.length > 0 && {
+        sameAs: fetchedData.data.data.socials.map((e) => e.link),
+      }),
     },
   };
 
@@ -85,6 +73,7 @@ export default async function AuthorsItems({ params }) {
                 fullWidth={false}
                 width={295}
                 height={295}
+                style={{ margin: "0 auto" }}
               />
               <div className={styles.textField}>
                 <div className={styles.textBox}>
@@ -112,6 +101,27 @@ export default async function AuthorsItems({ params }) {
                     <div className={styles.socialTitle}>
                       شبکه های اجتماعی من
                     </div>
+                    <ul className={styles.social_container}>
+                      {fetchedData.data.data.socials.map((socials) => (
+                        <li key={socials.id}>
+                          <Link
+                            rel="nofollow"
+                            href={socials.link ? socials.link : "#"}
+                            title={socials.title}
+                          >
+                            <ImageCustom
+                              data={socials.image}
+                              size="original"
+                              alt={socials.image_alt}
+                              title={socials.image_alt}
+                              width={40}
+                              height={40}
+                              fullWidth={false}
+                            />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>

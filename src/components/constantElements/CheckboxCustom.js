@@ -10,18 +10,18 @@ const style = {
     },
 }
 
-const CheckboxCustom = ({checked,name , value,color ="var(--theme-color)"  ,label, size = 'small', className, ...props }) => {
-    
+const CheckboxCustom = ({classAttr, checked, name, value, color = "var(--theme-color)", label, size = 'small', className,  ...props }) => {
+
     const style = {
         color: color,
         "&.Mui-checked": {
-            color: "var(--theme-color)" ,
+            color: "var(--theme-color)",
         },
     }
 
     return (
         <FormGroup sx={{ ml: 1 }} className={className}>
-            <FormControlLabel control={<Checkbox defaultChecked={checked} sx={style} size={size} value={value} name={name}  {...props } />} label={label} />
+            <FormControlLabel control={<Checkbox defaultChecked={checked} sx={style} size={size} value={value} name={name} className={classAttr}  {...props} />} label={label} />
         </FormGroup>
     );
 };

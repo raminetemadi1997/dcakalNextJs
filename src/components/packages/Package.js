@@ -165,17 +165,13 @@ const Package = ({ apiData = null, pages, scrollTo }) => {
 
                                     {tablet &&
                                         <>
-                                            <div className="flex items-center gap-2 border rounded-lg px-2" onClick={() => setFilters(true)}>
+                                            {/* <div className="flex items-center gap-2 border rounded-lg px-2" onClick={() => setFilters(true)}>
                                                 <IconButton>
                                                     <TuneIcon />
                                                 </IconButton>
                                                 <div className="text-sm">فیلترها</div>
                                             </div>
-                                            <Filters
-                                                openMenu={filters}
-                                                onClose={() => setFilters(false)}
-                                            // data={apiData.category.filters}
-                                            />
+                                             */}
                                         </>
 
                                     }

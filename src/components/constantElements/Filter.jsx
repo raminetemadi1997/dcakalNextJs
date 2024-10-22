@@ -91,7 +91,6 @@ export default function Filter({
     filters.map((_, i) => (i == 0 ? true : false))
   );
   const [chipValue, setChipValue] = useState([]);
-  const [order, setOrder] = useState("");
 
   const myMap = new Map();
 
@@ -192,6 +191,7 @@ export default function Filter({
   }
 
   const handleDelete = (event, value) => {
+    
     const findElems = document.querySelectorAll(".attr-class");
 
     [...findElems].map((elem) => {
@@ -199,6 +199,7 @@ export default function Filter({
         elem.querySelector("input").click();
       }
     });
+    submitHandler();
   };
 
   function clickChange(event, elem) {

@@ -249,9 +249,22 @@ const GalleryModal = ({
             <div className="grid grid-cols-1 gap-4">
               {/* main */}
               {pageSelect == 0 ? (
-                selectImage && (
+                data.type == 2 ? (
                   <ImageCustom
                     data={selectImage ? selectImage : data.active_galleries[0]}
+                    alt={data.image_alt}
+                    title={data.image_alt}
+                    size="medium"
+                    className="flex justify-center"
+                    fullWidth={false}
+                    width={210}
+                    height={210}
+                  />
+                ) : (
+                  <ImageCustom
+                    data={
+                      selectImage ? selectImage.image : data.active_galleries[0]
+                    }
                     alt={data.image_alt}
                     title={data.image_alt}
                     size="medium"

@@ -52,7 +52,7 @@ export async function generateMetadata({ params, searchParams }) {
 
     if (dataFetch.data.products) {
       dataFetch.data.products.data.map((e) => {
-        if (e.video) {
+        if (e && e.video) {
           video = true;
         }
       });

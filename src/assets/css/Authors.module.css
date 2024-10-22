@@ -10,12 +10,12 @@
   gap: 1rem;
 }
 .items {
-  padding: 1rem;
+  padding: 2rem 1.5rem;
   box-shadow: 2px 2px 3.4px 0px #0000002b;
   background: #f8f8f86b;
   border-radius: 0.5rem;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .title {
@@ -45,14 +45,14 @@
 .textBox {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 .socialTitle {
   color: #424242;
   font-size: 15px;
   font-weight: 600;
   line-height: 23.24px;
-  text-align: right;
+  text-align: center;
 }
 
 .line {
@@ -91,6 +91,21 @@
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
+
+.truncate {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+}
+.social_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
 @media (max-width: 500px) {
   .items {
     display: flex;
@@ -118,12 +133,7 @@
     border-bottom: 1px solid #848383;
     border-radius: 0;
   }
-}
-
-.truncate {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  text-overflow: ellipsis;
+  .social_container {
+    gap: .5rem;
+  }
 }

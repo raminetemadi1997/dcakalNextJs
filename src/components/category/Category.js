@@ -678,15 +678,6 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
               ) : apiData.products ? (
                 apiData.products.data.length >= 1 &&
                 apiData.products.data.map((product) => {
-                  let discountUnic = null;
-                  {
-                    product.discount
-                      ? (discountUnic = product.discount)
-                      : product.category_discount
-                        ? (discountUnic = product.category_discount)
-                        : null;
-                  }
-                  let date = new Date();
                   return product && (
                     <Fragment key={product.id}>
                       {apiData.category.type == 1 ? (
