@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import CloseIcon from "@mui/icons-material/Close";
-
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 import ImageCustom from "../constantElements/ImageCustom";
 import TabCustom from "../constantElements/TabCustom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation } from "swiper/modules";
+import Image from "next/image";
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
 
 const GalleryModal = ({
   data = null,
@@ -66,41 +68,38 @@ const GalleryModal = ({
               {/* main */}
               {pageSelect == 0 ? (
                 data.type == 2 ? (
-                  <ImageCustom
-                    data={selectImage ? selectImage : data.active_galleries[0]}
-                    alt={data.image_alt}
-                    title={data.image_alt}
-                    size="large_2x"
-                    className="col-span-2 flex justify-center items-end"
-                    fullWidth={false}
-                    width={desktop ? 760 : 380}
-                    height={desktop ? 760 : 380}
-                    style={{ height: "fit-content" }}
-                  />
+                  <picture className="col-span-2 mx-auto">
+                    <img
+                      src={
+                        selectImage
+                          ? `${backendUrl}${selectImage.indexWeb.large_2x}`
+                          : `${backendUrl}${data.active_galleries[0].indexWeb.large_2x}`
+                      }
+                      alt={data.image_alt}
+                      width={500}
+                      height={500}
+                      loading="lazy"
+                    />
+                  </picture>
                 ) : (
-                  <ImageCustom
-                    data={
-                      selectImage
-                        ? selectImage.image
-                        : data.active_galleries[0].image
-                    }
-                    alt={
-                      selectImage
-                        ? selectImage.image_alt
-                        : data.active_galleries[0].image_alt
-                    }
-                    title={
-                      selectImage
-                        ? selectImage.image_alt
-                        : data.active_galleries[0].image_alt
-                    }
-                    size="large_2x"
-                    className="col-span-2 flex justify-center items-end"
-                    fullWidth={false}
-                    width={desktop ? 760 : 380}
-                    height={desktop ? 760 : 380}
-                    style={{ height: "fit-content" }}
-                  />
+                  <picture  className="col-span-2 mx-auto">
+                    <img
+                      src={
+                        selectImage
+                          ? `${backendUrl}${selectImage.image.indexWeb.large_2x}`
+                          : `${backendUrl}${data.active_galleries[0].image.indexWeb.large_2x}`
+                      }
+                      alt={
+                        selectImage
+                          ? selectImage.image_alt
+                          : data.active_galleries[0].image_alt
+                      }
+                      width={500}
+                      height={500}
+                     
+                      loading="lazy"
+                    />
+                  </picture>
                 )
               ) : data.active_video_galleries.length > 0 ? (
                 videoSelect == null ? (
@@ -250,29 +249,43 @@ const GalleryModal = ({
               {/* main */}
               {pageSelect == 0 ? (
                 data.type == 2 ? (
-                  <ImageCustom
-                    data={selectImage ? selectImage : data.active_galleries[0]}
-                    alt={data.image_alt}
-                    title={data.image_alt}
-                    size="medium"
-                    className="flex justify-center"
-                    fullWidth={false}
-                    width={210}
-                    height={210}
-                  />
+                  <picture>
+                    <img
+                      src={
+                        selectImage
+                          ? `${backendUrl}${selectImage.indexWeb.medium}`
+                          : `${backendUrl}${data.active_galleries[0].indexWeb.medium}`
+                      }
+                      alt={
+                        selectImage
+                          ? selectImage.image_alt
+                          : data.active_galleries[0].image_alt
+                      }
+                      width={210}
+                      height={210}
+                      className="mx-auto"
+                      loading="lazy"
+                    />
+                  </picture>
                 ) : (
-                  <ImageCustom
-                    data={
-                      selectImage ? selectImage.image : data.active_galleries[0]
-                    }
-                    alt={data.image_alt}
-                    title={data.image_alt}
-                    size="medium"
-                    className="flex justify-center"
-                    fullWidth={false}
-                    width={210}
-                    height={210}
-                  />
+                  <picture>
+                    <img
+                      src={
+                        selectImage
+                          ? `${backendUrl}${selectImage.image.indexWeb.medium}`
+                          : `${backendUrl}${data.active_galleries[0].image.indexWeb.medium}`
+                      }
+                      alt={
+                        selectImage
+                          ? selectImage.image_alt
+                          : data.active_galleries[0].image_alt
+                      }
+                      width={210}
+                      height={210}
+                      className="mx-auto"
+                      loading="lazy"
+                    />
+                  </picture>
                 )
               ) : data.active_video_galleries.length > 0 ? (
                 videoSelect == null ? (

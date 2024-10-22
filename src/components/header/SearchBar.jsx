@@ -67,6 +67,8 @@ export default function SearchBar({ className, shownSearchBoxHandler }) {
     }
   }
 
+  
+
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
       setSearchText(event.target.value);

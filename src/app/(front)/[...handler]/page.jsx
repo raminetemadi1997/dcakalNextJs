@@ -6,7 +6,6 @@ import axios from "@/lib/axios";
 import { redirect } from "next/navigation";
 import Invoice from "@/components/constantElements/Invoice";
 import BreadcrumbCustom from "@/components/constantElements/BreadcrumbCustom";
-import Head from "next/head";
 
 const frontUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
 const backendUrlImage = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
@@ -368,7 +367,9 @@ export default async function Page({ params, searchParams }) {
         currentSlug = {slug}
       />
       {/* <Invoice /> */}
+      
     </>
+    
   ) : (
     <>
       <BreadcrumbCustom

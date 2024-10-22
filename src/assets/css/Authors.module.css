@@ -40,6 +40,11 @@
   text-align: right;
   color: #000000;
   text-align: justify;
+  
+}
+
+.body > p {
+  padding:10px 0
 }
 
 .textBox {

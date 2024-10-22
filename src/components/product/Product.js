@@ -368,6 +368,7 @@ const Product = ({ apiData, type, user = null }) => {
                               </div>
                             </>
                           )}
+
                           {apiData &&
                             apiData.active_semi_products.length > 0 ? (
                             <>
@@ -402,6 +403,76 @@ const Product = ({ apiData, type, user = null }) => {
                                   className="mySwiper"
                                 >
                                   {apiData.active_semi_products.map((semi) => (
+                                    <SwiperSlide key={semi.id}>
+                                      <div className="p-2">
+                                        <Link
+                                          style={{
+                                            boxShadow:
+                                              "1px 1px 5px 0px #00000033",
+                                          }}
+                                          href={`/${semi.slug}`}
+                                          title={semi.name}
+                                          className="grid grid-cols-4 w-full items-center gap-4 rounded-lg overflow-hidden"
+                                        >
+                                          <ImageCustom
+                                            data={semi.image}
+                                            alt={semi.image_alt}
+                                            title={semi.image_alt}
+                                            className="col-span-1"
+                                            //props
+                                            loading="lazy"
+                                            width={116}
+                                            height={116}
+                                          />
+                                          <p
+                                            className="sm:text-sm text-xs col-span-3"
+                                            style={{ color: "#7d7979" }}
+                                          >
+                                            {semi.name}
+                                          </p>
+                                        </Link>
+                                      </div>
+                                    </SwiperSlide>
+                                  ))}
+                                </Swiper>
+                              </div>
+                            </>
+                          ) : null}
+
+                          {apiData &&
+                            apiData.semi_packages.length > 0 ? (
+                            <>
+                              <div className="my-4">
+                                <div className="mb-2 flex gap-2 items-center">
+                                  <InventoryIcon
+                                    sx={{ color: "#7d7979" }}
+                                    fontSize="medium"
+                                  />
+                                  <p
+                                    className="text-sm"
+                                    style={{ color: "#7d7979" }}
+                                  >
+                                    پکیج های مشابه
+                                  </p>
+                                </div>
+                                <Swiper
+                                  autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                    pauseOnMouseEnter: true,
+                                  }}
+                                  slidesPerView={1}
+                                  loop={
+                                    apiData.semi_packages.length > 1
+                                      ? true
+                                      : false
+                                  }
+                                  spaceBetween={15}
+                                  navigation={false}
+                                  modules={[Autoplay, Navigation]}
+                                  className="mySwiper"
+                                >
+                                  {apiData.semi_packages.map((semi) => (
                                     <SwiperSlide key={semi.id}>
                                       <div className="p-2">
                                         <Link

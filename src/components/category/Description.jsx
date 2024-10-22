@@ -23,9 +23,12 @@ const Description = ({ type, summary, body, descriptions , className }) => {
       width: "100% !important",
       height: "auto !important",
     },
-    "& tr td , & p  ": {
+    "& tr td , & p ": {
       textAlign: "justify",
       lineHeight: "1.75rem",
+      
+    },
+    '& tr td ':{
       display:'flex',
       flexDirection:'column',
       gap:'1rem'

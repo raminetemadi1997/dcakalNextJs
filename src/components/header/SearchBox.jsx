@@ -1,5 +1,5 @@
 "use client";
-import React , {useRef} from "react";
+import React, { useRef } from "react";
 //fontawsome
 import SearchIcon from "@mui/icons-material/Search";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -12,8 +12,12 @@ import Link from "next/link";
 import Skeleton from "@mui/material/Skeleton";
 import ImageCustom from "../constantElements/ImageCustom";
 
-const SearchBox = ({ shownSearchBox, data = null, searchSlug = null  , searchContainer }) => {
-
+const SearchBox = ({
+  shownSearchBox,
+  data = null,
+  searchSlug = null,
+  searchContainer,
+}) => {
   return (
     shownSearchBox && (
       <>
@@ -34,36 +38,60 @@ const SearchBox = ({ shownSearchBox, data = null, searchSlug = null  , searchCon
                   {data && data.search_count ? data.search_count : 0}
                 </span>
               </div>
-              <ul className="content w-full flex justify-between flex-wrap">
+              <div className="content w-full flex justify-between flex-wrap p-2">
                 {data ? (
                   data.search_count == 0 ? (
                     <div className="h-48 w-full p-4 flex items-center justify-center text-lg">
                       محصولی موجود نیست
                     </div>
                   ) : (
-                    data.products.length > 0 &&
-                    data.products.splice(0, 6).map((product, index) => {
-                      return (
-                        <li key={product.id} className={`${styles.items}`}>
-                          <Link
-                            rel="preload"
-                            href={`/${product.slug}`}
-                            className={`h-fit my-3 rounded-lg p-2 flex border-stone-200 border-2`}
-                          >
-                            <ImageCustom
-                              data={product.image}
-                              alt={product.image_alt}
-                              title={product.image_alt}
-                              size="small"
-                            />
-                            <p className="mr-2 text-sm">{product.name}</p>
-                          </Link>
-                        </li>
-                      );
-                    })
+                    data.products.length > 0 && (
+                      <ul className="grid grid-cols-2 gap-2">
+                        {data.products.splice(0, 6).map((product, index) => {
+                          return (
+                            <li key={product.id}>
+                              <Link
+                                title={product.name}
+                                href={`/${product.slug}`}
+                                className={styles.items}
+                              >
+                                <ImageCustom
+                                  data={product.image}
+                                  alt={product.image_alt}
+                                  title={product.image_alt}
+                                  size="small"
+                                  width={106}
+                                  height={106}
+                                  fullWidth={false}
+                                />
+                                <div className={`text-sm col-span-2 ${styles.price_field}`}>
+                                  <div className={styles.truncate}>{product.name}</div>
+                                  {product.marketable == 1 ? (
+                                    <div className="text-end font-bold text-[#009688]">تماس بگیرید</div>
+                                  ) : product.marketable == 2 ? (
+                                    <div className="text-end font-bold text-[#555555]">ناموجود</div>
+                                  ) : product.marketable == 3 ? (
+                                    <div className="text-end font-bold text-[#555555]">توقف تولید</div>
+                                  ) : (
+                                    product.price == 0
+                                    ?
+                                      <div className="text-end font-bold text-[#009688]">تماس بگیرید</div>
+                                    :
+                                      <div className="text-end font-bold flex items-center justify-end gap-2">
+                                        <div>{Number(product.price).toLocaleString()}</div>
+                                        <div className="font-normal">تومان</div>
+                                      </div>
+                                  )}
+                                </div>
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )
                   )
                 ) : (
-                  <div className="h-auto w-full p-4 grid grid-cols-2 gap-4">
+                  <div className="h-auto w-full p-4 grid grid-cols-2 gap-2">
                     <Skeleton
                       animation="wave"
                       variant="rounded"
@@ -102,7 +130,7 @@ const SearchBox = ({ shownSearchBox, data = null, searchSlug = null  , searchCon
                     />
                   </div>
                 )}
-              </ul>
+              </div>
               {data && (
                 <div className="show-more text-sm flex justify-end w-full">
                   <Link
@@ -204,7 +232,7 @@ const SearchBox = ({ shownSearchBox, data = null, searchSlug = null  , searchCon
                       })
                     )
                   ) : (
-                    <div className="h-auto w-full p-4 grid grid-cols-1 gap-4">
+                    <div className="h-auto w-full p-4 grid grid-cols-1 gap-2">
                       <Skeleton
                         animation="wave"
                         variant="rounded"

@@ -37,7 +37,7 @@ const SideBar = ({
   };
 
   return (
-    <aside className={`${className} h-auto`}>
+    <aside className={`${className} h-auto relative z-20`}>
       <StickyBox offsetTop={70} offsetBottom={2}>
         <section className="grid grid-cols-1 gap-4">
           {filters.length > 0 ? (

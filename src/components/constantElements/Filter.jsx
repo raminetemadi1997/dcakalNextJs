@@ -36,6 +36,8 @@ import Chip from "@mui/material/Chip";
 
 import Stack from "@mui/material/Stack";
 
+import BeatLoader from "react-spinners/BeatLoader";
+
 import {
   useRouter,
   usePathname,
@@ -51,6 +53,7 @@ export default function Filter({
   scrollTo,
   currentSlug,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
 
   let urlValue = [];
 
@@ -123,6 +126,7 @@ export default function Filter({
   }
 
   function submitHandler() {
+    setIsLoading(true);
     function collectSelectedValues() {
       const selectedValues = {};
 
@@ -142,6 +146,7 @@ export default function Filter({
       });
       return selectedValues;
     }
+
     const data = collectSelectedValues();
 
     axios
@@ -160,23 +165,15 @@ export default function Filter({
         },
       })
       .then((response) => {
-        // sendData(response);
         let urlFilter = response.data.products.first_page_url;
         urlFilter = urlFilter.split("?");
-
         // مسیر جدید URL
         const newUrl = urlFilter[1].toString();
         // window.history.pushState({ path: `${pathName}?${newUrl}` }, "", `${pathName}?${newUrl}`);
         router.push(`${pathName}?${newUrl}`);
-
-        setTimeout(() => {
-          const element = document.getElementById("products");
-          element?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-            inline: "nearest",
-          });
-        }, 5000);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -191,7 +188,6 @@ export default function Filter({
   }
 
   const handleDelete = (event, value) => {
-    
     const findElems = document.querySelectorAll(".attr-class");
 
     [...findElems].map((elem) => {
@@ -508,6 +504,18 @@ export default function Filter({
           )
         );
       })}
+      {isLoading && (
+        <div className="fixed top-0 left-0 w-full h-full flex flex-col gap-4 justify-center items-center bg-[#fff] z-[999] bg-opacity-50">
+          <BeatLoader
+            color="var(--theme-color)"
+            loading={true}
+            // cssOverride={override}
+            size={58}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      )}
     </>
   );
 }
