@@ -591,7 +591,8 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
                 // />
                 <></>
               }
-              {apiData.category.type == 0 && (
+              {apiData.products.data.length > 0 &&
+              apiData.category.type == 0 ? (
                 <ToggleButtonGroup
                   orientation="horizontal"
                   value={view}
@@ -614,7 +615,7 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
                     <ViewListIconDynamic />
                   </ToggleButtonIconDynamic>
                 </ToggleButtonGroup>
-              )}
+              ):null}
               {tablet && (
                 <>
                   {/* <div className="flex items-center gap-2 border rounded-lg px-2" onClick={() => setFilters(true)}>
@@ -670,10 +671,10 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
                     })
 
                   ) : (
-                    <p>محصولی برای نمایش موجود نیست</p>
+                    <p className="w-full p-4 text-center font-bold col-span-4">محصولی برای نمایش موجود نیست</p>
                   )
                 ) : (
-                  <p>محصولی برای نمایش موجود نیست</p>
+                  <p className="w-full p-4 text-center font-bold col-span-4">محصولی برای نمایش موجود نیست</p>
                 )
               ) : apiData.products ? (
                 apiData.products.data.length >= 1 &&

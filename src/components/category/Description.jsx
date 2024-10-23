@@ -6,18 +6,24 @@ import { usePathname } from "next/navigation";
 import CardsCarousel from "../constantElements/CardsCarousel";
 import BannerCarousel from "../constantElements/BannerCarousel";
 
-const Description = ({ type, summary, body, descriptions , className }) => {
+const Description = ({ type, summary, body, descriptions, className }) => {
   const descriptionScroll = useRef();
   const CkSection = styled("section")({
     display: "flex",
     flexDirection: "column",
-    gap: "2rem",
+    gap: "1rem",
     padding: "1rem 1rem 1rem 1.5rem",
     "& tr": {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
       placeItems: "center",
       gap: "1rem",
+    },
+    "& > p , &>ul": {
+      marginBottom: "1rem",
+    },
+    "& > p:last-child , &>ul:last-child": {
+      marginBottom: 0,
     },
     "& tr img , & p img": {
       width: "100% !important",
@@ -26,16 +32,15 @@ const Description = ({ type, summary, body, descriptions , className }) => {
     "& tr td , & p ": {
       textAlign: "justify",
       lineHeight: "1.75rem",
-      
     },
-    '& tr td ':{
-      display:'flex',
-      flexDirection:'column',
-      gap:'1rem'
+    "& tr td ": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "1rem",
     },
     "@media (max-width: 540px)": {
       "& tr td , & p  ": {
-        gap:'1rem'
+        gap: "1rem",
       },
     },
   });
@@ -61,7 +66,7 @@ const Description = ({ type, summary, body, descriptions , className }) => {
           <CkSection
             ref={descriptionScroll}
             dangerouslySetInnerHTML={{ __html: summary }}
-            className={`category-list w-full h-auto rounded-2xl mb-16 mt-4 ${styles.category_list}`}
+            className={`ckeditor-list category-list w-full h-auto rounded-2xl mb-16 mt-4 ${styles.category_list}`}
           />
         </>
       ) : type === "customized" ? (
@@ -80,9 +85,7 @@ const Description = ({ type, summary, body, descriptions , className }) => {
                   />
                 </div>
                 {item.type == "2" ? (
-                  item.image.length >= 1 && (
-                    <BannerCarousel data={item.image} />
-                  )
+                  item.image.length >= 1 && <BannerCarousel data={item.image} />
                 ) : item.type == "3" ? (
                   item.product.length >= 1 && (
                     <CardsCarousel

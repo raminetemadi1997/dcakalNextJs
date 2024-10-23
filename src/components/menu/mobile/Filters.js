@@ -12,9 +12,12 @@ import TuneIcon from '@mui/icons-material/Tune';
 import Skeleton from "@mui/material/Skeleton";
 import NativeSelect from "@mui/material/NativeSelect";
 import FormControl from "@mui/material/FormControl";
-
+import BeatLoader from "react-spinners/BeatLoader";
 import InputLabel from "@mui/material/InputLabel";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import {
     useRouter,
@@ -25,6 +28,7 @@ import {
 
 const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scrollTo, currentSlug }) => {
     const mobile = useMediaQuery("(max-width : 540px)");
+    const [trigger, setTrigger] = useState(false);
 
     let productValue;
     let urlValue = [];
@@ -52,9 +56,11 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
     const [chechedValue, setCheckedValue] = useState([])
     const [chipValue, setChipValue] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     // تعریف state برای وضعیت checked هر چک باکس
     const [checkedItems, setCheckedItems] = useState(data.map(e => Array(e.values.length).fill(false)));
+
 
 
     const myMap = new Map();
@@ -99,6 +105,16 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
 
 
+    function testHandler(event, value, index, i) {
+        let array = [...checkedItems]
+        if (event.target.checked) {
+            array[index][i] = value
+        } else {
+            array[index][i] = false
+        }
+        setCheckedItems(array)
+    }
+
 
 
     const router = useRouter();
@@ -134,10 +150,9 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         const selectedValues = {};
         let filterProduct;
 
-        const checkboxes = document.querySelectorAll(
-            'input[type="checkbox"]:checked'
-        );
-
+        const checkboxes = document.querySelectorAll('.attr-class-mobile > input[type="checkbox"]:checked');
+        // const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+        
 
         const mobile_filter = document.querySelector(".mobileFilter")
         // filterProduct = mobile_filter.value
@@ -159,6 +174,8 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
     function submitHandler(event) {
         // axios.get("/sanctum/csrf-cookie");
         const data = collectSelectedValues();
+        setIsLoading(true)
+        setOpen(false)
         axios
             .get(`api/filter`, {
                 params: {
@@ -168,24 +185,23 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                 },
             })
             .then((response) => {
-                setOpen(false)
+                setTrigger((prevTrigger) => !prevTrigger);
                 // sendData(response);
                 let urlFilter = response.data.products.first_page_url;
                 urlFilter = urlFilter.split("?");
-
                 // مسیر جدید URL
                 const newUrl = urlFilter[1].toString();
                 // window.history.pushState({ path: `${pathName}?${newUrl}` }, "", `${pathName}?${newUrl}`);
-                router.push(`${pathName}?${newUrl}`);
+                if (chipValue.length > 0) {
+
+                    router.push(`${pathName}?${newUrl}`);
+                } else {
+                    router.push(`${pathName}`);
+                }
 
                 setTimeout(() => {
-                    const element = document.getElementById("products");
-                    element?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start",
-                        inline: "nearest",
-                    });
-                }, 5000);
+                    setIsLoading(false)
+                }, 3000);
             });
     }
 
@@ -241,6 +257,9 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
 
     function resetHandler() {
+        setTrigger((prevTrigger) => !prevTrigger);
+        setIsLoading(true)
+        setOpen(false)
         router.push(`/${currentSlug}`);
         setCheckedValue([]);
         // const findElems = document.querySelectorAll(".attr-class");
@@ -249,21 +268,27 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         //     elem.querySelector("input").click();
         //   }
         // });
+        setTimeout(()=>{
+            setIsLoading(false);
+          } , 3000)
     }
 
 
     const handleDelete = (event, value) => {
-    
-        const findElems = document.querySelectorAll(".attr-class");
 
-    
+        const findElems = document.querySelectorAll(".attr-class-mobile");
+
+
         [...findElems].map((elem) => {
-          if (elem.getAttribute("data-name") == value) {
-            elem.querySelector("input").click();
-          }
+
+
+            if (elem.getAttribute("data-name") == value) {
+                elem.querySelector("input").click();
+            }
         });
         submitHandler();
-      };
+    };
+
 
 
     return (
@@ -391,24 +416,51 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                                                     }
                                                 </IconButton>
                                             </div>
-                                            <ul className={`bg-[#f3f3f3] p-4 ${mainMenu[index] ? 'block' : 'hidden'} grid-cols-1 gap-2`}>
+                                            <ul className={`bg-[hsl(0,0%,95%)] p-4 ${mainMenu[index] ? 'block' : 'hidden'} grid-cols-1 gap-2`}>
                                                 {main.values.map((sub, i) => (
                                                     <li key={sub.id}>
-                                                        <CheckboxCustom
-                                                            classAttr="attr-class"
-                                                            label={sub.value}
-                                                            data-name={sub.value}
-                                                            color='#A4A4A4'
-                                                            value={sub.id}
-                                                            name={main.name}
-                                                            onChange={(event) => changeHandler(event, sub.id, sub)}
-                                                            checked={
-                                                                chechedValue.indexOf(sub.id) == -1
-                                                                    ? false
-                                                                    : true
-                                                            }
-                                                        // checked={checkedItems[index][i]}
-                                                        />
+                                                        <FormControl component="fieldset">
+                                                            <FormGroup aria-label="position">
+                                                                <FormControlLabel
+                                                                    control={
+                                                                        <Checkbox
+                                                                            className="attr-class-mobile"
+                                                                            data-name={sub.value}
+                                                                            value={sub.id}
+                                                                            name={main.name}
+                                                                            size="small"
+                                                                            onChange={(event) => changeHandler(event, sub.id, sub)}
+                                                                            checked={
+                                                                                chechedValue.indexOf(sub.id) == -1
+                                                                                    ? false
+                                                                                    : true
+                                                                            }
+                                                                            sx={{
+                                                                                padding: "5px",
+                                                                                "&.Mui-checked": {
+                                                                                    color: "#ff7900",
+                                                                                },
+                                                                                "& .MuiSvgIcon-root": {
+                                                                                    fontSize: 18,
+                                                                                },
+                                                                            }}
+                                                                        />
+                                                                    }
+
+                                                                    label={
+                                                                        <span
+                                                                            style={{
+                                                                                fontSize: "0.875rem",
+                                                                            }}
+                                                                        >
+                                                                            {sub.value}
+                                                                        </span>
+                                                                    }
+
+                                                                />
+                                                            </FormGroup>
+                                                        </FormControl>
+
                                                     </li>
                                                 ))}
                                             </ul>
@@ -466,7 +518,17 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
 
             }
-
+            {isLoading && (
+                <div className="fixed top-0 left-0 w-full h-full flex flex-col gap-4 justify-center items-center bg-[#fff] z-[999] bg-opacity-50">
+                    <BeatLoader
+                        color="var(--theme-color)"
+                        loading={true}
+                        size={58}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                </div>
+            )}
 
 
         </>

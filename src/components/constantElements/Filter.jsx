@@ -148,6 +148,7 @@ export default function Filter({
     }
 
     const data = collectSelectedValues();
+    
 
     axios
       .get(`api/filter`, {
@@ -170,10 +171,17 @@ export default function Filter({
         // مسیر جدید URL
         const newUrl = urlFilter[1].toString();
         // window.history.pushState({ path: `${pathName}?${newUrl}` }, "", `${pathName}?${newUrl}`);
-        router.push(`${pathName}?${newUrl}`);
+        if (chipValue.length > 0) {
+          
+          router.push(`${pathName}?${newUrl}`);
+        } else {
+          router.push(`${pathName}`);
+        }
       })
       .finally(() => {
-        setIsLoading(false);
+        setTimeout(()=>{
+          setIsLoading(false);
+        } , 3000)
       });
   }
 
@@ -223,6 +231,7 @@ export default function Filter({
   }
 
   function resetHandler() {
+    setIsLoading(true)
     router.push(`/${currentSlug}`);
     setChipValue([]);
     const findElems = document.querySelectorAll(".attr-class");
@@ -231,6 +240,9 @@ export default function Filter({
         elem.querySelector("input").click();
       }
     });
+    setTimeout(()=>{
+      setIsLoading(false);
+    } , 3000)
   }
 
   return type == "product" ? (
@@ -509,7 +521,6 @@ export default function Filter({
           <BeatLoader
             color="var(--theme-color)"
             loading={true}
-            // cssOverride={override}
             size={58}
             aria-label="Loading Spinner"
             data-testid="loader"

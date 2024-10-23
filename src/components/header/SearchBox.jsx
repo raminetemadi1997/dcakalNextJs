@@ -46,7 +46,7 @@ const SearchBox = ({
                     </div>
                   ) : (
                     data.products.length > 0 && (
-                      <ul className="grid grid-cols-2 gap-2">
+                      <ul className="grid grid-cols-2 gap-2 w-full">
                         {data.products.splice(0, 6).map((product, index) => {
                           return (
                             <li key={product.id}>
@@ -169,7 +169,7 @@ const SearchBox = ({
                             <Link
                               rel="preload"
                               href={`/${i.url}`}
-                              className="text-xs my-2"
+                              className="text-sm my-2"
                             >
                               {i.main_name}
                             </Link>
@@ -223,7 +223,7 @@ const SearchBox = ({
                             <Link
                               rel="preload"
                               href={`/${i.url}`}
-                              className="text-xs my-2"
+                              className="text-sm my-2"
                             >
                               {i.name}
                             </Link>

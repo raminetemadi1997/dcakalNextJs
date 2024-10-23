@@ -480,7 +480,7 @@ const Product = ({ apiData, type, user = null }) => {
                                             boxShadow:
                                               "1px 1px 5px 0px #00000033",
                                           }}
-                                          href={`/${semi.slug}`}
+                                          href={semi.url}
                                           title={semi.name}
                                           className="grid grid-cols-4 w-full items-center gap-4 rounded-lg overflow-hidden"
                                         >
