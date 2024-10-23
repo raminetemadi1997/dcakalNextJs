@@ -68,8 +68,6 @@ const SearchIcon = dynamic(() => import("@mui/icons-material/Search"), {
   ),
 });
 
-//context
-import { ScrollContext } from "@/context/scrollContext";
 
 //path
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"), {
@@ -85,7 +83,6 @@ const Header = ({ menuData }) => {
   const tablet = useMediaQuery("(max-width:1280px)");
 
   //context
-  const { clientWindowHeight } = useContext(ScrollContext);
   const [openModal, setOpenModal] = useState(false);
 
   const [height, setHeight] = useState(0);

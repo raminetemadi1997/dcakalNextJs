@@ -4,7 +4,6 @@ import Header from "@/layouts/Header";
 import Navbar from "@/components/Navbar";
 import { getGlobalPageMetadata, menuApi } from "@/data/loaders";
 import QuickAccess from "@/layouts/QuickAccess";
-import { ScrollContextProvider } from "@/context/scrollContext";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "@/lib/axios";
 
@@ -22,7 +21,6 @@ export default async function Layout({ children }) {
   // const mobile = useMediaQuery("(max-width:540px)");
   return (
     <>
-      {/* <ScrollContextProvider> */}
         {/* {dataSetting && dataSetting.data.data.setting.slogun ? (
             <>
               {Math.floor(
@@ -36,7 +34,6 @@ export default async function Layout({ children }) {
             </>
           ) : null} */}
         <Header menuData={menuData.data} />
-      {/* </ScrollContextProvider> */}
       <Navbar />
 
       {children}

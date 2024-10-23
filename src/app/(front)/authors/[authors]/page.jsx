@@ -71,9 +71,9 @@ export default async function AuthorsItems({ params }) {
                 alt={`نویسنده ${fetchedData.data.data.full_name}`}
                 title={`نویسنده ${fetchedData.data.data.full_name}`}
                 fullWidth={false}
-                width={295}
-                height={295}
-                style={{ margin: "0 auto" }}
+                width={140}
+                height={140}
+                style={{ margin: "0 auto" , borderRadius:'.5rem' }}
               />
               <div className={styles.textField}>
                 <div className={styles.textBox}>
