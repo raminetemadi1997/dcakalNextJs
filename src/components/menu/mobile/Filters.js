@@ -262,6 +262,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         setOpen(false)
         router.push(`/${currentSlug}`);
         setCheckedValue([]);
+        setChipValue([])
         // const findElems = document.querySelectorAll(".attr-class");
         // [...findElems].map((elem) => {
         //   if (elem.querySelector("input").checked == true) {
@@ -272,6 +273,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
             setIsLoading(false);
           } , 3000)
     }
+
 
 
     const handleDelete = (event, value) => {
@@ -523,7 +525,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                     <BeatLoader
                         color="var(--theme-color)"
                         loading={true}
-                        size={58}
+                        size={28}
                         aria-label="Loading Spinner"
                         data-testid="loader"
                     />

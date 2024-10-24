@@ -173,7 +173,7 @@ const CardsCarousel = dynamic(
 );
 
 //components
-const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
+const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
 
   const router = useRouter();
   const searchParams = useSearchParams()
@@ -443,12 +443,15 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
                             );
                           })}
                       </div>
-                      <ButtonCustom
-                        text={showMore ? "مشاهده کمتر" : "مشاهده بیشتر"}
-                        justifyContent="center"
-                        onClick={() => setShowMore(!showMore)}
-                        className="mt-4"
-                      />
+                      {apiData.category.active_children.length > 10
+                        &&
+                        <ButtonCustom
+                          text={showMore ? "مشاهده کمتر" : "مشاهده بیشتر"}
+                          justifyContent="center"
+                          onClick={() => setShowMore(!showMore)}
+                          className="mt-4"
+                        />
+                      }
                     </section>
                   ) : (
                     <section
@@ -574,48 +577,55 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
             >
               {
                 !mobile
-                ?
-                <Filter
-                  type="product"
-                  id={apiData.category.id}
-                  // urlValue={urlValue.length > 0 && urlValue}
-                  scrollTo={scrollTo}
-                />
-                :
-                // <Filters
-                  
-                //   type="product"
-                //   id={apiData.category.id}
-                //   // urlValue={urlValue.length > 0 && urlValue}
-                //   scrollTo={scrollTo}
-                // />
-                <></>
-              }
-              {apiData.products.data.length > 0 &&
-              apiData.category.type == 0 ? (
-                <ToggleButtonGroup
-                  orientation="horizontal"
-                  value={view}
-                  exclusive
-                  onChange={handleChange}
+                  ?
+                  <Filter
+                    type="product"
+                    id={apiData.category.id}
+                    // urlValue={urlValue.length > 0 && urlValue}
+                    scrollTo={scrollTo}
+                  />
+                  :
+                  // <Filters
 
-                >
-                  <ToggleButtonIconDynamic
-                    size="small"
-                    value="module"
-                    aria-label="module"
-                  >
-                    <ViewModuleIconDynamic />
-                  </ToggleButtonIconDynamic>
-                  <ToggleButtonIconDynamic
-                    size="small"
-                    value="list"
-                    aria-label="list"
-                  >
-                    <ViewListIconDynamic />
-                  </ToggleButtonIconDynamic>
-                </ToggleButtonGroup>
-              ):null}
+                  //   type="product"
+                  //   id={apiData.category.id}
+                  //   // urlValue={urlValue.length > 0 && urlValue}
+                  //   scrollTo={scrollTo}
+                  // />
+                  <></>
+              }
+              {
+
+                (!Array.isArray(apiData.products) &&
+                  apiData.products.data.length > 0) ?
+                  apiData.category.type == 0 ? (
+                    <ToggleButtonGroup
+                      orientation="horizontal"
+                      value={view}
+                      exclusive
+                      onChange={handleChange}
+
+                    >
+                      <ToggleButtonIconDynamic
+                        size="small"
+                        value="module"
+                        aria-label="module"
+                      >
+                        <ViewModuleIconDynamic />
+                      </ToggleButtonIconDynamic>
+                      <ToggleButtonIconDynamic
+                        size="small"
+                        value="list"
+                        aria-label="list"
+                      >
+                        <ViewListIconDynamic />
+                      </ToggleButtonIconDynamic>
+                    </ToggleButtonGroup>
+                  ) : null
+                  : null
+
+
+              }
               {tablet && (
                 <>
                   {/* <div className="flex items-center gap-2 border rounded-lg px-2" onClick={() => setFilters(true)}>
@@ -648,11 +658,12 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
             >
               {apiData.category.parent_id == null ? (
                 apiData.products ? (
-                  apiData.products.data.length >= 1 ? (
+                  !Array.isArray(apiData.products) &&
+                    apiData.products.data.length >= 1 ? (
                     apiData.products.data.map((product) => {
-                      
-                      
-                      return product &&(
+
+
+                      return product && (
                         <Fragment key={product.id}>
                           <Card data={product} list={list} />
 
@@ -676,7 +687,7 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
                 ) : (
                   <p className="w-full p-4 text-center font-bold col-span-4">محصولی برای نمایش موجود نیست</p>
                 )
-              ) : apiData.products ? (
+              ) : apiData.products && !Array.isArray(apiData.products) ? (
                 apiData.products.data.length >= 1 &&
                 apiData.products.data.map((product) => {
                   return product && (
@@ -702,10 +713,10 @@ const Category = ({ apiData = null, pages, scrollTo , currentSlug }) => {
               )}
             </div>
             {
-              apiData.products && apiData.products.last_page != 1 ? (
+              apiData.products && !Array.isArray(apiData.products) && apiData.products.last_page != 1 ? (
                 apiData.category.scroll_mode == 0 ? (
                   <Pagination
-                    pagel = {scrollTo}
+                    pagel={scrollTo}
                     currentPage={pages}
                     pages={apiData.products.last_page}
                     links={apiData.products.links}

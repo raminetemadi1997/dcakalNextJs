@@ -10,7 +10,7 @@ import { SnakebarContext } from "@/context/snakebar";
 
 let counter = -1;
 
-const UploadImage = ({ reviewImages, type ,value, ...props }) => {
+const UploadImage = ({ reviewImages, type, value, ...props }) => {
   const { setOpenAlarm, setModes, setMessage, setDuration } =
     useContext(SnakebarContext);
 
@@ -101,54 +101,56 @@ const UploadImage = ({ reviewImages, type ,value, ...props }) => {
       </div>
     </div>
   ) : (
-    <ul className="grid grid-cols-4 gap-4">
-      <li
-        className={`list-none rounded-lg overflow-hidden relative group ${
-          file ? "block" : "hidden"
-        }`}
-      >
-        {file && (
-          <Image
-            src={file ? file : ""}
-            alt="uploaded image"
-            width={96}
-            height={144}
-            style={{
-              borderRadius: "0.5rem",
-              width: "100%",
-              height: "144px",
-            }}
-          />
+    <div className="grid grid-cols-4 gap-4 h-full">
+      <div className="h-full">
+        {file ? (
+          <div
+            className={`list-none rounded-lg overflow-hidden relative group h-full ${
+              file ? "block" : "hidden"
+            }`}
+          >
+            {file && (
+              <Image
+                src={file ? file : ""}
+                alt="uploaded image"
+                width={96}
+                height={144}
+                style={{height:'100%'}}
+              />
+            )}
+
+            <div className="absolute w-full h-full bg-red-500 rounded-3xl -top-[100%] -right-[100%] flex items-end justify-end p-2 bg-opacity-75 duration-150 ease-in group-hover:-top-[78%] group-hover:-right-[71%] hover:bg-opacity-100">
+              <DeleteIcon
+                fontSize="small"
+                sx={{ color: "#fff", cursor: "pointer" }}
+                onClick={deleteHandler}
+              />
+            </div>
+          </div>
+        ) : (
+          <label
+            htmlFor="upload"
+            className={`w-full h-36 ${
+              file ? "hidden" : "flex"
+            } rounded-lg border border-dashed items-center justify-center cursor-pointer border-stone-600 bg-stone-200`}
+          >
+            <AddIcon
+              sx={{
+                fontSize: 35,
+              }}
+            />
+          </label>
         )}
 
-        <div className="absolute w-full h-full bg-red-500 rounded-3xl -top-[100%] -right-[100%] flex items-end justify-end p-2 bg-opacity-75 duration-150 ease-in group-hover:-top-[78%] group-hover:-right-[71%] hover:bg-opacity-100">
-          <DeleteIcon
-            fontSize="small"
-            sx={{ color: "#fff", cursor: "pointer" }}
-            onClick={deleteHandler}
-          />
-        </div>
-      </li>
-      <label
-        htmlFor="upload"
-        className={`w-full h-36 ${
-          file ? "hidden" : "flex"
-        } rounded-lg border border-dashed items-center justify-center cursor-pointer border-stone-600 bg-stone-200`}
-      >
-        <AddIcon
-          sx={{
-            fontSize: 35,
-          }}
+        <input
+          type="file"
+          id="upload"
+          name="upload"
+          onChange={handleChange}
+          hidden
         />
-      </label>
-      <input
-        type="file"
-        id="upload"
-        name="upload"
-        onChange={handleChange}
-        hidden
-      />
-    </ul>
+      </div>
+    </div>
   );
 };
 

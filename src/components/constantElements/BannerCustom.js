@@ -4,7 +4,7 @@ import ImageCustom from './ImageCustom';
 import Link from 'next/link';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-const BannerCustom = ({ data = null, className, status }) => {
+const BannerCustom = ({ data = null, className, status , width , height }) => {
 
     const miniMobile = useMediaQuery("(max-width:375px)")
     const mobile = useMediaQuery("(max-width:600px)");
@@ -104,8 +104,8 @@ const BannerCustom = ({ data = null, className, status }) => {
                             mobileTitle={data.mobile_image_alt}
 
                             loading={"lazy"}
-                            width={response("width")}
-                            height={response("height")}
+                            width={status ? response("width") : width}
+                            height={status ? response("height") : height}
                         />
                     </Link>
                 </div>

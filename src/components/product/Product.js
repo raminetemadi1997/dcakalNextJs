@@ -695,6 +695,8 @@ const Product = ({ apiData, type, user = null }) => {
                         <BannerCustom
                           className={`sm:col-span-1`}
                           data={apiData.product_banner}
+                          width={320}
+                          height={196}
                         />
                       ) : null}
                     </div>

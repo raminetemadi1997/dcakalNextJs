@@ -49,7 +49,7 @@ export async function generateMetadata({ params, searchParams }) {
       }
     });
 
-    if (dataFetch.data.products) {
+    if (dataFetch.data.products && !Array.isArray(dataFetch.data.products)) {
       dataFetch.data.products.data.map((e) => {
         if (e && e.video) {
           video = true;

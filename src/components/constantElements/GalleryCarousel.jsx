@@ -120,7 +120,7 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
       if (miniMobile) {
         return 90;
       } else if (mobile) {
-        return 154;
+        return 111;
       } else if (portraitTablets) {
         return 118;
       } else if (landscapeTablets) {
@@ -128,13 +128,13 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
       } else if (laptops) {
         return 66;
       } else {
-        return 96;
+        return 100;
       }
     } else if (purpose == "height") {
       if (miniMobile) {
         return 90;
       } else if (mobile) {
-        return 154;
+        return 111;
       } else if (portraitTablets) {
         return 118;
       } else if (landscapeTablets) {
@@ -142,7 +142,7 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
       } else if (laptops) {
         return 66;
       } else {
-        return 96;
+        return 100;
       }
     }
   }
@@ -433,7 +433,7 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
               {/* main picture */}
 
               {/* mini picures */}
-              <div className="flex gap-2">
+              <div className={`grid sm:grid-cols-5 grid-cols-4 gap-2`}>
                 {data.active_video_galleries.length > 0 && (
                   <div className="flex items-center">
                     <picture className="relative">
@@ -448,7 +448,8 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
                         alt={data.active_video_galleries[0].title}
                         title={data.active_video_galleries[0].title}
                         decoding="async"
-                        width={100}
+                        width={87}
+                        height={49}
                       />
                       <div
                         onClick={() => {
@@ -466,7 +467,7 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
                 )}
                 <Swiper
                   onSwiper={setThumbsSwiper}
-                  spaceBetween={10}
+                  spaceBetween={9}
                   slidesPerView={
                     data.active_video_galleries.length > 0
                       ? mobile
@@ -479,7 +480,7 @@ const GalleryCarousel = ({ data = null, galleryDiscount = 0, enName }) => {
                   freeMode={true}
                   watchSlidesProgress={true}
                   modules={[FreeMode, Navigation, Thumbs]}
-                  className="galleryCarousel"
+                  className={`galleryCarousel sm:col-span-4 col-span-3`}
                 >
                   {data.type == 2 ? (
                     <SwiperSlide>

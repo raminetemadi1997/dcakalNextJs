@@ -521,7 +521,7 @@ export default function Filter({
           <BeatLoader
             color="var(--theme-color)"
             loading={true}
-            size={58}
+            size={28}
             aria-label="Loading Spinner"
             data-testid="loader"
           />
