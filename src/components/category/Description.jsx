@@ -7,6 +7,7 @@ import CardsCarousel from "../constantElements/CardsCarousel";
 import BannerCarousel from "../constantElements/BannerCarousel";
 
 const Description = ({ type, summary, body, descriptions, className }) => {
+  
   const descriptionScroll = useRef();
   const CkSection = styled("section")({
     display: "flex",
@@ -26,8 +27,9 @@ const Description = ({ type, summary, body, descriptions, className }) => {
       marginBottom: 0,
     },
     "& tr img , & p img": {
-      width: "100% !important",
+      width: "fit-content !important",
       height: "auto !important",
+      margin: "0 auto"
     },
     "& tr td , & p ": {
       textAlign: "justify",
@@ -71,17 +73,17 @@ const Description = ({ type, summary, body, descriptions, className }) => {
         </>
       ) : type === "customized" ? (
         <section
-          className={`ckeditor-list-customize w-full h-auto rounded-2xl ${className} ${styles.category_list}`}
+          className={`ckeditor-list category-list w-full h-auto rounded-2xl ${className} ${styles.category_list}`}
         >
-          <div className="sm:px-8 px-5 sm:py-4 py-2 w-full">
+          <div className="">
             {descriptions.map((item, id) => (
               <Fragment key={id}>
                 <div>
-                  <div
+                  <CkSection
                     key={item.id}
                     ref={descriptionScroll}
                     dangerouslySetInnerHTML={{ __html: item.description }}
-                    className="ckeditor-customize"
+                    className="ckeditor-list category-list"
                   />
                 </div>
                 {item.type == "2" ? (
@@ -89,10 +91,13 @@ const Description = ({ type, summary, body, descriptions, className }) => {
                 ) : item.type == "3" ? (
                   item.product.length >= 1 && (
                     <CardsCarousel
-                      type="special_box"
-                      title={null}
+                      // type="special_box"
+                      title={[]}
                       data={item.product}
-                      cover={item.cover}
+                      cover={null}
+                      // type='description'
+                      spaceBetween={1}
+                      slidesPerView={4}
                     />
                   )
                 ) : item.type == "4" ? (
@@ -102,10 +107,13 @@ const Description = ({ type, summary, body, descriptions, className }) => {
                     )}
                     {item.product.length >= 1 && (
                       <CardsCarousel
-                        type="special_box"
-                        title={null}
+                        // type="special_box"
+                        // title={[]}
                         data={item.product}
-                        cover={item.cover}
+                        cover={null}
+                        // type='description'
+                        spaceBetween={1}
+                        slidesPerView={4}
                       />
                     )}
                   </>
@@ -113,15 +121,13 @@ const Description = ({ type, summary, body, descriptions, className }) => {
                   <>
                     {item.product.length >= 1 && (
                       <CardsCarousel
-                        type="special_box"
-                        title={null}
+                        // type="special_box"
+                        title={[]}
                         data={item.product}
-                        cover={{
-                          desktopCover: null,
-                          desktopCoverAlt: null,
-                          mobileCover: null,
-                          mobileCoverAlt: null,
-                        }}
+                        cover={null}
+                        // type='description'
+                        spaceBetween={1}
+                        slidesPerView={4}
                       />
                     )}
                     {item.image.length >= 1 && (

@@ -60,6 +60,8 @@ const Card = ({
   shipperVisible = true,
   colorVisible = true,
   timerVisible = true,
+  width = null,
+  height = null,
   ...props
 }) => {
   const { dataUser } = useContext(SettingApi);
@@ -1688,8 +1690,8 @@ const Card = ({
                     title={data.image_alt}
                     // props
                     loading={"lazy"}
-                    height={responsive("height")}
-                    width={responsive("width")}
+                    height={height ? height : responsive("height")}
+                    width={width ? width : responsive("width")}
                   />
                 </div>
               ) : (

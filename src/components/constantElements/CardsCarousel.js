@@ -18,7 +18,7 @@ const style = {
     "--swiper-pagination-color": "var(--theme-color)",
 };
 
-const CardsCarousel = ({ slug = null, link = null, cover = null, title = "", type, data = [], spaceBetween = 30, slidesPerView = 3, navigation = true, className, backgroundColor = "#ffc794b5" }) => {
+const CardsCarousel = ({width, height , slug = null, link = null, cover = null, title = "", type, data = [], spaceBetween = 30, slidesPerView = 3, navigation = true, className, backgroundColor = "#ffc794b5" }) => {
 
 
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
@@ -67,8 +67,9 @@ const CardsCarousel = ({ slug = null, link = null, cover = null, title = "", typ
                     :
                     {
                         ...(
+                            
 
-                            cover.image || cover.mobile_image ?
+                            cover &&cover.image || cover &&cover.mobile_image ?
                             
                                 { slidesPerView: 3 }
                                 :
@@ -119,8 +120,8 @@ const CardsCarousel = ({ slug = null, link = null, cover = null, title = "", typ
                         <div className='bg-white sm:text-base text-sm w-4/5 text-center py-4 rounded-b-full font-bold'>{title}</div>
                         {data.length > 0
                             &&
-                            <div className={`${cover.image || cover.mobile_image ? !mobile && 'grid grid-cols-4 gap-4' : null} w-full  mt-4`}>
-                                {cover.image || cover.mobile_image ?
+                            <div className={`${cover && cover.image || cover && cover.mobile_image ? !mobile && 'grid grid-cols-4 gap-4' : null} w-full  mt-4`}>
+                                {cover && cover.image || cover && cover.mobile_image ?
                                     !mobile &&
                                     <Link href={cover.link ? cover.link : "#"} title={title}>
 
@@ -145,7 +146,7 @@ const CardsCarousel = ({ slug = null, link = null, cover = null, title = "", typ
                                     
                                     : null
                                 }
-                                <div className={`w-full ${cover.image || cover.mobile_image ? 'col-span-3' : null}`}>
+                                <div className={`w-full ${cover &&cover.image || cover &&cover.mobile_image ? 'col-span-3' : null}`}>
                                     <Swiper breakpoints={breakpoints} style={style} slidesPerView={slidesPerView} spaceBetween={spaceBetween} navigation={mobile ? false : navigation} modules={navigation && [Navigation]} className="mySwiper">
                                         {data.map(product => (
                                             <SwiperSlide key={product.id}>
@@ -154,6 +155,8 @@ const CardsCarousel = ({ slug = null, link = null, cover = null, title = "", typ
                                                     altName={true}
                                                     shipperVisible={false}
                                                     colorVisible={false}
+                                                    width={width}
+                                                    height={height}
                                                 />
                                             </SwiperSlide>
                                         ))}

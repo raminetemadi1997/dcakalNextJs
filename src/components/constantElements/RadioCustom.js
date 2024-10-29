@@ -9,16 +9,16 @@ import Skeleton from "@mui/material/Skeleton";
 const Radio = dynamic(() => import("@mui/material/Radio"), {
     ssr: false,
     loading: () => (
-      <Skeleton variant="circular" width={38} height={38} animation="pulse" />
+        <Skeleton variant="circular" width={38} height={38} animation="pulse" />
     ),
-  });
+});
 
-  const radioStyle = {
+const radioStyle = {
     color: "var(--theme-color)",
     "&.Mui-checked": { color: "var(--theme-color)" },
 }
 
-const RadioCustom = ({ row = true, label, selected, values = [], ...props }) => {
+const RadioCustom = ({ row = true, name = "radio-buttons-group", label, selected, values = [], ...props }) => {
 
     return (
         <FormControl>
@@ -27,13 +27,12 @@ const RadioCustom = ({ row = true, label, selected, values = [], ...props }) => 
                 row={row}
                 aria-labelledby="demo-radio-buttons-group-label"
                 value={selected}
-                name="radio-buttons-group"
-                {...props} 
+                {...props}
             >
                 {values.length > 0 && (
                     <>
                         {values.map((value, index) => (
-                            <FormControlLabel key={index} value={index} control={<Radio size='small' sx={radioStyle} />} label={value} />
+                            <FormControlLabel key={index} value={index} control={<Radio size='small' name={name[index]} sx={radioStyle} />} label={value} />
                         ))}
                     </>
                 )}

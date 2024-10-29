@@ -40,7 +40,7 @@ export default async function Authors({ params }) {
                   data={author.image_path}
                   alt={`نویسنده ${author.full_name}`}
                   title={`نویسنده ${author.full_name}`}
-                  width={122}
+                  width={121}
                   height={121}
                   loading={"lazy"}
                 />

@@ -7,7 +7,8 @@ import MainModalContextProvider from "@/context/modal/mainModal";
 
 import ResetApiContext from "@/context/ResetApiContext";
 import Setting from "@/context/api/Setting";
-import Header from "@/layouts/Header";
+import { cookies } from "next/headers";
+
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
 
@@ -63,10 +64,11 @@ export async function generateMetadata() {
 
 
 
-export default function RootLayout({ children }) {
-
+export default async function RootLayout({ children}) {
+  
   return (
     <>
+    
       <html lang={"fa"} dir="rtl">
         <body>
           <ResetApiContext>

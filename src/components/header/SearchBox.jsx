@@ -17,7 +17,9 @@ const SearchBox = ({
   data = null,
   searchSlug = null,
   searchContainer,
+  ...props
 }) => {
+
   return (
     shownSearchBox && (
       <>
@@ -64,23 +66,50 @@ const SearchBox = ({
                                   height={106}
                                   fullWidth={false}
                                 />
-                                <div className={`text-sm col-span-2 ${styles.price_field}`}>
-                                  <div className={styles.truncate}>{product.name}</div>
-                                  {product.marketable == 1 ? (
-                                    <div className="text-end font-bold text-[#009688]">تماس بگیرید</div>
-                                  ) : product.marketable == 2 ? (
-                                    <div className="text-end font-bold text-[#555555]">ناموجود</div>
-                                  ) : product.marketable == 3 ? (
-                                    <div className="text-end font-bold text-[#555555]">توقف تولید</div>
-                                  ) : (
-                                    product.price == 0
-                                    ?
-                                      <div className="text-end font-bold text-[#009688]">تماس بگیرید</div>
-                                    :
+                                <div
+                                  className={`text-sm col-span-2 ${styles.price_field}`}
+                                >
+                                  <div className={styles.truncate}>
+                                    {product.name}
+                                  </div>
+                                  {product.type == 1 || product.type == 2 ? (
+                                    product.price == 0 ? (
+                                      <div className="text-end font-bold text-[#009688]">
+                                        تماس بگیرید
+                                      </div>
+                                    ) : (
                                       <div className="text-end font-bold flex items-center justify-end gap-2">
-                                        <div>{Number(product.price).toLocaleString()}</div>
+                                        <div>
+                                          {Number(
+                                            product.price
+                                          ).toLocaleString()}
+                                        </div>
                                         <div className="font-normal">تومان</div>
                                       </div>
+                                    )
+                                  ) : product.marketable == 1 ? (
+                                    <div className="text-end font-bold text-[#009688]">
+                                      تماس بگیرید
+                                    </div>
+                                  ) : product.marketable == 2 ? (
+                                    <div className="text-end font-bold text-[#555555]">
+                                      ناموجود
+                                    </div>
+                                  ) : product.marketable == 3 ? (
+                                    <div className="text-end font-bold text-[#555555]">
+                                      توقف تولید
+                                    </div>
+                                  ) : product.price == 0 ? (
+                                    <div className="text-end font-bold text-[#009688]">
+                                      تماس بگیرید
+                                    </div>
+                                  ) : (
+                                    <div className="text-end font-bold flex items-center justify-end gap-2">
+                                      <div>
+                                        {Number(product.price).toLocaleString()}
+                                      </div>
+                                      <div className="font-normal">تومان</div>
+                                    </div>
                                   )}
                                 </div>
                               </Link>
@@ -139,6 +168,7 @@ const SearchBox = ({
                       searchSlug ? `/search?search=${searchSlug}` : `/search`
                     }
                     className="flex items-center w-fit text-xs"
+                    {...props}
                   >
                     مشاهده نتایج بیشتر
                     <ChevronLeftIcon className="mr-1 text-lg" />

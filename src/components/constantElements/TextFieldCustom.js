@@ -14,7 +14,7 @@ const style = {
 
 const TextFieldCustom = ({ size='small' , disabled = false, value, type = 'text', required = false, label, className, ...props }) => {
 
-    return <TextField  size={size} disabled={disabled} focused={value && true} value={value ? value : ''} className={className} dir={type == 'number' ? 'ltr' : 'rtl'} type={type} required={required} id="outlined-basic" label={label} variant="outlined" sx={style} {...props} />
+    return <TextField size={size} disabled={disabled} focused={value && true} value={value ? value : ''} className={className} dir={type == 'number' ? 'ltr' : 'rtl'} type={type} required={required} id="outlined-basic" label={label} variant="outlined" sx={style} {...props} />
 
 };
 

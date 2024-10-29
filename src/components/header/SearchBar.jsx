@@ -27,14 +27,24 @@ export default function SearchBar({ className, shownSearchBoxHandler }) {
 
   function checkClickOutside(e) {
     if (
-      (shownSearchBox && searchContainer.current && !searchContainer.current.contains(e.target)) &&
-      (searchBarContainer.current && !searchBarContainer.current.contains(e.target))
+      shownSearchBox &&
+      searchContainer.current &&
+      !searchContainer.current.contains(e.target) &&
+      searchBarContainer.current &&
+      !searchBarContainer.current.contains(e.target)
     ) {
       setShownSearchBox(false);
       setSearchText(null);
       setSearchData(null);
     }
   }
+
+
+  const clickHandler = () => {
+    setShownSearchBox(false);
+    setSearchText(null);
+    setSearchData(null);
+  };
 
   let timeout;
 
@@ -67,8 +77,6 @@ export default function SearchBar({ className, shownSearchBoxHandler }) {
     }
   }
 
-  
-
   function handleKeyDown(event) {
     if (event.keyCode === 13) {
       setSearchText(event.target.value);
@@ -88,7 +96,7 @@ export default function SearchBar({ className, shownSearchBoxHandler }) {
   return (
     <>
       <div
-       ref={searchBarContainer}
+        ref={searchBarContainer}
         className={`h-full ${className} bg-white rounded-full justify-between items-center px-2 py-1 sm:flex hidden searchbar_container`}
       >
         <input
@@ -108,6 +116,7 @@ export default function SearchBar({ className, shownSearchBoxHandler }) {
         data={searchData}
         searchSlug={searchText}
         searchContainer={searchContainer}
+        onClick={clickHandler}
       />
     </>
   );

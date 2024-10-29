@@ -13,9 +13,7 @@ import BannerCustom from "@/components/constantElements/BannerCustom";
 import Skeleton from "@mui/material/Skeleton";
 import SelectedCategories from "@/components/SelectedCategories";
 import AboutUs from "@/components/constantElements/AboutUs";
-
-import { cookies } from 'next/headers'
-
+// import BannerCarousel from '@/components/constantElements/BannerCarousel'
 
 
 const CardContainerDynamic = dynamic(
@@ -39,9 +37,6 @@ const BannerCarousel = dynamic(
     ),
   }
 );
-
-
-
 
 let date = new Date();
 export default async function Home() {
@@ -205,7 +200,7 @@ export default async function Home() {
         {/* <MainSlider /> */}
 
         {/* new products */}
-        {/* {home.data.new_products.length > 0 ? (
+        {home.data.new_products.length > 0 ? (
           <CardsCarousel
             data={home.data.new_products}
             slidesPerView={5}
@@ -216,7 +211,7 @@ export default async function Home() {
             link="مشاهده بیشتر"
             slug="/new-products"
           />
-        ) : null} */}
+        ) : null}
         {/* new products */}
 
         {/* <BlogDynamic /> */}

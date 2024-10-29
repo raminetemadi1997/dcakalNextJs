@@ -19,3 +19,4 @@ export default function BrandLayout({ children }) {
     </Layout>
   );
 }
+

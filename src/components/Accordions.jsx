@@ -60,7 +60,8 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   },
 }));
 
-export default function Accordions({ type, faqData, data = [] }) {
+export default function Accordions({ type, faqData, data = [] , ...props }) {
+  
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
   const [expanded, setExpanded] = useState(0);
 
@@ -79,8 +80,11 @@ export default function Accordions({ type, faqData, data = [] }) {
           {/* accordion 1 */}
           {data.length > 0 &&
             data.map((accordion, i) => (
+              <>
+              
+              
               <div
-                key={accordion.id}
+                key={i}
                 className="w-full h-fit relative flex justify-end last:mb-5"
               >
                 <div className="w-[98%] h-16 bg-[var(--theme-color-green)] rounded-xl absolute right-0"></div>
@@ -118,18 +122,18 @@ export default function Accordions({ type, faqData, data = [] }) {
                   </AccordionDetails>
                 </Accordion>
               </div>
+              </>
             ))}
         </>
       ) : type === "FAQ" ? (
         faqData ? (
-          <section>
-            <div class="flex justify-between items-center mb-2 border-b">
-              <p class="font-bold mb-2">سوالات متداول</p>
+          <section {...props}>
+            <div className="flex justify-between items-center mb-2 border-b">
+              <p className="font-bold mb-2">سوالات متداول</p>
             </div>
 
             {faqData.map((faq, i) => {
               return (
-                <>
                   <div
                     className="w-full h-fit relative flex justify-end last:mb-5"
                     key={faq.id}
@@ -163,7 +167,6 @@ export default function Accordions({ type, faqData, data = [] }) {
                       </AccordionDetails>
                     </Accordion>
                   </div>
-                </>
               );
             })}
           </section>

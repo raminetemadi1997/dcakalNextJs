@@ -42,6 +42,10 @@ const Submenu = ({
     }
   };
 
+
+  
+  
+
   const Ul = styled("ul")({
     display: "grid",
     gridTemplateColumns: "1fr",
@@ -182,10 +186,10 @@ const Submenu = ({
         </ul>
         {mobile ? null : (
           <div
-            style={{ height: "calc(100vh - 153px)" }}
+            style={{ height: "calc(100vh - 153px)"}}
             className={`content-box ${
               open ? `col-span-3` : `col-span-1`
-            }  flex items-center overflow-y-scroll justify-center relative ${
+            }  flex overflow-y-scroll justify-center relative ${
               styles.items
             } `}
           >
@@ -209,7 +213,8 @@ const Submenu = ({
             )}
             {subMenu && (
               <div
-                className={`w-full h-full flex gap-4`}
+                style={{gridTemplateColumns:`repeat(${subMenu.items.length} , 1fr)`}}
+                className={`gap-4 grid w-full px-2`}
               >
                 {subMenu.items.map((subMenuItems) =>
                   subMenuItems.type == 0 ? (
@@ -254,8 +259,8 @@ const Submenu = ({
                                   title={subMenuItems.image_alt}
                                   // props
                                   loading={"lazy"}
-                                  width={75}
-                                  height={75}
+                                  width={93}
+                                  height={93}
                                   size="small"
                                 />
                                 )}
@@ -286,9 +291,10 @@ const Submenu = ({
                               title={subMenuItems.title}
                               // props
                               loading={"lazy"}
-                              width={350}
-                              height={250}
+                              width={301}
+                              height={262}
                               key={innerItems.id}
+                              fullWidth={false}
                             />
                         ))}
                     </section>

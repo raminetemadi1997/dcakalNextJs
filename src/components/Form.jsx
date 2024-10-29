@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from "react";
 import formImage from "../../public/images/Forms/calculate-1.png";
 import Image from "next/image";
@@ -18,6 +19,8 @@ import accessories from "../../public/images/Forms/accessories.png";
 import TextFieldCustom from "./constantElements/TextFieldCustom";
 import SelectCustom from "./constantElements/SelectCustom";
 import CheckboxCustom from "./constantElements/CheckboxCustom";
+import styles from "@/assets/css/Form.module.css";
+import { useFormContext } from '@/context/FormContext';
 
 const data = [
   { id: 1, name: "تیغه آلومینیوم 8 سانت دوپل وزن استاندارد" },
@@ -75,6 +78,8 @@ const customCheckBox = [
 
 const Form = () => {
   let allPages = 7;
+  let calculator = 0;
+  const { addValue } = useFormContext();
 
   const [page, setPage] = useState(0);
   const [radioSelect, setRadioSelect] = useState(0);
@@ -82,13 +87,29 @@ const Form = () => {
   const [colorSelect, setColorSelect] = useState(colors.map(() => false));
   const [rollingGateSelected, setRollingGateSelected] = useState(0);
 
-  const pageHandler = () => {
+  const [size , setSize] = useState([])
+
+  const pageHandler = (event) => {
+    event.preventDefault()
     if (page < allPages) {
       setPage((prev) => prev + 1);
     }
   };
 
-  const pageHandlerIncrease = () => {
+  const radioHandler = (event) => {
+    setRadioSelect(event.target.value);
+    addValue(Number(event.target.name) , 0)
+    
+  };
+  
+  const radioHandlerRolling = (event) => {
+    setRadioSelect3(event.target.value);
+    addValue(Number(event.target.name) , 1)
+    
+  };
+
+  const pageHandlerIncrease = (event) => {
+    event.preventDefault()
     setPage((prev) => prev - 1);
   };
 
@@ -102,8 +123,17 @@ const Form = () => {
     setColorSelect(newArray);
   };
 
+  const textFieldHandler=(event , index)=>{
+    let newArray = [...size];
+    newArray[index] = Number(event.target.value);
+    setSize(newArray)
+  }
+  
+  
   return (
-    <section className="border-2 rounded-lg border-theme-green mb-12">
+    <section
+      className={`border-2 rounded-lg border-theme-green mb-12 ${styles.container}`}
+    >
       {page == 0 ? (
         <>
           {/* heade */}
@@ -114,7 +144,7 @@ const Form = () => {
 
           {/* body */}
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-2">
-            <Image src={formImage} alt="محاسبه قیمت" width={500} height={500} />
+            <Image src={formImage} alt="محاسبه قیمت" width={500} height={270} />
             <div className="flex flex-col sm:py-4 p-4 items-center justify-between">
               <div>
                 برای برآورد دقیق هزینه پروژه کرکره برقی خود بر روی گزینه زیر
@@ -130,7 +160,7 @@ const Form = () => {
           {/* body */}
         </>
       ) : page == 1 ? (
-        <>
+        <form onSubmit={pageHandler}>
           {/* head */}
           <div className="bg-theme-green text-white p-2 sm:text-xl text-sm text-center mb-4 ">
             نوع و کارکرد کرکره برقی
@@ -141,23 +171,34 @@ const Form = () => {
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-2 px-4">
             <RadioCustom
               values={["فروشگاه", "پارکینگ", "پنجره", "سوله", "درب نفررو"]}
+              name={[12000, 31000, 42000, 100000, 850000]}
               row={false}
               label="نوع کاربری کرکره برقی را مشخص کنید"
               selected={radioSelect}
-              onChange={(event) => setRadioSelect(event.target.value)}
+              // onChange={(event) => setRadioSelect(event.target.value)}
+              onChange={(event) => radioHandler(event)}
+              
             />
 
             <div className="flex flex-col gap-4">
               <div className="text-base">ابعاد ورودی را مشخص کنید (cm)</div>
-              <TextFieldCustom label="عرض دهانه ورودی" type="number" />
-              <TextFieldCustom label="ارتفاع دهانه ورودی" type="number" />
+              {["عرض دهانه ورودی", "ارتفاع دهانه ورودی"].map((items, index) => (
+                <TextFieldCustom 
+                  onChange={(event)=>textFieldHandler(event , index)}
+                  value={size[index]}
+                  key={index} 
+                  label={items} 
+                  type="number"
+                  required
+                 />
+              ))}
             </div>
 
             <Image
               className="col-start-3"
               alt="محاسبه قیمت"
-              width={500}
-              height={500}
+              width={300}
+              height={225}
               src={
                 radioSelect == 0
                   ? store
@@ -185,11 +226,11 @@ const Form = () => {
             <ButtonCustom
               text="مرحله بعدی"
               color="#009688"
-              onClick={pageHandler}
+              // onClick={pageHandler}
             />
           </div>
           {/* footer */}
-        </>
+        </form>
       ) : page == 2 ? (
         <>
           {/* heade */}
@@ -207,17 +248,19 @@ const Form = () => {
                 "ریل 6 سانتیمتر فولادی زواردار",
                 "ریل 10 سانتیمتر فولادی زواردار",
               ]}
+              name={[12000, 31000, 42000, 100000]}
               row={false}
               label="نوع ریل کرکره را انتخاب کنید"
               selected={radioSelect3}
-              onChange={(event) => setRadioSelect3(event.target.value)}
+              // onChange={(event) => setRadioSelect3(event.target.value)}
+              onChange={(event) => radioHandlerRolling(event)}
             />
 
             <Image
               className="col-start-3"
               alt="محاسبه قیمت"
-              width={500}
-              height={500}
+              width={300}
+              height={225}
               src={
                 radioSelect3 == 0
                   ? automatic
@@ -383,12 +426,8 @@ const Form = () => {
                 اگر گزینه اضافی دیگری مدنظر دارید، آن را انتخاب کنید.
               </div>
               <div>
-                {customCheckBox.map(item=>(
-                  <CheckboxCustom
-                    label ={item.label}
-                    key={item.id}
-                  />
-
+                {customCheckBox.map((item) => (
+                  <CheckboxCustom label={item.label} key={item.id} />
                 ))}
               </div>
             </div>
@@ -418,24 +457,24 @@ const Form = () => {
           </div>
           {/* footer */}
         </>
-      ) :page == 6 ? (
+      ) : page == 6 ? (
         <>
           {/* heade */}
           <div className="bg-theme-green text-white p-2 sm:text-xl text-sm text-center mb-4">
-          هزینه آهن کشی کرکره برقی
+            هزینه آهن کشی کرکره برقی
           </div>
           {/* heade */}
 
           {/* body */}
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-2 px-4">
             <div className="flex flex-col gap-2">
-            <RadioCustom
-              values={["بله", "خیر"]}
-              row={false}
-              label="آیا آهن کشی برای ورودی انجام شده است؟"
-              selected={radioSelect}
-              // onChange={(event) => setRadioSelect(event.target.value)}
-            />
+              <RadioCustom
+                values={["بله", "خیر"]}
+                row={false}
+                label="آیا آهن کشی برای ورودی انجام شده است؟"
+                selected={radioSelect}
+                // onChange={(event) => setRadioSelect(event.target.value)}
+              />
             </div>
 
             <Image
@@ -463,25 +502,24 @@ const Form = () => {
           </div>
           {/* footer */}
         </>
-      ):page == 7 ? 
-      (
+      ) : page == 7 ? (
         <>
           {/* heade */}
           <div className="bg-theme-green text-white p-2 sm:text-xl text-sm text-center mb-4">
-          هزینه نصب کرکره برقی
+            هزینه نصب کرکره برقی
           </div>
           {/* heade */}
 
           {/* body */}
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-2 px-4">
             <div className="flex flex-col gap-2">
-            <RadioCustom
-              values={["بله", "خیر"]}
-              row={false}
-              label="آیا مایل به محاسبه هزینه نصب هم هستید؟"
-              selected={radioSelect}
-              // onChange={(event) => setRadioSelect(event.target.value)}
-            />
+              <RadioCustom
+                values={["بله", "خیر"]}
+                row={false}
+                label="آیا مایل به محاسبه هزینه نصب هم هستید؟"
+                selected={radioSelect}
+                // onChange={(event) => setRadioSelect(event.target.value)}
+              />
             </div>
 
             <Image
@@ -501,11 +539,10 @@ const Form = () => {
               color="#009688"
               // onClick={pageHandlerIncrease}
             />
-           
           </div>
           {/* footer */}
         </>
-      ) :null}
+      ) : null}
     </section>
   );
 };

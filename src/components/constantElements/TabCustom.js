@@ -14,6 +14,8 @@ const style = {
 }
 
 const TabCustom = ({ dataState, imageData, slug, type, bold = false, themeColor = 'var(--theme-color)', className, value = [], selected = 0, ...props }) => {
+
+    
     const [selectTab, setSelectTab] = useState(0);
     const handleChange = (event, newValue) => {
         setSelectTab(newValue);

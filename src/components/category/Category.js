@@ -10,18 +10,20 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ButtonCustom from "../constantElements/ButtonCustom";
 import BrandsCarousel from "../constantElements/BrandsCarousel";
 import TuneIcon from "@mui/icons-material/Tune";
-import Forms from "@/components/Forms";
+import Form from "@/components/Form";
 import Pagination from "./Pagination";
 // import CardsCarousel from "@/constantElements/CardsCarousel";
 import BannerCarousel from "../constantElements/BannerCarousel";
 import Filters from "../menu/mobile/Filters";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Form from "../Form";
 import Description from "@/components/category/Description";
+import { FormProvider } from '@/context/FormContext';
+
 //css
 import styles from "@/assets/css/category/MainCategory.module.css";
 //css
+
 //components
 import Title from "@/components/main/Title";
 import Link from "next/link";
@@ -175,13 +177,23 @@ const CardsCarousel = dynamic(
 //components
 const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
 
+
+  const miniMobile = useMediaQuery("(max-width:375px)");
+  const mobile = useMediaQuery("(max-width:600px)");
+  const portraitTablets = useMediaQuery(
+    "(min-width:600px)  and (max-width:768px) "
+  );
+  const landscapeTablets = useMediaQuery(
+    "(min-width:768px) and (max-width:992px)"
+  );
+  const laptops = useMediaQuery("(min-width:992px) and (max-width:1200px)");
+
   const router = useRouter();
   const searchParams = useSearchParams()
   const [showMore, setShowMore] = useState(false);
   const [list, setList] = useState(false);
   const [firstVideo, setFirstVideo] = useState([]);
   const [view, setView] = useState(`module`);
-  const mobile = useMediaQuery("(max-width : 540px)");
   const [filters, setFilters] = useState(false);
   const [filterData, setFilterData] = useState(null);
   const handleChange = (event, nextView) => {
@@ -205,6 +217,39 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
   const tablet = useMediaQuery("(max-width:1280px)");
 
+
+  function responsive(purpose) {
+    if (purpose == "width") {
+      if (miniMobile) {
+        return 162;
+      } else if (mobile) {
+        return 275;
+      } else if (portraitTablets) {
+        return 259;
+      } else if (landscapeTablets) {
+        return 196;
+      } else if (laptops) {
+        return 270;
+      } else {
+        return 207;
+      }
+    } else if (purpose == "height") {
+      if (miniMobile) {
+        return 162;
+      } else if (mobile) {
+        return 275;
+      } else if (portraitTablets) {
+        return 259;
+      } else if (landscapeTablets) {
+        return 196;
+      } else if (laptops) {
+        return 270;
+      } else {
+        return 207;
+      }
+    }
+  }
+
   return (
     <>
 
@@ -214,8 +259,6 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
         className={`grid grid-flow-row grid-cols-9 sm:px-4 px-2 py-4 gap-4 w-full  max-with-unique`}
       >
         {/* Aside Of Category */}
-
-
         <SideBar
           sendData={data}
           id={apiData.category.id}
@@ -389,6 +432,42 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                           data={special.items}
                           spaceBetween={1}
                           cover={special.cover}
+                          width={
+                            miniMobile ?
+                              163
+                              :
+                              mobile ?
+                                189
+                                :
+                                portraitTablets ?
+                                  231
+                                  :
+                                  landscapeTablets ?
+                                    196
+                                    :
+                                    laptops ?
+                                      224
+                                      :
+                                      198
+                          }
+                          height={
+                            miniMobile ?
+                              163
+                              :
+                              mobile ?
+                                189
+                                :
+                                portraitTablets ?
+                                  231
+                                  :
+                                  landscapeTablets ?
+                                    196
+                                    :
+                                    laptops ?
+                                      224
+                                      :
+                                      198
+                          }
                         />
                       </Fragment>
                     );
@@ -757,6 +836,9 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
         </section>
         {/* Body of Category */}
       </section>
+      {/* <FormProvider>
+        <Form/>
+      </FormProvider> */}
     </>
   );
 };
