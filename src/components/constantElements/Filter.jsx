@@ -38,6 +38,8 @@ import Stack from "@mui/material/Stack";
 
 import BeatLoader from "react-spinners/BeatLoader";
 
+import Loading from "../Loading";
+
 import {
   useRouter,
   usePathname,
@@ -83,6 +85,7 @@ export default function Filter({
     }
   }
 
+
   const router = useRouter();
   const pathName = usePathname();
 
@@ -119,13 +122,13 @@ export default function Filter({
 
   const tags = [];
 
-  function productFilterHandler(event) {
+  function productFilterHandler(event, type) {
     productValue = event.target.value;
 
-    submitHandler();
+    submitHandler(type);
   }
 
-  function submitHandler() {
+  function submitHandler(type) {
     setIsLoading(true);
     function collectSelectedValues() {
       const selectedValues = {};
@@ -168,20 +171,22 @@ export default function Filter({
       .then((response) => {
         let urlFilter = response.data.products.first_page_url;
         urlFilter = urlFilter.split("?");
+
         // مسیر جدید URL
         const newUrl = urlFilter[1].toString();
         // window.history.pushState({ path: `${pathName}?${newUrl}` }, "", `${pathName}?${newUrl}`);
         if (chipValue.length > 0) {
-          
           router.push(`${pathName}?${newUrl}`);
         } else {
-          router.push(`${pathName}`);
+          type == "product"
+            ? router.push(`${pathName}?${newUrl}`)
+            : router.push(`${pathName}`);
         }
       })
       .finally(() => {
-        setTimeout(()=>{
+        setTimeout(() => {
           setIsLoading(false);
-        } , 3000)
+        }, 3000);
       });
   }
 
@@ -231,7 +236,7 @@ export default function Filter({
   }
 
   function resetHandler() {
-    setIsLoading(true)
+    setIsLoading(true);
     router.push(`/${currentSlug}`);
     setChipValue([]);
     const findElems = document.querySelectorAll(".attr-class");
@@ -240,9 +245,9 @@ export default function Filter({
         elem.querySelector("input").click();
       }
     });
-    setTimeout(()=>{
+    setTimeout(() => {
       setIsLoading(false);
-    } , 3000)
+    }, 3000);
   }
 
   return type == "product" ? (
@@ -266,7 +271,7 @@ export default function Filter({
             نمایش براساس
           </InputLabel>
           <NativeSelect
-            onChange={productFilterHandler}
+            onChange={(event) => productFilterHandler(event, "product")}
             defaultValue={defaultOrder}
             inputProps={{
               name: "order_by",
@@ -432,7 +437,7 @@ export default function Filter({
         </>
       )}
       {filters.map((attribute, i) => {
-        return (
+        return attribute.en_name && (
           attribute.values.length > 0 && (
             <Accordion
               key={attribute.id}
@@ -459,6 +464,8 @@ export default function Filter({
               </AccordionSummary>
               {attribute.values &&
                 attribute.values.map((value, index) => {
+                  
+                  
                   return (
                     <AccordionDetails
                       key={value.id}
@@ -478,9 +485,8 @@ export default function Filter({
                                 className="attr-class"
                                 data-counter={index}
                                 data-name={value.value}
-                                name={`${attribute.name.replaceAll(" ", "-")}_${
-                                  attribute.id
-                                }`}
+                                
+                                name={`${attribute.en_name}`}
                                 value={value.id}
                                 data-id-attr-parent={attribute.id}
                                 size="small"
@@ -518,13 +524,7 @@ export default function Filter({
       })}
       {isLoading && (
         <div className="fixed top-0 left-0 w-full h-full flex flex-col gap-4 justify-center items-center bg-[#fff] z-[999] bg-opacity-50">
-          <BeatLoader
-            color="var(--theme-color)"
-            loading={true}
-            size={28}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+          <Loading />
         </div>
       )}
     </>

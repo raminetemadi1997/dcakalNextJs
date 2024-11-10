@@ -208,16 +208,6 @@ const Card = ({
     }
   };
 
-  const deleteFavorite = () => {
-    axios.get(`api/dashboard/delete-favorite/${id}`).then(() => {
-      change(id);
-      setOpenAlarm(true);
-      setMessage("محصول مورد نظر از لیست علاقه مندی ها شما حذف شد");
-      setDuration(3000);
-      setModes("error");
-    });
-  };
-
   const increaseHandler = (id) => {
     setCount((prevcount) => prevcount + 1);
     axios.get("/sanctum/csrf-cookie").then((getcsrvf) => {});
@@ -409,7 +399,7 @@ const Card = ({
           !mobile ? (
             <div className="p-2">
               <Link
-                target="_blank"
+                //target="_blank"
                 href={`/${data.slug}`}
                 title={data.name}
                 className={`border grid items-center grid-cols-3 justify-between rounded-lg overflow-hidden p-4 bg-white hover:shadow-md`}
@@ -454,7 +444,7 @@ const Card = ({
                         {data.discount &&
                         !Array.isArray(data.discount) &&
                         date < new Date(data.discount.end_date) ? (
-                          <div>
+                          <div className="h-12">
                             <div className="flex items-center justify-end gap-4">
                               {data.discount.type == 0 ? (
                                 <div className="text-sm bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
@@ -536,7 +526,7 @@ const Card = ({
                     {data.discount &&
                     !Array.isArray(data.discount) &&
                     date < new Date(data.discount.end_date) ? (
-                      <div>
+                      <div className="h-12">
                         <div className="flex items-center justify-between">
                           {data.discount.type == 0 ? (
                             <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
@@ -587,7 +577,10 @@ const Card = ({
                     <div className="text-[#DE1616] lg:text-base text-sm font-bold">
                       مشاهده همه پکیج ها
                     </div>
-                    <InventoryIcon fontSize="medium" sx={{ color: "#DE1616" }} />
+                    <InventoryIcon
+                      fontSize="medium"
+                      sx={{ color: "#DE1616" }}
+                    />
                   </div>
                 )}
                 {/* card footer */}
@@ -596,7 +589,7 @@ const Card = ({
           ) : (
             <div className="p-2">
               <Link
-                target="_blank"
+                //target="_blank"
                 href={`/${data.slug}`}
                 title={data.name}
                 className={`border border-[#505050] grid items-center gap-0 grid-cols-4 justify-between rounded-lg rounded-l-3xl overflow-hidden p-0 bg-white hover:shadow-md`}
@@ -721,7 +714,7 @@ const Card = ({
                     {data.discount &&
                     !Array.isArray(data.discount) &&
                     date < new Date(data.discount.end_date) ? (
-                      <div>
+                      <div className="h-12">
                         <div className="flex items-center justify-between">
                           {data.discount.type == 0 ? (
                             <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
@@ -772,7 +765,10 @@ const Card = ({
                     <div className="text-[#DE1616] lg:text-base text-sm font-bold">
                       مشاهده همه پکیج ها
                     </div>
-                    <InventoryIcon fontSize="medium" sx={{ color: "#DE1616" }} />
+                    <InventoryIcon
+                      fontSize="medium"
+                      sx={{ color: "#DE1616" }}
+                    />
                   </div>
                 )}
                 {/* card footer */}
@@ -841,7 +837,7 @@ const Card = ({
 
                               {/* shipper */}
                               {data.product.shipper && (
-                                <div className="flex justify-start">
+                                <div className="flex justify-start h-7">
                                   <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
                                     <RocketLaunchIcon
                                       fontSize="small"
@@ -1113,9 +1109,9 @@ const Card = ({
                 </div>
               </>
             ) : (
-              <div>
+              <div className="h-60">
                 <Link
-                  target="_blank"
+                  //target="_blank"
                   href={`/${data.slug}`}
                   title={data.name}
                   className={` block ${
@@ -1205,10 +1201,33 @@ const Card = ({
                           >
                             {altName ? data.alt_name : data.name}
                           </div>
+                          {/* card feature */}
+                        {data.attributes && data.attributes.length > 0 && (
+                          <div className="h-[45px] mb-4 grid grid-cols-4 gap-1 place-items-center">
+                            {data.attributes.map((attribute) => (
+                              <div key={attribute.id} className="flex items-center flex-col gap-1 justify-center">
+                                <ImageCustom
+                                  data={JSON.parse(attribute.icon)}
+                                  alt={attribute.icon_alt}
+                                  title={attribute.icon_alt}
+                                  // props
+                                  size={"original"}
+                                  width={23}
+                                  height={23}
+                                  fullWidth={false}
+                                />
+                                <div className="text-xs text-center text-[#8a8a8a] font-medium">
+                                  {attribute.attribute_value}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {/* card feature */}
 
                           {/* shipper */}
                           {data.shipper && (
-                            <div className="flex justify-start">
+                            <div className="flex justify-start h-7">
                               <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
                                 <RocketLaunchIcon
                                   fontSize="small"
@@ -1221,6 +1240,7 @@ const Card = ({
                             </div>
                           )}
                           {/* shipper */}
+
                         </div>
                         {/* card name */}
 
@@ -1323,14 +1343,16 @@ const Card = ({
                             {data.discount &&
                             !Array.isArray(data.discount) &&
                             date < new Date(data.discount.end_date) ? (
-                              <div>
+                              <div className="h-12">
                                 <div className="flex items-center justify-between">
                                   {data.discount.type == 0 ? (
                                     <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
                                   ) : (
                                     <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
                                       Math.round(
-                                        (data.discount.percentage / data.price) * 100
+                                        (data.discount.percentage /
+                                          data.price) *
+                                          100
                                       )
                                     )} %`}</div>
                                   )}
@@ -1345,7 +1367,9 @@ const Card = ({
                                           data.discount.final_price
                                         ).toLocaleString()}`}</span>
                                       )}
-                                      <span className="text-xs mr-1">تومان</span>
+                                      <span className="text-xs mr-1">
+                                        تومان
+                                      </span>
                                     </span>
                                   </div>
                                 </div>
@@ -1374,7 +1398,10 @@ const Card = ({
                             <div className="text-[#DE1616] lg:text-base text-sm font-bold">
                               مشاهده همه پکیج ها
                             </div>
-                            <InventoryIcon fontSize="medium" sx={{ color: "#DE1616" }} />
+                            <InventoryIcon
+                              fontSize="medium"
+                              sx={{ color: "#DE1616" }}
+                            />
                           </div>
                         )}
                         {/* card footer */}
@@ -1433,9 +1460,33 @@ const Card = ({
                             : data.name}
                         </div>
 
+                        {/* card feature */}
+                        {data.attributes && data.attributes.length > 0 && (
+                          <div className="h-[45px] mb-4 grid grid-cols-8 gap-1 place-items-center">
+                            {data.attributes.map((attribute) => (
+                              <div key={attribute.id} className="flex items-center flex-col gap-1 justify-center">
+                                <ImageCustom
+                                  data={JSON.parse(attribute.icon)}
+                                  alt={attribute.icon_alt}
+                                  title={attribute.icon_alt}
+                                  // props
+                                  size={"original"}
+                                  width={19}
+                                  height={19}
+                                  fullWidth={false}
+                                />
+                                <div className="text-xs text-center text-[#8a8a8a] font-medium">
+                                  {attribute.attribute_value}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {/* card feature */}
+
                         {/* shipper */}
                         {data.shipper && (
-                          <div className="flex justify-start">
+                          <div className="flex justify-start h-7">
                             <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
                               <RocketLaunchIcon
                                 fontSize="small"
@@ -1548,14 +1599,15 @@ const Card = ({
                           {data.discount &&
                           !Array.isArray(data.discount) &&
                           date < new Date(data.discount.end_date) ? (
-                            <div>
-                              <div className="flex items-center justify-between">
+                            <div className="col-span-2 ">
+                              <div className="flex items-center justify-end gap-4">
                                 {data.discount.type == 0 ? (
                                   <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
                                 ) : (
                                   <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
                                     Math.round(
-                                      (data.discount.percentage / data.price) * 100
+                                      (data.discount.percentage / data.price) *
+                                        100
                                     )
                                   )} %`}</div>
                                 )}
@@ -1599,7 +1651,10 @@ const Card = ({
                           <div className="text-[#DE1616] lg:text-base text-sm font-bold">
                             مشاهده همه پکیج ها
                           </div>
-                          <InventoryIcon fontSize="medium" sx={{ color: "#DE1616" }} />
+                          <InventoryIcon
+                            fontSize="medium"
+                            sx={{ color: "#DE1616" }}
+                          />
                         </div>
                       )}
                       {/* card footer */}
@@ -1613,7 +1668,7 @@ const Card = ({
           <div className={`${mobile ? "p-0" : "p-2"}`}>
             <Link
               {...props}
-              target="_blank"
+              //target="_blank"
               href={`/${data.slug}`}
               title={data.name}
               className={` block ${
@@ -1712,7 +1767,29 @@ const Card = ({
                 </div>
               )}
 
-              {/* card image */}
+              {/* card feature */}
+              <div className="h-[45px] mb-4 grid grid-cols-4 gap-1 place-items-center">
+                {data.attributes &&
+                  data.attributes.length > 0 &&
+                  data.attributes.map((attribute) => (
+                    <div key={attribute.id} className="grid gap-1">
+                      <ImageCustom
+                        data={JSON.parse(attribute.icon)}
+                        alt={attribute.icon_alt}
+                        title={attribute.icon_alt}
+                        // props
+                        size={"original"}
+                        width={25}
+                        height={25}
+                        fullWidth={false}
+                      />
+                      <div className="text-xs text-center text-[#8a8a8a] font-medium">
+                        {attribute.attribute_value}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              {/* card feature */}
 
               {/* shipper */}
               {shipperVisible && (
@@ -1819,7 +1896,7 @@ const Card = ({
                   {data.discount &&
                   !Array.isArray(data.discount) &&
                   date < new Date(data.discount.end_date) ? (
-                    <div>
+                    <div className="h-12">
                       <div className="flex items-center justify-between">
                         {data.discount.type == 0 ? (
                           <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>

@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import Skeleton from "@mui/material/Skeleton";
 import Link from "next/link";
-import Avatar from "@mui/material/Avatar";
 import dynamic from "next/dynamic";
 //mui
 import { Button } from "@mui/material";
@@ -31,6 +30,8 @@ import Accordions from "@/components/Accordions";
 import SwiperCarousel from "@/components/SwiperCarousel";
 import Paragraph from "@/components/special-box/Paragraph";
 import ContentImageBox from "@/components/ContentImageBox";
+// import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 // import CardsCarousel from '../constantElements/CardsCarousel'
 import TabCustom from "../constantElements/TabCustom";
@@ -51,6 +52,16 @@ const LocalShippingIcon = dynamic(
     ssr: false,
     loading: () => (
       <Skeleton variant="circular" width={24} height={24} animation="pulse" />
+    ),
+  }
+);
+
+const Chip = dynamic(
+  () => import("@mui/material/Chip"),
+  {
+    ssr: false,
+    loading: () => (
+      <Skeleton variant="rounded" width={138} height={32} animation="pulse" />
     ),
   }
 );
@@ -152,6 +163,7 @@ const ComparisonTable = dynamic(
 );
 
 const Product = ({ apiData, type, user = null }) => {
+
 
   const [favorites, setFavorites] = useState(false);
   useEffect(() => {
@@ -712,6 +724,26 @@ const Product = ({ apiData, type, user = null }) => {
                   />
                 </div>
               )}
+
+
+              {/* tags */}
+              {
+
+                apiData.tags.length > 0 &&
+                <Stack direction="row" spacing={1} sx={{mb:'3rem'}}>
+                  {apiData.tags.map(tag => (
+                    <Chip
+                      key={tag.id}
+                      label={tag.name}
+                      title={tag.name}
+                      component="a"
+                      href={`/${tag.slug}`}
+                      clickable
+                    />
+                  ))}
+                </Stack>
+              }
+              {/* tags */}
 
               {apiData && (
                 <>

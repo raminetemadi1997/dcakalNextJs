@@ -176,6 +176,7 @@ const Brands = ({ apiData, pages }) => {
                                         return (
                                             <Fragment key={special.id}>
                                                 <BannerCarousel
+                                                autoplayDelay={3500}
                                                     data={special.items}
                                                 />
                                             </Fragment>

@@ -82,7 +82,7 @@ const SideBar = ({
 
           {/*    banner    */}
           {sideBanner.length > 0 && !mobile ? (
-            <BannerCarousel data={sideBanner} className="mb-0" />
+            <BannerCarousel data={sideBanner} className="mb-0" autoplayDelay={3500} />
           ) : null}
           {/*    banner    */}
 

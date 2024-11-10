@@ -1,4 +1,21 @@
 .container {
+  width: 1012px;
+  height: 334px;
+}
+.item_container {
+  height: calc(334px - 68px);
+  width: 100%;
+}
+
+@media (max-width: 540px) {
+  .container {
     width: auto;
     height: auto;
+    margin: 0 .5rem;
+    margin-bottom: 1rem;
+  }
+  .item_container {
+    height: auto;
+    width: auto;
+  }
 }

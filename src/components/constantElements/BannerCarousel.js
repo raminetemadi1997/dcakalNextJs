@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import '@/styles/styles.css'
 import 'swiper/css/navigation';
@@ -15,7 +15,7 @@ const style = {
     "--swiper-pagination-color": "var(--theme-color)",
 };
 
-const BannerCarousel = ({ borderRadius = '.5rem', data = [], spaceBetween = 30, slidesPerView = 1, navigation = false, pagination = true, className = 'mb-12' }) => {
+const BannerCarousel = ({ borderRadius = '.5rem', data = [], spaceBetween = 30, slidesPerView = 1, navigation = false, pagination = true, className = 'mb-12' , autoplay= true , autoplayDelay=2500 }) => {
 
     const miniMobile = useMediaQuery("(max-width:375px)")
     const mobile = useMediaQuery("(max-width:600px)");
@@ -65,7 +65,20 @@ const BannerCarousel = ({ borderRadius = '.5rem', data = [], spaceBetween = 30, 
         <>
             {data.length > 0 &&
                 <section className={className}>
-                    <Swiper style={style} slidesPerView={slidesPerView} pagination={{ enabled: pagination, clickable: true }} spaceBetween={spaceBetween} navigation={mobile ? false : navigation} modules={[Pagination, Navigation]} className="mySwiper">
+                    <Swiper
+                        style={style}
+                        slidesPerView={slidesPerView}
+                        pagination={{ enabled: pagination, clickable: true }}
+                        spaceBetween={spaceBetween}
+                        navigation={mobile ? false : navigation}
+                        modules={[Pagination, Navigation , Autoplay]}
+                        className="mySwiper"
+                        autoplay={{
+                            enabled : autoplay,
+                            delay:autoplayDelay,
+                            pauseOnMouseEnter:true
+                        }}
+                    >
                         {data.map((product, i) => (
                             <SwiperSlide key={i}>
                                 <Link href={product.link ? product.link : '#'} title={product.image_alt}>
@@ -85,7 +98,7 @@ const BannerCarousel = ({ borderRadius = '.5rem', data = [], spaceBetween = 30, 
                                         style={{ borderRadius: borderRadius }}
                                         size='original'
                                     />
-                                {/* <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhO5ntJnlTao2igCX_NdCFpY43dYguQK7JLg&s" width={600} height={600} alt="Alt text of image" /> */}
+                                    {/* <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhO5ntJnlTao2igCX_NdCFpY43dYguQK7JLg&s" width={600} height={600} alt="Alt text of image" /> */}
                                 </Link>
                             </SwiperSlide>
                         ))}

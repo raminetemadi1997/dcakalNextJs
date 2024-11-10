@@ -7,9 +7,10 @@ const ButtonCustom = ({ typeButton = null, titleTag, chevron = false, fontWeight
 
   const style = {
     backgroundColor: variant == 'contained' ? `${color} !important` : '',
-    color: variant == 'contained' ? '#fff' : color,
+    color: variant == 'contained' || color == '#808080' ? '#fff !important' : color,
     fontSize: fontSize,
     fontWeight: fontWeight,
+    
   }
 
   return (

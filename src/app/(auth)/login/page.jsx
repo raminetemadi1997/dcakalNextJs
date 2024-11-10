@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../../public/images/Logos/logo2.jpg";
+import logo from "../../../../public/images/Logos/logo2.png";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { SnakebarContext } from "@/context/snakebar";

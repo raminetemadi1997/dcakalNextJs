@@ -9,15 +9,18 @@ import Image from "next/image";
 import Link from "next/link";
 import imageAccordion from "../../public/images/Banners/bannerRight.jpg";
 import ImageCustom from "./constantElements/ImageCustom";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TabCustom from "./constantElements/TabCustom";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
-  border: `1px solid #007C70`,
+  border: `1px solid #666`,
   borderRadius: "15px",
-  width: "99%",
-  marginTop: "14px",
-  marginBottom: ".5rem",
+  width: "100%",
+  // marginTop: "14px",
+  
+  // marginBottom: ".5rem",
   position: "relative",
   "&:not(:last-child)": {
     borderBottom: 0,
@@ -32,16 +35,14 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<NavigateBeforeIcon sx={{ fontSize: "1.2rem" }} />}
+    expandIcon={<ExpandMoreIcon fontSize="large" sx={{color:'#666'}} />}
     {...props}
   />
 ))(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === "dark" ? "rgba(255, 255, 255, .05)" : "none",
   flexDirection: "row",
-  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
-    transform: "rotate(-90deg)",
-  },
+  
   "& .MuiAccordionSummary-content": {
     marginLeft: theme.spacing(1),
   },
@@ -128,36 +129,34 @@ export default function Accordions({ type, faqData, data = [] , ...props }) {
       ) : type === "FAQ" ? (
         faqData ? (
           <section {...props}>
-            <div className="flex justify-between items-center mb-2 border-b">
+            {/* <div className="flex justify-between items-center border-b mb-8">
               <p className="font-bold mb-2">سوالات متداول</p>
-            </div>
-
+            </div> */}
+            <TabCustom className="mb-8" bold={true} value={["سوالات متداول"]} type='accordion' />
+            <section className="grid gap-4">
             {faqData.map((faq, i) => {
               return (
                   <div
+                  
                     className="w-full h-fit relative flex justify-end last:mb-5"
                     key={faq.id}
                   >
-                    <div className="w-[98%] h-16 bg-[var(--theme-color-green)] rounded-xl absolute right-3"></div>
+                    {/* <div className="w-full h-16 bg-[#666] rounded-xl absolute right-3"></div> */}
                     <Accordion
                       expanded={i == expanded ? true : false}
                       onChange={() => handleChange(i)}
+                      sx={{boxShadow:   i == 0 ? "0 -15px 0 0 #666, 0 0 5px 2px #dddddda3" : "unset"}}
                     >
                       <AccordionSummary
                         aria-controls="panel3d-content"
                         id="panel3d-header"
                         sx={{
                           "& .MuiAccordionSummary-expandIconWrapper": {
-                            background: "var(--theme-color-green)",
-                            borderRadius: "50%",
-                            color: "#fff",
-                            padding: ".4rem",
-                            position: "absolute",
-                            left: "-1.5%",
+                            color: "#000",
                           },
                         }}
                       >
-                        <Typography>{faq.question}</Typography>
+                        <Typography sx={{fontWeight:500 , fontSize:16}}>{faq.question}</Typography>
                       </AccordionSummary>
                       <AccordionDetails>
                         <section
@@ -169,6 +168,7 @@ export default function Accordions({ type, faqData, data = [] , ...props }) {
                   </div>
               );
             })}
+            </section>
           </section>
         ) : (
           <></>

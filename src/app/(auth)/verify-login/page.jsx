@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../../public/images/Logos/logo2.jpg";
+import logo from "../../../../public/images/Logos/logo2.png";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";

@@ -55,7 +55,7 @@ const Page = () => {
       <Image src={Logo} alt="logo" />
       <form
         onSubmit={submitHandler}
-        className="border rounded-lg w-1/5 p-4 flex items-center justify-center gap-8 flex-col"
+        className="border rounded-lg sm:w-1/5 w-4/5 p-4 flex items-center justify-center gap-8 flex-col"
         style={{ boxShadow: "4px 4px 4px 0px #00000026" }}
       >
         <div> لطفا مبلغ دلخواه را وارد نمائید </div>

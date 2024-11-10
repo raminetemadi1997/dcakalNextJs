@@ -105,6 +105,17 @@ export default function BreadcrumbCustom({
                 </Link>
               </li>
             )}
+            {parentId == null && type == "tag" && (
+              <li>
+                <Link
+                  href={`/tags`}
+                  style={{ fontSize: "12px" }}
+                  className={styles.arrow}
+                >
+                  تگ ها
+                </Link>
+              </li>
+            )}
 
             {parentId == null && type == "authors" && (
               <li>

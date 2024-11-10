@@ -20,21 +20,23 @@ const Paragraph = ({
   paragraphTitle,
   paragraphDescription,
   link,
+  data,
 }) => {
-    const [showMore , setShowMore] = useState(false)
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <div
-      className={`w-full h-auto rounded-xl flex flex-col items-center p-4 ${styles.container} relative mb-10 ${className}`}
+      className={`w-full h-auto rounded-xl flex flex-col items-center py-4 relative mb-10 ${className} gap-4`}
     >
-      <p className="text-white absolute sm:text-base text-xs">
-        {paragraphTitle}
-      </p>
-      <div
-        className={`p-2 rounded-xl bg-white w-full ${styles.content} relative top-10`}
-      >
+      <div className="sm:text-base text-xs">{paragraphTitle}</div>
+      <div className={`p-2 rounded-xl bg-white w-full ${styles.content}`}>
         <div
-          className={`p-2 w-full ${showMore ? 'h-auto' : 'h-[133px]'} sm:text-base text-sm relative sm:text-center text-justify ckeditor overflow-y-auto`}
-          dangerouslySetInnerHTML={{ __html: paragraphDescription }}
+          className={`p-2 w-full ${
+            showMore ? "h-auto" : "h-[133px]"
+          } sm:text-base text-sm relative sm:text-center text-justify ckeditor overflow-y-auto`}
+          dangerouslySetInnerHTML={{
+            __html: data ? data.description : paragraphDescription,
+          }}
         />
         {link ? (
           <div className="flex justify-center">
@@ -51,11 +53,15 @@ const Paragraph = ({
             <div
               className={`text-center w-fit h-fit ${styles.container} rounded mt-2`}
             >
-              {/* <ColorButton variant="contained">مشاهده بیشتر</ColorButton> */}
-              {!showMore
-              &&
-              <ButtonCustom color='#007C70' text="مشاهده بیشتر" fullWidth onClick={()=>setShowMore(true)} />
-              }
+              {data.link && (
+                <ButtonCustom
+                  color="#007C70"
+                  text="مشاهده بیشتر"
+                  title="مشاهده بیشتر"
+                  fullWidth
+                  link={data.link}
+                />
+              )}
             </div>
           </div>
         )}

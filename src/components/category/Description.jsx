@@ -44,6 +44,9 @@ const Description = ({ type, summary, body, descriptions, className }) => {
       "& tr td , & p  ": {
         gap: "1rem",
       },
+      "& tr img , & p img": {
+      width: "317px !important",
+    },
     },
   });
 
@@ -103,7 +106,7 @@ const Description = ({ type, summary, body, descriptions, className }) => {
                 ) : item.type == "4" ? (
                   <>
                     {item.image.length >= 1 && (
-                      <BannerCarousel data={item.image} />
+                      <BannerCarousel  autoplayDelay={3500} data={item.image} />
                     )}
                     {item.product.length >= 1 && (
                       <CardsCarousel
@@ -131,7 +134,7 @@ const Description = ({ type, summary, body, descriptions, className }) => {
                       />
                     )}
                     {item.image.length >= 1 && (
-                      <BannerCarousel data={item.image} />
+                      <BannerCarousel data={item.image} autoplayDelay={3500} />
                     )}
                   </>
                 ) : null}

@@ -129,7 +129,7 @@ const Header = ({ menuData }) => {
           />
           {dataSetting && dataSetting.data.data.setting.logo ? (
             <Logo
-              className="col-span-1"
+              className="col-span-1 sm:col-start-2"
               logo={dataSetting && dataSetting.data.data.setting.logo}
             />
           ) : (
@@ -142,9 +142,9 @@ const Header = ({ menuData }) => {
               />
             </div>
           )}
-          <div className="sm:hidden col-span-1 flex justify-end">
-            <IconButton onClick={() => setSerachBox(true)}>
-              <SearchIcon className="text-white cursor-pointer" />
+          <div className={styles.mobile_search}>
+            <IconButton onClick={() => setSerachBox(true)} size="medium">
+              <SearchIcon className="text-white cursor-pointer" fontSize="medium" width={24} height={24} />
             </IconButton>
           </div>
           <SearchBar

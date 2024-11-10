@@ -19,6 +19,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
+import Loading from '../../Loading';
 import {
     useRouter,
     usePathname,
@@ -139,10 +140,10 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
 
 
-    function productFilterHandler(event) {
+    function productFilterHandler(event, type) {
         productValue = event.target.value;
 
-        submitHandler();
+        submitHandler(type);
 
     }
 
@@ -152,7 +153,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
         const checkboxes = document.querySelectorAll('.attr-class-mobile > input[type="checkbox"]:checked');
         // const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-        
+
 
         const mobile_filter = document.querySelector(".mobileFilter")
         // filterProduct = mobile_filter.value
@@ -171,7 +172,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         return selectedValues;
     }
 
-    function submitHandler(event) {
+    function submitHandler(type) {
         // axios.get("/sanctum/csrf-cookie");
         const data = collectSelectedValues();
         setIsLoading(true)
@@ -196,7 +197,9 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
 
                     router.push(`${pathName}?${newUrl}`);
                 } else {
-                    router.push(`${pathName}`);
+                    type == "product"
+                        ? router.push(`${pathName}?${newUrl}`)
+                        : router.push(`${pathName}`);
                 }
 
                 setTimeout(() => {
@@ -269,9 +272,9 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
         //     elem.querySelector("input").click();
         //   }
         // });
-        setTimeout(()=>{
+        setTimeout(() => {
             setIsLoading(false);
-          } , 3000)
+        }, 3000)
     }
 
 
@@ -317,7 +320,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                                 نمایش براساس
                             </InputLabel>
                             <NativeSelect
-                                onChange={productFilterHandler}
+                                onChange={(event) => productFilterHandler(event, "product")}
                                 defaultValue={defaultOrder}
                                 inputProps={{
                                     name: "order_by",
@@ -406,7 +409,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                             {/* body */}
                             <div>
                                 <ul>
-                                    {data ? data.map((main, index) => (
+                                    {data ? data.map((main, index) => main.en_name && (
                                         <li key={main.id} className={"attribute-name"}>
                                             <div className='text-sm p-4 py-2 border-b flex items-center justify-between' onClick={() => openHandler(index)}>
                                                 {main.name}
@@ -429,7 +432,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
                                                                             className="attr-class-mobile"
                                                                             data-name={sub.value}
                                                                             value={sub.id}
-                                                                            name={main.name}
+                                                                            name={main.en_name}
                                                                             size="small"
                                                                             onChange={(event) => changeHandler(event, sub.id, sub)}
                                                                             checked={
@@ -522,13 +525,7 @@ const Filters = ({ type, sendData, id, openMenu = false, onClose, data = [], scr
             }
             {isLoading && (
                 <div className="fixed top-0 left-0 w-full h-full flex flex-col gap-4 justify-center items-center bg-[#fff] z-[999] bg-opacity-50">
-                    <BeatLoader
-                        color="var(--theme-color)"
-                        loading={true}
-                        size={28}
-                        aria-label="Loading Spinner"
-                        data-testid="loader"
-                    />
+                    <Loading />
                 </div>
             )}
 

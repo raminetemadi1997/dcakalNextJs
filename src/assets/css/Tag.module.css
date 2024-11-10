@@ -1,0 +1,17 @@
+.tag_item {
+    box-shadow: 1px 3px 0.3px 0px #00000040;
+}
+.container {
+    background-image: url(../../../public/images/back.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+  }

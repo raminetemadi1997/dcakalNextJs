@@ -5,6 +5,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 //context
 
 const ProductSpecifications = ({ attributes, attributeImage, alt }) => {
+  console.log(attributes);
+
   const mobile = useMediaQuery("(max-width:540px)");
   const specificationScroll = useRef();
   const [showMore, setShowMore] = useState(false);
@@ -25,23 +27,30 @@ const ProductSpecifications = ({ attributes, attributeImage, alt }) => {
           className={`w-full h-fit grid grid-cols-1 sm:gap-4 gap-2 sm:mt-0 mt-5`}
         >
           {attributes
-            .slice(0, showMore ? attributes.length : 7)
+            .slice(0, showMore ? attributes.length : 3)
             .map((value) => {
               return (
-                <dl
-                  key={value.id}
-                  className="grid grid-cols-2 grid-flow-row-dense sm:gap-4 gap-2"
-                >
-                  <dt className="bg-stone-300 p-2 rounded-r-xl sm:text-sm text-xs">
-                    {value.attribute_name}
-                  </dt>
-                  <dd className="bg-stone-200 p-2 rounded-l-xl sm:text-sm text-xs">
-                    {value.attribute_value}
-                  </dd>
-                </dl>
+                <div key={value.id} className="grid sm:grid-cols-4 grid-cols-1 gap-2">
+                  <div className="sm:text-base text-xs">{value.attribute_parent_name}</div>
+                  <div className="grid  gap-2 sm:col-span-3">
+                    {value.childrens.map((child) => (
+                      <dl
+                        key={child.id}
+                        className="grid grid-cols-2 sm:gap-4 gap-2"
+                      >
+                        <dt className="bg-stone-300 p-2 rounded-r-xl sm:text-sm text-xs">
+                          {child.attribute_name}
+                        </dt>
+                        <dd className="bg-stone-200 p-2 rounded-l-xl sm:text-sm text-xs">
+                          {child.attribute_value}
+                        </dd>
+                      </dl>
+                    ))}
+                  </div>
+                </div>
               );
             })}
-          {attributes.length > 7 && (
+          {attributes.length > 3 && (
             <ButtonCustom
               text={`مشاهده ${showMore ? "کمتر" : "بیشتر"}`}
               variant="text"

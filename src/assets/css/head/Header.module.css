@@ -24,6 +24,18 @@
   display: block;
 }
 
+
+.mobile_search {
+  display: none;
+  justify-content: end;
+  grid-column-start: 3;
+}
+
+.mobile_search > button{
+  width: 40px;
+  height: 40px;
+}
+
 @media (min-width: 640px) {
   .container > div:first-child {
     padding: 1rem;
@@ -31,6 +43,11 @@
     border-radius: 0px;
   }
  
+}
+@media (max-width: 540px) {
+  .mobile_search {
+    display: flex;
+  }
 }
 
 @media (min-width: 990px) {

@@ -29,9 +29,9 @@ const Title = ({color="#fff" ,titleValue , position , className}) => {
     return (
         <>
         {position === `head` ? (
-            <div className={`${passName === "/address" || passName === "/payment" || passName == '/dashboard/idinity'  ? "px-0" : "px-4"} w-full  max-with-unique ${className}`}>
+            <div className={`${passName === "/address" || passName === "/payment" || passName == '/dashboard/idinity'  ? "px-0" : "px-4"} w-full  max-with-unique`}>
                 <div className={`h-12 border-b title-custom relative`}>
-                    <h1 className={` font-bold relative z-10 pt-2 ${passName === "/address" || passName === "/payment" ? "static mt-0 pr-0" : "relative mt-4 pr-6"}`}>
+                    <h1 className={`h-8 font-bold relative z-10 pt-2 ${passName === "/address" || passName === "/payment" ? "static mt-0 pr-0" : "relative mt-4 pr-6"}`}>
                         {titleValue}
                     </h1>
                 </div>

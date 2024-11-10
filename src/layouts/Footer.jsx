@@ -27,7 +27,7 @@ const Footer = ({}) => {
                 >
                   <div className="relative w-full h-full flex flex-wrap items-center justify-center max-sm:justify-end max-sm:w-11/12 max-sm:mx-auto max-sm:h-full sm:flex-row flex-row-reverse">
                     <section>
-                      <p className="w-full text-[#72777A] font-bold text-center text-base ml-4">
+                      <p className="w-full text-[#72777A] font-bold text-center text-base ml-4 h-12">
                         {expressItems.name}
                         <br />
                         <span className="text-xs font-thin">

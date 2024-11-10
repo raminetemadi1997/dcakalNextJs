@@ -30,6 +30,7 @@ import Link from "next/link";
 // import BreadcrumbCustom from "../constantElements/BreadcrumbCustom";
 import { useRouter, useSearchParams } from "next/navigation";
 
+
 const VideoCustom = dynamic(() => import("../constantElements/VideoCustom"), {
   ssr: false,
   loading: () => (
@@ -197,9 +198,13 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
   const [filters, setFilters] = useState(false);
   const [filterData, setFilterData] = useState(null);
   const handleChange = (event, nextView) => {
+    if (nextView !== null) {
+      setList(nextView == "list" ? true : false);
+    }
     if (nextView !== null) setView(nextView);
-    setList(nextView == "list" ? true : false);
+    
   };
+
 
   const data = (data) => {
     if (apiData.products.total == data.data.products.total) {
@@ -292,6 +297,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                                   className="last:odd:col-span-2 sm:col-span-1 col-span-2"
                                   paragraphTitle={paragraph.title}
                                   paragraphDescription={paragraph.description}
+                                  data={paragraph}
                                   link={paragraph.link}
                                 />
                               </Fragment>
@@ -393,7 +399,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                   case "image_slider":
                     return (
                       <Fragment key={special.id}>
-                        <BannerCarousel data={special.items} />
+                        <BannerCarousel data={special.items} autoplayDelay={3500} />
                       </Fragment>
                     );
 
@@ -493,7 +499,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
 
               {apiData.category.slider_status == 1 &&
                 apiData.category.image_sliders.length >= 1 && (
-                  <BannerCarousel data={apiData.category.image_sliders} />
+                  <BannerCarousel data={apiData.category.image_sliders} autoplayDelay={3500} />
                 )}
               {apiData.category.active_children.length > 0 ? (
                 !mobile ? (
@@ -728,7 +734,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
             </div>
             {/* filters */}
             <div
-              className={`card-container grid ${mobile ? "gap-0" : "gap-0"} ${apiData.category.type == 1
+              className={`card-container grid ${mobile ? "gap-0" : list ? "gap-4": "gap-0"} ${apiData.category.type == 1
                 ? "grid-cols-1"
                 : view === "module"
                   ? "xl:grid-cols-4 sm:grid-cols-3 grid-cols-2"
@@ -836,9 +842,9 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
         </section>
         {/* Body of Category */}
       </section>
-      {/* <FormProvider>
-        <Form/>
-      </FormProvider> */}
+      <FormProvider>
+        <Form id={apiData.category.id}/>
+      </FormProvider>
     </>
   );
 };

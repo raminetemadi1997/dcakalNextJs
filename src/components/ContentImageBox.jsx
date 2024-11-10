@@ -240,10 +240,10 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
           )}
         </>
       ) : type == "contentImageV3" ? (
+        data.length > 0 &&
         <div className="mb-12">
           <TabCustom value={[title]} />
           <section className="grid sm:grid-cols-3 grid-cols-1 gap-4 grid-flow-row-dense my-5">
-            {data.length > 0 && (
               <>
                 {data.map((third) => (
                   <div key={third.id} className={`w-full h-full`}>
@@ -299,7 +299,6 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
                   </div>
                 ))}
               </>
-            )}
           </section>
         </div>
       ) : null}
