@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import imgCo from "../../public/images/card/Cctv/camera.jpg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import { purple } from "@mui/material/colors";
@@ -11,10 +11,10 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import TabCustom from "./constantElements/TabCustom";
 import Link from "next/link";
-import Image from "next/image";
-import styles from "../assets/css/main/Category.module.css";
+import styles from "../assets/css/ContentImageBox.module.css";
 import ImageCustom from "./constantElements/ImageCustom";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Skeleton from "@mui/material/Skeleton";
 
 const ColorButton = styled(Button)(({ theme }) => ({
   color: theme.palette.getContrastText(purple[500]),
@@ -64,11 +64,8 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   textAlign: "justify",
 }));
 
-
-
 const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
-
-
+  const [client, setClient] = useState(false);
   const miniMobile = useMediaQuery("(max-width:375px)");
   const mobile = useMediaQuery("(max-width:600px)");
   const portraitTablets = useMediaQuery(
@@ -78,7 +75,11 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
     "(min-width:768px) and (max-width:992px)"
   );
   const laptops = useMediaQuery("(min-width:992px) and (max-width:1200px)");
-  
+
+  useEffect(() => {
+    setClient(true);
+  }, []);
+
   function response(porpose) {
     if (porpose == "width") {
       if (miniMobile) {
@@ -111,8 +112,6 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
     }
   }
 
-
-
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
   const [expanded, setExpanded] = useState(null);
 
@@ -121,7 +120,6 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
   };
 
   const [query, setQuery] = useState("(max-width: 540px)");
-
 
   return (
     <>
@@ -140,7 +138,7 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
           >
             <ul className="h-full w-full grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 grid-flow-row-dense sm:gap-8 gap-2 p-4">
               {firstContentData.map((first) => {
-                return (
+                return client ? (
                   <li
                     key={first.id}
                     className={`${styles.list} group sm:bg-[#ff7900] text-center inline-flex flex-wrap w-full h-fit rounded-[9px] mt relative px-[1px] pb-[1px]`}
@@ -161,7 +159,7 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
                           fullWidth={false}
                           width={response("width")}
                           height={response("height")}
-                          size = 'original'
+                          size="original"
                         />
                       </div>
                       <div className="w-[100%] bg-[#fff] rounded-lg sm:p-6 sm:pt-12 sm:pb-[1.05rem] mx-auto sm:mt-[-48px] leading-6 z-0">
@@ -173,6 +171,18 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
                       </div>
                     </Link>
                   </li>
+                ) : (
+                  <div className={styles.skeleton} key={first.id}>
+                    <Skeleton
+                      variant="rectangular"
+                      animation="wave"
+                      sx={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </div>
                 );
               })}
             </ul>
@@ -200,7 +210,7 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
                           loading={"lazy"}
                           width={120}
                           height={120}
-                          size = 'original' 
+                          size="original"
                         />
                       </div>
                       {mobile && true ? (
@@ -240,10 +250,10 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
           )}
         </>
       ) : type == "contentImageV3" ? (
-        data.length > 0 &&
-        <div className="mb-12">
-          <TabCustom value={[title]} />
-          <section className="grid sm:grid-cols-3 grid-cols-1 gap-4 grid-flow-row-dense my-5">
+        data.length > 0 && (
+          <div className="mb-12">
+            <TabCustom value={[title]} />
+            <section className="grid sm:grid-cols-3 grid-cols-1 gap-4 grid-flow-row-dense my-5">
               <>
                 {data.map((third) => (
                   <div key={third.id} className={`w-full h-full`}>
@@ -268,7 +278,7 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
                           loading={"lazy"}
                           width={120}
                           height={120}
-                          size = 'original'
+                          size="original"
                         />
                         <p
                           className={`pb-1 flex justify-center mx-auto relative text-base font-bold mb-4 before:w-1/2 before:conte before:h-[2px] before:bg-theme before:content-[" "] before:absolute before:-bottom-1 before:group-hover:w-full before:transition-all before:duration-200 before:ease-in-out`}
@@ -299,8 +309,9 @@ const ContentImageBox = ({ type, firstContentData, title, data = [] }) => {
                   </div>
                 ))}
               </>
-          </section>
-        </div>
+            </section>
+          </div>
+        )
       ) : null}
     </>
   );

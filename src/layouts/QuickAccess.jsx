@@ -45,48 +45,55 @@ const PhoneInTalkIcon = dynamic(
   }
 );
 
-
-
-const QuickAccess = ({phone}) => {
+const QuickAccess = ({ phone }) => {
   const mobile = useMediaQuery("(max-width:540px)");
-  
-  const [user , setUser] = useState(false)
-  useEffect(()=>{
+
+  const [user, setUser] = useState(false);
+  useEffect(() => {
     const getUser = async () => {
       try {
         const fetchedUser = await axios.get("api/user");
         if (fetchedUser) {
-          setUser(true)
+          setUser(true);
         }
-      } catch (error) {
-        
-      }
+      } catch (error) {}
     };
     getUser();
-  },[])
-  return mobile && (
-    <div
-      className={`w-full h-fit fixed -bottom-0.5 z-40 sm:hidden flex flex-col items-center`}
-    >
-      <div 
-        className={`w-20 h-20 bg-[#ff770094] -top-[72%] rounded-full absolute flex justify-center items-center`}
-      >
-        <Cart type="quickAccess" />
-      </div>
+  }, []);
+  return (
+    mobile && (
       <div
-        className={`${styles.container} w-full h-14 relative rounded-t-2xl flex justify-between items-center px-6`}
+        className={`w-full h-fit fixed -bottom-0.5 z-40 sm:hidden flex flex-col items-center`}
       >
-        <Link href={user ? `/dashboard` : `/login`} className={`z-10`}>
-          <PersonIcon className={`text-white text-2xl cursor-pointer`} />
-        </Link>
+        <div
+          className={`w-20 h-20 bg-[#ff770094] -top-[72%] rounded-full absolute flex justify-center items-center`}
+        >
+          <Cart type="quickAccess" />
+        </div>
+        <div
+          className={`${styles.container} w-full h-14 relative rounded-t-2xl flex justify-between items-center px-6`}
+        >
+          <Link
+            href={user ? `/dashboard` : `/login`}
+            className={`z-10 h-6 w-6`}
+          >
+            <PersonIcon
+              className={`text-white text-2xl cursor-pointer`}
+              width={24}
+              height={24}
+            />
+          </Link>
 
-        <Link href={`tel:${phone}`} className={`z-10`}>
-          <PhoneInTalkIcon
-            className={`text-white text-2xl z-10 cursor-pointer`}
-          />
-        </Link>
+          <Link href={`tel:${phone}`} className={`z-10 h-6 w-6`}>
+            <PhoneInTalkIcon
+              width={24}
+              height={24}
+              className={`text-white text-2xl z-10 cursor-pointer`}
+            />
+          </Link>
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

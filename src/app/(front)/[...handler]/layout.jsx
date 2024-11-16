@@ -9,7 +9,7 @@ export default function DynamicPagesLayout({ children }) {
   return (
     <Layout>
       <VideoSrcContextProvider>
-        <main className={`flex flex-col items-center ${styles.mainContainer}`}>
+        <main className={styles.mainContainer}>
           {children}
         </main>
       </VideoSrcContextProvider>

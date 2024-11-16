@@ -1,0 +1,25 @@
+.skeleton {
+  height: 408px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+@media (max-width: 375px) {
+  .skeleton {
+    height: 360px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 600px) {
+  .skeleton {
+    height: 360px;
+  }
+}
+@media (min-width: 600px) and (max-width: 768px) {
+}
+@media (min-width: 768px) and (max-width: 992px) {
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+}

@@ -15,7 +15,10 @@
     margin-bottom: 1rem;
   }
   .item_container {
+    min-height: 309px;
     height: auto;
     width: auto;
+    gap: 4px;
+    padding: 4px 0;
   }
 }

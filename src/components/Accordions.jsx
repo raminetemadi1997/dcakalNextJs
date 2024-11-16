@@ -78,20 +78,21 @@ export default function Accordions({ type, faqData, data = [] , ...props }) {
     <div>
       {type === "photoContent" ? (
         <>
+        {/* <TabCustom className="mb-8" bold={true} value={["محتوای عکس دار"]} /> */}
           {/* accordion 1 */}
+          <section className="grid gap-4">
           {data.length > 0 &&
             data.map((accordion, i) => (
               <>
-              
-              
               <div
                 key={i}
-                className="w-full h-fit relative flex justify-end last:mb-5"
+                className="w-full h-fit flex justify-end last:mb-5"
               >
-                <div className="w-[98%] h-16 bg-[var(--theme-color-green)] rounded-xl absolute right-0"></div>
+                <div className="rounded-xl"></div>
                 <Accordion
                   expanded={i == expanded ? true : false}
                   onChange={() => handleChange(i)}
+                  sx={{boxShadow:   i == 0 ? "0 -15px 0 0 #666, 0 0 5px 2px #dddddda3" : "unset"}}
                 >
                   <AccordionSummary
                     aria-controls="panel1d-content"
@@ -125,19 +126,18 @@ export default function Accordions({ type, faqData, data = [] , ...props }) {
               </div>
               </>
             ))}
+
+          </section>
         </>
       ) : type === "FAQ" ? (
         faqData ? (
           <section {...props}>
-            {/* <div className="flex justify-between items-center border-b mb-8">
-              <p className="font-bold mb-2">سوالات متداول</p>
-            </div> */}
+            
             <TabCustom className="mb-8" bold={true} value={["سوالات متداول"]} type='accordion' />
             <section className="grid gap-4">
             {faqData.map((faq, i) => {
               return (
                   <div
-                  
                     className="w-full h-fit relative flex justify-end last:mb-5"
                     key={faq.id}
                   >

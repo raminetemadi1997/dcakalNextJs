@@ -181,7 +181,8 @@ const Page = () => {
     axios
       .get(`api/shipper/${event.target.value}`)
       .then((response) => {
-        setShipperChange(response.data);
+        setShipperChange(response.data.data);
+        
       })
       .catch((error) => {
         setOpenAlarm(true);

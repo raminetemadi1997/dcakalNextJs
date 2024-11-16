@@ -1,0 +1,8 @@
+.skeleton {
+    height: 32px;
+    width: 342px;
+    display: grid;
+    grid-template-columns: repeat(9 , 1fr);
+    gap: 4px;
+    margin: 0 auto;
+}

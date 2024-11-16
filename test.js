@@ -1,20 +1,21 @@
-   // pages/index.js
-   import React from 'react';
-   import PrintableContent from '../components/PrintableContent';
+import React, { useEffect, useRef } from 'react';
+import { Button } from '@mui/material';
 
-   const Home = () => {
-       const handlePrint = () => {
-           window.print();
-       };
+const MyComponent = () => {
+    const buttonRef = useRef(null);
 
-       return (
-           <div>
-               <h1>صفحه اصلی</h1>
-               <PrintableContent />
-               <button onClick={handlePrint}>پرینت</button>
-           </div>
-       );
-   };
+    useEffect(() => {
+        const rect = buttonRef.current.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+            console.log('Button is above the fold');
+        }
+    }, []);
 
-   export default Home;
-   
+    return (
+        <Button ref={buttonRef} variant="contained">
+            Click Me
+        </Button>
+    );
+};
+
+export default MyComponent;

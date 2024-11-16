@@ -200,7 +200,7 @@ export default async function Home() {
         {/* <MainSlider /> */}
 
         {/* new products */}
-        {/* {home.data.new_products.length > 0 ? (
+        {home.data.new_products.length > 0 ? (
           <CardsCarousel
             data={home.data.new_products}
             slidesPerView={5}
@@ -211,7 +211,7 @@ export default async function Home() {
             link="مشاهده بیشتر"
             slug="/new-products"
           />
-        ) : null} */}
+        ) : null}
         {/* new products */}
 
         {/* <BlogDynamic /> */}

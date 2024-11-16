@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TabCustom from "@/components/constantElements/TabCustom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -12,29 +12,36 @@ import 'swiper/css/navigation';
 import ButtonCustom from './ButtonCustom';
 import ImageCustom from './ImageCustom';
 import Link from 'next/link';
+import styles from "@/assets/css/CardCarousel.module.css"
+import Skeleton from "@mui/material/Skeleton";
 
 const style = {
     "--swiper-navigation-color": "var(--theme-color)",
     "--swiper-pagination-color": "var(--theme-color)",
 };
 
-const CardsCarousel = ({width, height , slug = null, link = null, cover = null, title = "", type, data = [], spaceBetween = 30, slidesPerView = 3, navigation = true, className, backgroundColor = "#ffc794b5" }) => {
+const CardsCarousel = ({ width, height, slug = null, link = null, cover = null, title = "", type, data = [], spaceBetween = 30, slidesPerView = 3, navigation = true, className, backgroundColor = "#ffc794b5" }) => {
 
 
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
     const mobile = useMediaQuery("(max-width:540px)");
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(0);
+    const [client, setClient] = useState(false)
+
+    useEffect(() => {
+        setClient(true)
+    }, [])
 
 
 
     const breakpoints = {
 
         340: {
-            slidesPerView: 1.9 
+            slidesPerView: 1.9
             // ...(
-                
+
             //     cover && cover.mobile_image  ?
-                
+
             //         { slidesPerView: 1.5 }
             //         :
             //         { slidesPerView: 1.9 }
@@ -67,10 +74,10 @@ const CardsCarousel = ({width, height , slug = null, link = null, cover = null, 
                     :
                     {
                         ...(
-                            
 
-                            cover &&cover.image || cover &&cover.mobile_image ?
-                            
+
+                            cover && cover.image || cover && cover.mobile_image ?
+
                                 { slidesPerView: 3 }
                                 :
                                 { slidesPerView: 4 }
@@ -118,12 +125,13 @@ const CardsCarousel = ({width, height , slug = null, link = null, cover = null, 
                     ?
                     <section className='sm:px-4 px-2 pb-4 flex flex-col items-center w-full bg-gradient-to-b from-[#CED0D0] to-white rounded-lg' style={{ maxWidth: '1358px', margin: '0 auto 3rem' }}>
                         <div className='bg-white sm:text-base text-sm w-4/5 text-center py-4 rounded-b-full font-bold'>{title}</div>
-                        {data.length > 0
+                        {
+                            data.length > 0
                             &&
-                            <div className={`${cover && cover.image || cover && cover.mobile_image ? !mobile && 'grid grid-cols-4 gap-4' : null} w-full  mt-4`}>
+                            <div className={`${cover && cover.image || cover && cover.mobile_image ? 'sm:grid grid-cols-4 gap-1' : ""} w-full mt-4`}>
                                 {cover && cover.image || cover && cover.mobile_image ?
                                     !mobile &&
-                                    <Link href={cover.link ? cover.link : "#"} title={title}>
+                                    <Link href={cover.link ? cover.link : "#"} title={title} className='sm:block hidden'>
 
                                         <ImageCustom
                                             data={cover.image}
@@ -134,36 +142,61 @@ const CardsCarousel = ({width, height , slug = null, link = null, cover = null, 
                                             mobileAlt={cover.mobile_image_alt}
                                             mobileTitle={cover.mobile_image_alt}
                                             // props
-                                            loading={"lazy"}
-                                            width={237}
-                                            height={477}
+                                            loading={"eager"}
+                                            width={246}
+                                            height={407}
                                             fullWidth={false}
                                             size="original"
-                                            style={{borderRadius:'.5rem'}}
+                                            className='block h-full'
+                                            style={{ borderRadius: '.5rem', height: '100%' }}
                                         />
 
                                     </Link>
-                                    
+
                                     : null
                                 }
-                                <div className={`w-full ${cover &&cover.image || cover &&cover.mobile_image ? 'col-span-3' : null}`}>
-                                    <Swiper breakpoints={breakpoints} style={style} slidesPerView={slidesPerView} spaceBetween={spaceBetween} navigation={mobile ? false : navigation} modules={navigation && [Navigation]} className="mySwiper">
-                                        {data.map(product => (
-                                            <SwiperSlide key={product.id}>
-                                                <Card
-                                                    data={product}
-                                                    altName={true}
-                                                    shipperVisible={false}
-                                                    colorVisible={false}
-                                                    width={width}
-                                                    height={height}
-                                                />
-                                            </SwiperSlide>
-                                        ))}
+                                <div className={`w-full ${cover && cover.image || cover && cover.mobile_image ? 'col-span-3' : ""}`}>
+                                    {client ?
 
-                                    </Swiper>
+                                        <Swiper breakpoints={breakpoints} style={style} slidesPerView={slidesPerView} spaceBetween={spaceBetween} navigation={mobile ? false : navigation} modules={navigation && [Navigation]} className="mySwiper">
+                                            {data.map(product => (
+                                                <SwiperSlide key={product.id}>
+                                                    <Card
+                                                        data={product}
+                                                        altName={true}
+                                                        shipperVisible={false}
+                                                        colorVisible={false}
+                                                        attributeValue={false}
+                                                        width={width}
+                                                        height={height}
+                                                    />
+                                                </SwiperSlide>
+                                            ))}
+
+                                        </Swiper>
+                                        :
+                                        <div className={styles.skeleton}>
+
+                                            <Skeleton
+                                                variant="rectangular"
+                                                animation="wave"
+                                                sx={{ width: "100%", height: "100%", borderRadius: "8px" }}
+                                            />
+                                            <Skeleton
+                                                variant="rectangular"
+                                                animation="wave"
+                                                sx={{ width: "100%", height: "100%", borderRadius: "8px" }}
+                                            />
+                                            <Skeleton
+                                                variant="rectangular"
+                                                animation="wave"
+                                                sx={{ width: "100%", height: "100%", borderRadius: "8px" }}
+                                            />
+                                        </div>
+                                    }
                                 </div>
                             </div>
+
                         }
                     </section>
                     :

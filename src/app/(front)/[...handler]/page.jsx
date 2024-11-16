@@ -6,10 +6,12 @@ import axios from "@/lib/axios";
 import { redirect } from "next/navigation";
 import Invoice from "@/components/constantElements/Invoice";
 import BreadcrumbCustom from "@/components/constantElements/BreadcrumbCustom";
+import Title from "@/components/main/Title";
+import styles from "@/assets/css/Title.module.css"
+import Link from "next/link";
 
 const frontUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
 const backendUrlImage = process.env.NEXT_PUBLIC_BACKEND_URL_IMAGE;
-
 
 export async function generateMetadata({ params, searchParams }) {
   let video = false;
@@ -57,9 +59,6 @@ export async function generateMetadata({ params, searchParams }) {
       });
     }
 
-
-    
-
     return {
       title: dataFetch.data.category.title,
       description: dataFetch.data.category.description,
@@ -76,7 +75,7 @@ export async function generateMetadata({ params, searchParams }) {
         index: dataFetch.data.category.index_status == 0 ? false : true,
         follow: dataFetch.data.category.index_status == 0 ? false : true,
       },
-     
+
       ...(video
         ? dataFetch.data.products
           ? dataFetch.data.products.next_page_url &&
@@ -193,67 +192,67 @@ export async function generateMetadata({ params, searchParams }) {
             }
         : dataFetch.data.products
         ? dataFetch.data.products.next_page_url &&
-        dataFetch.data.products.prev_page_url
-        ? {
-            icons: {
-              other: [
-                {
-                  rel: "next",
-                  url: `${dataFetch.data.products.next_page_url}`,
-                },
-                {
-                  rel: "prev",
-                  url: `${dataFetch.data.products.prev_page_url}`,
-                },
-                {
-                  rel: "preconnect",
-                  url: "https://dashboard.dcakala.com",
-                },
-              ],
-            },
-          }
-        : dataFetch.data.products.prev_page_url &&
-          !dataFetch.data.products.next_page_url
-        ? {
-            icons: {
-              other: [
-                {
-                  rel: "prev",
-                  url: `${dataFetch.data.products.prev_page_url}`,
-                },
-                {
-                  rel: "preconnect",
-                  url: "https://dashboard.dcakala.com",
-                },
-              ],
-            },
-          }
-        : dataFetch.data.products.next_page_url &&
-          !dataFetch.data.products.prev_page_url
-        ? {
-            icons: {
-              other: [
-                {
-                  rel: "next",
-                  url: `${dataFetch.data.products.next_page_url}`,
-                },
-                {
-                  rel: "preconnect",
-                  url: "https://dashboard.dcakala.com",
-                },
-              ],
-            },
-          }
-        : {
-            icons: {
-              other: [
-                {
-                  rel: "preconnect",
-                  url: "https://dashboard.dcakala.com",
-                },
-              ],
-            },
-          }
+          dataFetch.data.products.prev_page_url
+          ? {
+              icons: {
+                other: [
+                  {
+                    rel: "next",
+                    url: `${dataFetch.data.products.next_page_url}`,
+                  },
+                  {
+                    rel: "prev",
+                    url: `${dataFetch.data.products.prev_page_url}`,
+                  },
+                  {
+                    rel: "preconnect",
+                    url: "https://dashboard.dcakala.com",
+                  },
+                ],
+              },
+            }
+          : dataFetch.data.products.prev_page_url &&
+            !dataFetch.data.products.next_page_url
+          ? {
+              icons: {
+                other: [
+                  {
+                    rel: "prev",
+                    url: `${dataFetch.data.products.prev_page_url}`,
+                  },
+                  {
+                    rel: "preconnect",
+                    url: "https://dashboard.dcakala.com",
+                  },
+                ],
+              },
+            }
+          : dataFetch.data.products.next_page_url &&
+            !dataFetch.data.products.prev_page_url
+          ? {
+              icons: {
+                other: [
+                  {
+                    rel: "next",
+                    url: `${dataFetch.data.products.next_page_url}`,
+                  },
+                  {
+                    rel: "preconnect",
+                    url: "https://dashboard.dcakala.com",
+                  },
+                ],
+              },
+            }
+          : {
+              icons: {
+                other: [
+                  {
+                    rel: "preconnect",
+                    url: "https://dashboard.dcakala.com",
+                  },
+                ],
+              },
+            }
         : null),
     };
   } else {
@@ -319,7 +318,6 @@ export async function generateMetadata({ params, searchParams }) {
 }
 
 export default async function Page({ params, searchParams }) {
-  
   async function pageApi(route) {
     const pageData = await axios
       .get(route)
@@ -360,16 +358,17 @@ export default async function Page({ params, searchParams }) {
         categoryName={pageData.data.category.main_name}
         structure={pageData.data.category.json_bread_crumb}
       />
+      {/* <Title position="head" titleValue={pageData.data.category.main_name} /> */}
+      <h1 className={styles.container}>{pageData.data.category.main_name}</h1>
       <Category
         apiData={pageData.data}
         pages={searchParams.page}
         scrollTo={newSearchParams}
-        currentSlug = {slug}
+        currentSlug={slug}
       />
+     
       {/* <Invoice /> */}
-      
     </>
-    
   ) : (
     <>
       <BreadcrumbCustom

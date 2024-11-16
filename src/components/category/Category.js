@@ -12,13 +12,15 @@ import BrandsCarousel from "../constantElements/BrandsCarousel";
 import TuneIcon from "@mui/icons-material/Tune";
 import Form from "@/components/Form";
 import Pagination from "./Pagination";
-// import CardsCarousel from "@/constantElements/CardsCarousel";
+import CardsCarousel from "@/components/constantElements/CardsCarousel";
 import BannerCarousel from "../constantElements/BannerCarousel";
 import Filters from "../menu/mobile/Filters";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Description from "@/components/category/Description";
 import { FormProvider } from '@/context/FormContext';
+import ContentImageBoxDynamic from "@/components/ContentImageBox"
+import SubCategory from "@/components/category/SubCategory"
 
 //css
 import styles from "@/assets/css/category/MainCategory.module.css";
@@ -29,6 +31,7 @@ import Title from "@/components/main/Title";
 import Link from "next/link";
 // import BreadcrumbCustom from "../constantElements/BreadcrumbCustom";
 import { useRouter, useSearchParams } from "next/navigation";
+import CardContainer from "../constantElements/CardContainer";
 
 
 const VideoCustom = dynamic(() => import("../constantElements/VideoCustom"), {
@@ -44,6 +47,8 @@ const VideoCustom = dynamic(() => import("../constantElements/VideoCustom"), {
     </div>
   ),
 });
+
+
 const Filter = dynamic(() => import("@/components/constantElements/Filter"), {
   ssr: false,
   loading: () => (
@@ -77,10 +82,7 @@ const DescriptionDynamic = dynamic(
   { ssr: false }
 );
 
-const SubCategoryDynamic = dynamic(
-  () => import("@/components/category/SubCategory"),
-  { ssr: false }
-);
+
 
 const ParagraphDynamic = dynamic(
   () => import("@/components/special-box/Paragraph"),
@@ -96,20 +98,20 @@ const VideoBoxDynamic = dynamic(() => import("@/components/VideoBox"), {
   ssr: false,
 });
 
-const ContentImageBoxDynamic = dynamic(
-  () => import("@/components/ContentImageBox"),
-  {
-    ssr: false,
-    loading: () => (
-      <Skeleton
-        animation="wave"
-        variant="rectangular"
-        sx={{ width: "100%", marginBottom: "1rem" }}
-        height={417}
-      />
-    ),
-  }
-);
+// const ContentImageBoxDynamic = dynamic(
+//   () => import("@/components/ContentImageBox"),
+//   {
+//     ssr: false,
+//     loading: () => (
+//       <Skeleton
+//         animation="wave"
+//         variant="rectangular"
+//         sx={{ width: "100%", marginBottom: "1rem" }}
+//         height={417}
+//       />
+//     ),
+//   }
+// );
 
 
 
@@ -158,25 +160,29 @@ const SideBar = dynamic(() => import("@/components/category/SideBar"), {
   ),
 });
 
-const CardsCarousel = dynamic(
-  () => import("@/components/constantElements/CardsCarousel"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="col-span-2 xl:block hidden w-full h-[542.5px]">
-        <Skeleton
-          variant="rectangular"
-          sx={{ width: "100%" }}
-          height={542.5}
-          animation="wave"
-        />
-      </div>
-    ),
-  }
-);
+// const CardsCarousel = dynamic(
+//   () => import("@/components/constantElements/CardsCarousel"),
+//   {
+//     ssr: false,
+//     loading: () => (
+//       <div className="col-span-2 xl:block hidden w-full h-[542.5px]">
+//         <Skeleton
+//           variant="rectangular"
+//           sx={{ width: "100%" }}
+//           height={542.5}
+//           animation="wave"
+//         />
+//       </div>
+//     ),
+//   }
+// );
 
 //components
+
 const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
+
+
+
 
 
   const miniMobile = useMediaQuery("(max-width:375px)");
@@ -197,12 +203,13 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
   const [view, setView] = useState(`module`);
   const [filters, setFilters] = useState(false);
   const [filterData, setFilterData] = useState(null);
+  const [client, setClient] = useState(false)
   const handleChange = (event, nextView) => {
     if (nextView !== null) {
       setList(nextView == "list" ? true : false);
     }
     if (nextView !== null) setView(nextView);
-    
+
   };
 
 
@@ -255,10 +262,15 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
     }
   }
 
+
+  useEffect(() => {
+    setClient(true)
+  }, [])
+
   return (
     <>
 
-      <Title position="head" titleValue={apiData.category.main_name} />
+      {/* <Title position="head" titleValue={apiData.category.main_name} /> */}
 
       <section
         className={`grid grid-flow-row grid-cols-9 sm:px-4 px-2 py-4 gap-4 w-full  max-with-unique`}
@@ -282,8 +294,9 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
           {/* Special Box */}
           {apiData.category.special_box_status == 1 ? (
             <>
-              {apiData.category.special_box.map((special) => {
+              {apiData.category.special_box.map((special, index) => {
                 switch (special.content_type) {
+
                   case "paragraph":
                     return (
                       <Fragment key={special.id}>
@@ -399,7 +412,21 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                   case "image_slider":
                     return (
                       <Fragment key={special.id}>
+                        {client ?
                         <BannerCarousel data={special.items} autoplayDelay={3500} />
+                        :
+                        <div className={styles.bannerSkeleton}>
+                                  <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    sx={{
+                                      width: "100%",
+                                      height: "100%",
+                                      borderRadius: "8px",
+                                    }}
+                                  />
+                                </div>
+                      }
                       </Fragment>
                     );
 
@@ -415,6 +442,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                         />
                       </Fragment>
                     );
+
                   case "custom_brand":
                     return (
                       <Fragment key={special.id}>
@@ -433,6 +461,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                     return (
                       <Fragment key={special.id}>
                         <CardsCarousel
+                          position={index}
                           type="special_box"
                           title={special.title}
                           data={special.items}
@@ -518,12 +547,28 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                           .map((subCategory) => {
                             return (
                               <Fragment key={subCategory.id}>
-                                <SubCategoryDynamic
+                                {client ?
+                                <SubCategory
                                   slug={subCategory.slug}
                                   image={subCategory && subCategory}
                                   name={subCategory.identity_name}
                                   alt={subCategory.image_alt}
                                 />
+                              :
+                              <div className={styles.categorySkeleton}>
+                              <Skeleton
+                                variant="rectangular"
+                                animation="wave"
+                                sx={{
+                                  width: "100%",
+                                  height: "100%",
+                                  borderRadius: "8px",
+                                }}
+                              />
+                            </div>
+
+
+                              }
                               </Fragment>
                             );
                           })}
@@ -546,12 +591,31 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                         apiData.category.active_children.map((subCategory) => {
                           return (
                             <Fragment key={subCategory.id}>
-                              <SubCategoryDynamic
-                                slug={subCategory.slug}
-                                image={subCategory && subCategory}
-                                name={subCategory.identity_name}
-                                alt={subCategory.image_alt}
-                              />
+                              {client ?
+                                <SubCategory
+                                  slug={subCategory.slug}
+                                  image={subCategory && subCategory}
+                                  name={subCategory.identity_name}
+                                  alt={subCategory.image_alt}
+                                />
+
+                                :
+
+                                <div className={styles.categorySkeleton}>
+                                  <Skeleton
+                                    variant="rectangular"
+                                    animation="wave"
+                                    sx={{
+                                      width: "100%",
+                                      height: "100%",
+                                      borderRadius: "8px",
+                                    }}
+                                  />
+                                </div>
+
+
+                              }
+                             
                             </Fragment>
                           );
                         })}
@@ -613,13 +677,30 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                       apiData.category.active_children.map((subCategory) => {
                         return (
                           <Fragment key={subCategory.id}>
-                            <SubCategoryDynamic
+                            {client ?
+                            
+                            <SubCategory
                               border={false}
                               slug={subCategory.slug}
                               image={subCategory && subCategory}
                               name={subCategory.identity_name}
                               alt={subCategory.image_alt}
+                            /> 
+                            : 
+                            <div className={styles.categorySkeleton}>
+                            <Skeleton
+                              variant="rectangular"
+                              animation="wave"
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                borderRadius: "8px",
+                              }}
                             />
+                          </div>
+
+                          
+                          }
                           </Fragment>
                         );
                       })}
@@ -630,7 +711,7 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
                       apiData.category.active_children.map((subCategory) => {
                         return (
                           <Fragment key={subCategory.id}>
-                            <SubCategoryDynamic
+                            <SubCategory
                               border={false}
                               slug={subCategory.slug}
                               image={subCategory && subCategory}
@@ -655,167 +736,14 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
           {/* Special Box */}
 
           {/* Cards */}
-          <section id="products">
-            {/* filters */}
-            <div
-              className={`filters flex sm:flex-row flex-row-reverse sm:justify-start justify-between mb-5`}
-            >
-              {
-                !mobile
-                  ?
-                  <Filter
-                    type="product"
-                    id={apiData.category.id}
-                    // urlValue={urlValue.length > 0 && urlValue}
-                    scrollTo={scrollTo}
-                  />
-                  :
-                  // <Filters
-
-                  //   type="product"
-                  //   id={apiData.category.id}
-                  //   // urlValue={urlValue.length > 0 && urlValue}
-                  //   scrollTo={scrollTo}
-                  // />
-                  <></>
-              }
-              {
-
-                (!Array.isArray(apiData.products) &&
-                  apiData.products.data.length > 0) ?
-                  apiData.category.type == 0 ? (
-                    <ToggleButtonGroup
-                      orientation="horizontal"
-                      value={view}
-                      exclusive
-                      onChange={handleChange}
-
-                    >
-                      <ToggleButtonIconDynamic
-                        size="small"
-                        value="module"
-                        aria-label="module"
-                      >
-                        <ViewModuleIconDynamic />
-                      </ToggleButtonIconDynamic>
-                      <ToggleButtonIconDynamic
-                        size="small"
-                        value="list"
-                        aria-label="list"
-                      >
-                        <ViewListIconDynamic />
-                      </ToggleButtonIconDynamic>
-                    </ToggleButtonGroup>
-                  ) : null
-                  : null
 
 
-              }
-              {tablet && (
-                <>
-                  {/* <div className="flex items-center gap-2 border rounded-lg px-2" onClick={() => setFilters(true)}>
-                                        <IconButton>
-                                            <TuneIcon />
-                                        </IconButton>
-                                        <div className="text-sm">فیلترها</div>
-                                    </div> */}
-                  <Filters
-                    openMenu={filters}
-                    onClose={() => setFilters(false)}
-                    data={apiData.category.filters}
-                    id={apiData.category.id}
-                    // sendData={data}
-                    // urlValue={urlValue}
-                    scrollTo={scrollTo}
-                    currentSlug={currentSlug}
-                  />
-                </>
-              )}
-            </div>
-            {/* filters */}
-            <div
-              className={`card-container grid ${mobile ? "gap-0" : list ? "gap-4": "gap-0"} ${apiData.category.type == 1
-                ? "grid-cols-1"
-                : view === "module"
-                  ? "xl:grid-cols-4 sm:grid-cols-3 grid-cols-2"
-                  : "grid-cols-1"
-                } w-full h-fit mb-16`}
-            >
-              {apiData.category.parent_id == null ? (
-                apiData.products ? (
-                  !Array.isArray(apiData.products) &&
-                    apiData.products.data.length >= 1 ? (
-                    apiData.products.data.map((product) => {
-
-
-                      return product && (
-                        <Fragment key={product.id}>
-                          <Card data={product} list={list} />
-
-                          {product.structure_status == 1 && (
-                            <script
-                              type="application/ld+json"
-                              dangerouslySetInnerHTML={{
-                                __html: JSON.stringify(
-                                  product.data_structure
-                                ),
-                              }}
-                            />
-                          )}
-                        </Fragment>
-                      );
-                    })
-
-                  ) : (
-                    <p className="w-full p-4 text-center font-bold col-span-4">محصولی برای نمایش موجود نیست</p>
-                  )
-                ) : (
-                  <p className="w-full p-4 text-center font-bold col-span-4">محصولی برای نمایش موجود نیست</p>
-                )
-              ) : apiData.products && !Array.isArray(apiData.products) ? (
-                apiData.products.data.length >= 1 &&
-                apiData.products.data.map((product) => {
-                  return product && (
-                    <Fragment key={product.id}>
-                      {apiData.category.type == 1 ? (
-                        <Card data={product} priceList={true} />
-                      ) : (
-                        <Card data={product} list={list} />
-                      )}
-                      {product.structure_status == 1 && (
-                        <script
-                          type="application/ld+json"
-                          dangerouslySetInnerHTML={{
-                            __html: JSON.stringify(product.data_structure),
-                          }}
-                        />
-                      )}
-                    </Fragment>
-                  );
-                })
-              ) : (
-                <p>محصولی برای نمایش موجود نیست</p>
-              )}
-            </div>
-            {
-              apiData.products && !Array.isArray(apiData.products) && apiData.products.last_page != 1 ? (
-                apiData.category.scroll_mode == 0 ? (
-                  <Pagination
-                    pagel={scrollTo}
-                    currentPage={pages}
-                    pages={apiData.products.last_page}
-                    links={apiData.products.links}
-                    slug={apiData.category.slug}
-                  />
-                ) : apiData.category.scroll_mode == 1 ? (
-                  <ButtonCustom justifyContent="center" text="مشاهده بیشتر" />
-                ) : apiData.category.scroll_mode == 2 ? (
-                  <h5>load more</h5>
-                ) : null
-
-              ) : null
-            }
-          </section>
+          <CardContainer
+            apiData={apiData}
+            pages={pages}
+            scrollTo={scrollTo}
+            currentSlug={currentSlug}
+          />
           {/* Cards */}
 
           {/* Descriptions */}
@@ -842,9 +770,12 @@ const Category = ({ apiData = null, pages, scrollTo, currentSlug }) => {
         </section>
         {/* Body of Category */}
       </section>
-      <FormProvider>
-        <Form id={apiData.category.id}/>
-      </FormProvider>
+      {apiData.category.id == 20
+        &&
+        <FormProvider>
+          <Form id={apiData.category.id} />
+        </FormProvider>
+      }
     </>
   );
 };

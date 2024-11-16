@@ -36,6 +36,7 @@ const Page = () => {
   const {setToken , setPhone} = useContext(LoginContext)
   const inputRef = useRef();
   const [user , setUser] = useState(null)
+  
   useEffect(()=>{
     const getUser = async () => {
       try {
@@ -47,7 +48,9 @@ const Page = () => {
     };
     getUser();
   },[router])
+  
   const { setOpenAlarm, setModes, setMessage, setDuration } = useContext(SnakebarContext);
+
   const ColorButtonOrder = styled(Button)(({ theme }) => ({
     color: "#fff",
     padding: ".5rem 0",
@@ -60,6 +63,7 @@ const Page = () => {
       backgroundColor: "var(--theme-color)",
     },
   }));
+  
   const validateHandler = (e) => {
     if (phoneNumber.split("")[0] != "0" || phoneNumber.split("")[1] != "9") {
       setOpenAlarm(true);

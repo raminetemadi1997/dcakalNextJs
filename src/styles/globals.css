@@ -12,6 +12,17 @@
   --border-color: #e5e7eb;
 }
 
+body {
+  color: rgb(var(--foreground-rgb));
+  background: #fff;
+  font-family: 'dana' , sans-serif;
+}
+
+.MuiTypography-root {
+  font-family: 'dana';
+}
+
+
 @media (prefers-color-scheme: dark) {
   /* :root {
     --foreground-rgb: 255, 255, 255;
@@ -21,9 +32,9 @@
 }
 @font-face {
   font-family: "dana VF";
-  src: url("../../public/fonts/variable/DanaVF.woff2") format("woff-variations"),
+  src: url("/fonts/variable/DanaVF.woff2") format("woff-variations"),
     /* will be the standard and works in Safari now */
-      url("../../public/fonts/variable/DanaVF.woff") format("woff");
+      url("/fonts/variable/DanaVF.woff") format("woff");
   /* for the other supporting browsers */
   font-display: swap;
 }
@@ -55,15 +66,15 @@
 
 @font-face {
   font-family: 'dana';
-  src: url("../../public/fonts/woff2/Dana-Regular.woff2") format("woff2"),
-  url("../../public/fonts/woff/Dana-Regular.woff") format("woff");
+  src: url("/fonts/woff2/Dana-Regular.woff2") format("woff2"),
+  url("/fonts/woff/Dana-Regular.woff") format("woff");
   font-weight: 400;
   font-display: fallback;
 }
 @font-face {
   font-family: 'dana';
-  src: url("../../public/fonts/woff2/Dana-Medium.woff2") format("woff2"),
-  url("../../public/fonts/woff/Dana-Medium.woff") format("woff");
+  src: url("/fonts/woff2/Dana-Medium.woff2") format("woff2"),
+  url("/fonts/woff/Dana-Medium.woff") format("woff");
   font-weight: 500;
   font-display: fallback;
 }
@@ -83,15 +94,6 @@
   font-display: fallback;
 } */
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: #fff;
-  font-family: 'dana';
-}
-
-.MuiTypography-root {
-  font-family: 'dana';
-}
 
 @supports (font-variation-settings: normal) {
   * {

@@ -63,3 +63,33 @@
 .items::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.categorySkeleton {
+  height: 184px;
+}
+.bannerSkeleton {
+  height: 552px;
+}
+
+@media (max-width: 375px) {
+  .bannerSkeleton {
+    height: 266px;
+  }
+  .categorySkeleton {
+    height: 152px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 600px) {
+  .bannerSkeleton {
+    height: 266px;
+  }
+  .categorySkeleton {
+    height: 152px;
+  }
+}
+@media (min-width: 600px) and (max-width: 768px) {
+}
+@media (min-width: 768px) and (max-width: 992px) {
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+}

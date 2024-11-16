@@ -1,0 +1,54 @@
+.pHover {
+  width: 100%;
+}
+.pHover::after {
+  content: "";
+  width: 40%;
+  height: 2px;
+  background: #ff7900;
+  display: block;
+  /* position: absolute; */
+  margin: 0 auto;
+  margin-top: 5px;
+  transition: 0.4s;
+}
+.pType2 {
+  width: 100%;
+}
+.pType2::after {
+  content: "";
+  width: 10%;
+  height: 2px;
+  background: #ff7900;
+  display: block;
+  margin-top: 5px;
+  transition: 0.4s;
+}
+.list:hover > a > div > p::after {
+  width: 50%;
+}
+.skeleton {
+  height: 240px;
+}
+
+@media (max-width: 375px) {
+    .skeleton {
+        height: 192px;
+      }
+}
+
+@media (min-width: 375px) and (max-width: 600px) {
+    .skeleton {
+        height: 192px;
+      }
+  
+}
+@media (min-width: 600px) and (max-width: 768px) {
+  
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  
+}

@@ -513,7 +513,7 @@ const Form = ({ id }) => {
               </div>
 
               <Image
-                className="col-start-3"
+                className="sm:block hidden col-start-3"
                 alt="محاسبه قیمت"
                 width={300}
                 height={225}
@@ -536,13 +536,7 @@ const Form = ({ id }) => {
 
             {/* footer */}
             <div className="flex items-center justify-center gap-4">
-              <ButtonCustom
-                text="مرحله قبلی"
-                title="مرحله قبلی"
-                color="#009688"
-                onClick={pageHandlerIncrease}
-              />
-              <ButtonCustom
+            <ButtonCustom
                 text="مرحله بعدی"
                 title="مرحله بعدی"
                 color={
@@ -563,6 +557,13 @@ const Form = ({ id }) => {
                     : true
                 }
               />
+              <ButtonCustom
+                text="مرحله قبلی"
+                title="مرحله قبلی"
+                color="#009688"
+                onClick={pageHandlerIncrease}
+              />
+              
             </div>
             {/* footer */}
           </section>
@@ -620,7 +621,7 @@ const Form = ({ id }) => {
               </FormControl>
 
               <Image
-                className="col-start-3"
+                className="col-start-3 sm:block hidden"
                 alt="محاسبه قیمت"
                 width={300}
                 height={225}
@@ -637,18 +638,19 @@ const Form = ({ id }) => {
 
             {/* footer */}
             <div className="flex items-center justify-center gap-4">
+            <ButtonCustom
+                text="مرحله بعدی"
+                title="مرحله بعدی"
+                color="#009688"
+                onClick={pageHandler}
+              />
               <ButtonCustom
                 text="مرحله قبلی"
                 title="مرحله قبلی"
                 color="#009688"
                 onClick={pageHandlerIncrease}
               />
-              <ButtonCustom
-                text="مرحله بعدی"
-                title="مرحله بعدی"
-                color="#009688"
-                onClick={pageHandler}
-              />
+              
             </div>
             {/* footer */}
           </section>
@@ -782,18 +784,19 @@ const Form = ({ id }) => {
 
             {/* footer */}
             <div className="flex items-center justify-center gap-4">
+            <ButtonCustom
+                text="مرحله بعدی"
+                title="مرحله بعدی"
+                color="#009688"
+                onClick={pageHandler}
+              />
               <ButtonCustom
                 text="مرحله قبلی"
                 title="مرحله قبلی"
                 color="#009688"
                 onClick={pageHandlerIncrease}
               />
-              <ButtonCustom
-                text="مرحله بعدی"
-                title="مرحله بعدی"
-                color="#009688"
-                onClick={pageHandler}
-              />
+              
             </div>
             {/* footer */}
           </section>
@@ -863,7 +866,7 @@ const Form = ({ id }) => {
                   </>
                 )}
               </div>
-              <div className="flex justify-end col-start-3">
+              <div className="sm:flex hidden justify-end col-start-3">
                 <Image
                   alt="جستجو"
                   title="جستجو"
@@ -877,18 +880,19 @@ const Form = ({ id }) => {
 
             {/* footer */}
             <div className="flex items-center justify-center gap-4">
+            <ButtonCustom
+                text="مرحله بعدی"
+                title="مرحله بعدی"
+                color="#009688"
+                onClick={pageHandler}
+              />
               <ButtonCustom
                 text="مرحله قبلی"
                 title="مرحله قبلی"
                 color="#009688"
                 onClick={pageHandlerIncrease}
               />
-              <ButtonCustom
-                text="مرحله بعدی"
-                title="مرحله بعدی"
-                color="#009688"
-                onClick={pageHandler}
-              />
+             
             </div>
             {/* footer */}
           </section>
@@ -944,7 +948,7 @@ const Form = ({ id }) => {
               </div>
 
               <Image
-                className="col-start-3"
+                className="col-start-3 sm:block hidden"
                 alt="محاسبه قیمت"
                 width={200}
                 // height={270}
@@ -955,18 +959,19 @@ const Form = ({ id }) => {
 
             {/* footer */}
             <div className="flex items-center justify-center gap-4">
+            <ButtonCustom
+                text="مرحله بعدی"
+                title="مرحله بعدی"
+                color="#009688"
+                onClick={pageHandler}
+              />
               <ButtonCustom
                 text="مرحله قبلی"
                 title="مرحله قبلی"
                 color="#009688"
                 onClick={pageHandlerIncrease}
               />
-              <ButtonCustom
-                text="مرحله بعدی"
-                title="مرحله بعدی"
-                color="#009688"
-                onClick={pageHandler}
-              />
+              
             </div>
             {/* footer */}
           </section>
@@ -1018,7 +1023,7 @@ const Form = ({ id }) => {
               </div>
 
               <Image
-                className="col-start-3"
+                className="col-start-3 sm:block hidden"
                 alt="محاسبه قیمت"
                 width={200}
                 // height={270}
@@ -1029,18 +1034,19 @@ const Form = ({ id }) => {
 
             {/* footer */}
             <div className="flex items-center justify-center gap-4">
+            <ButtonCustom
+                text="مرحله بعدی"
+                title="مرحله بعدی"
+                color="#009688"
+                onClick={pageHandler}
+              />
               <ButtonCustom
                 text="مرحله قبلی"
                 title="مرحله قبلی"
                 color="#009688"
                 onClick={pageHandlerIncrease}
               />
-              <ButtonCustom
-                text="مرحله بعدی"
-                title="مرحله بعدی"
-                color="#009688"
-                onClick={pageHandler}
-              />
+              
             </div>
             {/* footer */}
           </section>
@@ -1087,7 +1093,7 @@ const Form = ({ id }) => {
               </div>
 
               <Image
-                className="col-start-3"
+                className="col-start-3 sm:block hidden"
                 alt="محاسبه قیمت"
                 width={120}
                 // height={270}
@@ -1163,7 +1169,7 @@ const Form = ({ id }) => {
           <section
             className={`${styles.item_container} flex flex-col justify-between`}
           >
-            <div className="text-red-600 font-bold text-lg text-center">
+            <div className="text-red-600 font-bold sm:text-lg text-sm text-center">
               به علت غیر استاندارد بودن ابعاد با این شماره تماس حاصل فرمایید
             </div>
 
@@ -1193,8 +1199,8 @@ const Form = ({ id }) => {
           <section
             className={`${styles.item_container} flex flex-col justify-between`}
           >
-            <div className="grid grid-cols-2 p-2">
-              <div className="col-span-1 grid grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 grid-cols-1 p-2">
+              <div className="col-span-1 grid sm:grid-cols-2 grid-cols-1 gap-6">
                 <TextFieldCustom
                   size="small"
                   fullWidth

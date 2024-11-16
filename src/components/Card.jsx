@@ -7,13 +7,13 @@ import { usePathname } from "next/navigation";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import styled from "@emotion/styled";
-import { useMediaQuery } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 import { SnakebarContext } from "@/context/snakebar";
 import TimerCustom from "@/components/constantElements/TimerCustom";
 import PhoneIcon from "@mui/icons-material/Phone";
 import CancelIcon from "@mui/icons-material/Cancel";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+// import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import InventoryIcon from "@mui/icons-material/Inventory";
 //mui
 import IconButton from "@mui/material/IconButton";
@@ -22,6 +22,14 @@ import { SettingApi } from "@/context/api/Setting";
 
 const DeleteIcon = dynamic(() => import("@mui/icons-material/Delete"), {
   ssr: false,
+});
+const LocalOfferIcon = dynamic(() => import("@mui/icons-material/LocalOffer"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-6 h-6 mr-1">
+      <Skeleton width={24} height={24} animation="pulse" variant="circular" />
+    </div>
+  ),
 });
 
 //component
@@ -59,9 +67,12 @@ const Card = ({
   reset,
   shipperVisible = true,
   colorVisible = true,
+  attributeValue = true,
   timerVisible = true,
   width = null,
   height = null,
+  styleList,
+  styleListMobile,
   ...props
 }) => {
   const { dataUser } = useContext(SettingApi);
@@ -1153,260 +1164,261 @@ const Card = ({
                   </div>
                   {/* card head */}
                   {mobile ? (
-                    <section className="grid grid-cols-2 gap-4">
-                      {/* card image */}
-                      {data.image ? (
-                        <div
-                          className="mb-4 relative overflow-hidden"
-                          onMouseEnter={() => setShowVideo(true)}
-                          onMouseLeave={() => setShowVideo(false)}
-                        >
-                          {showVideo && (
-                            <>
-                              {data.video ? (
-                                <div className="w-full h-full absolute top-0 bg-black">
-                                  <video
-                                    width="1900"
-                                    height="500"
-                                    controls={false}
-                                    className="w-full h-full"
-                                    autoPlay
-                                    muted
-                                  >
-                                    <source src={data.video} type="video/mp4" />
-                                  </video>
-                                </div>
-                              ) : null}
-                            </>
-                          )}
-                          <ImageCustom
-                            data={data.image}
-                            alt={data.image_alt}
-                            title={data.image_alt}
-                            // props
-                            loading={"lazy"}
-                            width={152}
-                            height={152}
-                          />
-                        </div>
-                      ) : (
-                        <Image src={noImage} alt="عکس پیشفرض" />
-                      )}
-                      {/* card image */}
-                      <section className="flex flex-col gap-4 sm:items-center items-end justify-between">
-                        {/* card name */}
-                        <div className=" text-start ">
-                          <div
-                            className={`sm:text-sm text-xs min-h-[40px] leading-5 my-4 ${styles.truncate}`}
-                          >
-                            {altName ? data.alt_name : data.name}
-                          </div>
-                          {/* card feature */}
-                        {data.attributes && data.attributes.length > 0 && (
-                          <div className="h-[45px] mb-4 grid grid-cols-4 gap-1 place-items-center">
-                            {data.attributes.map((attribute) => (
-                              <div key={attribute.id} className="flex items-center flex-col gap-1 justify-center">
-                                <ImageCustom
-                                  data={JSON.parse(attribute.icon)}
-                                  alt={attribute.icon_alt}
-                                  title={attribute.icon_alt}
-                                  // props
-                                  size={"original"}
-                                  width={23}
-                                  height={23}
-                                  fullWidth={false}
-                                />
-                                <div className="text-xs text-center text-[#8a8a8a] font-medium">
-                                  {attribute.attribute_value}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        {/* card feature */}
+                    // <section className="grid grid-cols-2 gap-4">
+                    //   {/* card image */}
+                    //   {data.image ? (
+                    //     <div
+                    //       className="mb-4 relative overflow-hidden"
+                    //       onMouseEnter={() => setShowVideo(true)}
+                    //       onMouseLeave={() => setShowVideo(false)}
+                    //     >
+                    //       {showVideo && (
+                    //         <>
+                    //           {data.video ? (
+                    //             <div className="w-full h-full absolute top-0 bg-black">
+                    //               <video
+                    //                 width="1900"
+                    //                 height="500"
+                    //                 controls={false}
+                    //                 className="w-full h-full"
+                    //                 autoPlay
+                    //                 muted
+                    //               >
+                    //                 <source src={data.video} type="video/mp4" />
+                    //               </video>
+                    //             </div>
+                    //           ) : null}
+                    //         </>
+                    //       )}
+                    //       <ImageCustom
+                    //         data={data.image}
+                    //         alt={data.image_alt}
+                    //         title={data.image_alt}
+                    //         // props
+                    //         loading={"lazy"}
+                    //         width={152}
+                    //         height={152}
+                    //       />
+                    //     </div>
+                    //   ) : (
+                    //     <Image src={noImage} alt="عکس پیشفرض" />
+                    //   )}
+                    //   {/* card image */}
+                    //   <section className="flex flex-col gap-4 sm:items-center items-end justify-between">
+                    //     {/* card name */}
+                    //     <div className=" text-start ">
+                    //       <div
+                    //         className={`sm:text-sm text-xs min-h-[40px] leading-5 my-4 ${styles.truncate}`}
+                    //       >
+                    //         {altName ? data.alt_name : data.name}
+                    //       </div>
+                    //       {/* card feature */}
+                    //     {data.attributes && data.attributes.length > 0 && (
+                    //       <div className="h-[45px] mb-4 grid grid-cols-4 gap-1 place-items-center">
+                    //         {data.attributes.map((attribute) => (
+                    //           <div key={attribute.id} className="flex items-center flex-col gap-1 justify-center">
+                    //             <ImageCustom
+                    //               data={JSON.parse(attribute.icon)}
+                    //               alt={attribute.icon_alt}
+                    //               title={attribute.icon_alt}
+                    //               // props
+                    //               size={"original"}
+                    //               width={23}
+                    //               height={23}
+                    //               fullWidth={false}
+                    //             />
+                    //             <div className="text-xs text-center text-[#8a8a8a] font-medium">
+                    //               {attribute.attribute_value}
+                    //             </div>
+                    //           </div>
+                    //         ))}
+                    //       </div>
+                    //     )}
+                    //     {/* card feature */}
 
-                          {/* shipper */}
-                          {data.shipper && (
-                            <div className="flex justify-start h-7">
-                              <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
-                                <RocketLaunchIcon
-                                  fontSize="small"
-                                  sx={{ mr: 0.5, color: "#fff" }}
-                                />
-                                <div className="text-sm text-white">
-                                  ارسال سریع
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                          {/* shipper */}
+                    //       {/* shipper */}
+                    //       {data.shipper && (
+                    //         <div className="flex justify-start h-7">
+                    //           <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
+                    //             <RocketLaunchIcon
+                    //               fontSize="small"
+                    //               sx={{ mr: 0.5, color: "#fff" }}
+                    //             />
+                    //             <div className="text-sm text-white">
+                    //               ارسال سریع
+                    //             </div>
+                    //           </div>
+                    //         </div>
+                    //       )}
+                    //       {/* shipper */}
 
-                        </div>
-                        {/* card name */}
+                    //     </div>
+                    //     {/* card name */}
 
-                        {/* card footer */}
-                        {data.type != 1 ? (
-                          <>
-                            {data.marketable == 0 ? (
-                              <>
-                                {data.discount &&
-                                !Array.isArray(data.discount) &&
-                                date < new Date(data.discount.end_date) ? (
-                                  <div className="col-span-2">
-                                    <div className="flex items-center justify-end sm:gap-4 gap-2">
-                                      {data.discount.type == 0 ? (
-                                        <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
-                                      ) : (
-                                        <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
-                                          Math.round(
-                                            (data.discount.percentage /
-                                              data.price) *
-                                              100
-                                          )
-                                        )} %`}</div>
-                                      )}
-                                      <div className="flex justify-end">
-                                        <span className="text-[#DE1616] sm:text-base text-sm">
-                                          {data.discount.type == 0 ? (
-                                            <span className="font-semibold tracking-widest">{`${Number(
-                                              data.discount.final_price
-                                            ).toLocaleString()}`}</span>
-                                          ) : (
-                                            <span className="font-bold tracking-widest">{`${Number(
-                                              data.discount.final_price
-                                            ).toLocaleString()}`}</span>
-                                          )}
-                                          <span className="text-xs mr-1">
-                                            تومان
-                                          </span>
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <div className="flex justify-end sm:text-sm text-xs text-[#C4C3C3] line-through">
-                                      <span>
-                                        <span className="font-bold tracking-widest">{`${Number(
-                                          data.price
-                                        ).toLocaleString()}`}</span>
-                                        <span className="text-xs mr-1">
-                                          تومان
-                                        </span>
-                                      </span>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <div className="col-span-2 flex justify-end h-12 items-center">
-                                    <span>
-                                      <span className="font-bold tracking-widest">{`${Number(
-                                        data.price
-                                      ).toLocaleString()}`}</span>
-                                      <span className="text-xs mr-1">
-                                        تومان
-                                      </span>
-                                    </span>
-                                  </div>
-                                )}
-                              </>
-                            ) : data.marketable == 1 ? (
-                              <div className=" col-span-2 flex justify-end items-center h-12 gap-4">
-                                <div className="text-[#009688] font-bold">
-                                  تماس بگیرید
-                                </div>
-                                <PhoneIcon
-                                  fontSize="medium"
-                                  sx={{ color: "#009688" }}
-                                />
-                              </div>
-                            ) : data.marketable == 2 ? (
-                              <div className="col-span-2 flex justify-end items-center h-12 gap-4">
-                                <div className="text-[#555555] font-bold">
-                                  ناموجود
-                                </div>
-                                <NotificationsIcon
-                                  fontSize="medium"
-                                  sx={{ color: "#555555" }}
-                                />
-                              </div>
-                            ) : data.marketable == 3 ? (
-                              <div className="col-span-2 flex justify-end items-center h-12 gap-4">
-                                <div className="text-[#555555] font-bold">
-                                  توقف تولید
-                                </div>
-                                <CancelIcon
-                                  fontSize="medium"
-                                  sx={{ color: "#555555" }}
-                                />
-                              </div>
-                            ) : null}
-                          </>
-                        ) : data.price ? (
-                          <>
-                            {data.discount &&
-                            !Array.isArray(data.discount) &&
-                            date < new Date(data.discount.end_date) ? (
-                              <div className="h-12">
-                                <div className="flex items-center justify-between">
-                                  {data.discount.type == 0 ? (
-                                    <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
-                                  ) : (
-                                    <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
-                                      Math.round(
-                                        (data.discount.percentage /
-                                          data.price) *
-                                          100
-                                      )
-                                    )} %`}</div>
-                                  )}
-                                  <div className="flex justify-end">
-                                    <span className="text-[#DE1616] sm:text-base text-sm">
-                                      {data.discount.type == 0 ? (
-                                        <span className="font-semibold tracking-widest">{`${Number(
-                                          data.discount.final_price
-                                        ).toLocaleString()}`}</span>
-                                      ) : (
-                                        <span className="font-bold tracking-widest">{`${Number(
-                                          data.discount.final_price
-                                        ).toLocaleString()}`}</span>
-                                      )}
-                                      <span className="text-xs mr-1">
-                                        تومان
-                                      </span>
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="flex justify-end text-sm text-[#C4C3C3] line-through">
-                                  <span>
-                                    <span className="font-bold tracking-widest">{`${Number(
-                                      data.price
-                                    ).toLocaleString()}`}</span>
-                                    <span className="text-xs mr-1">تومان</span>
-                                  </span>
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="flex justify-end h-12 items-center">
-                                <span>
-                                  <span className="font-bold tracking-widest">{`${Number(
-                                    data.price
-                                  ).toLocaleString()}`}</span>
-                                  <span className="text-xs mr-1">تومان</span>
-                                </span>
-                              </div>
-                            )}
-                          </>
-                        ) : (
-                          <div className="flex justify-between items-center h-12">
-                            <div className="text-[#DE1616] lg:text-base text-sm font-bold">
-                              مشاهده همه پکیج ها
-                            </div>
-                            <InventoryIcon
-                              fontSize="medium"
-                              sx={{ color: "#DE1616" }}
-                            />
-                          </div>
-                        )}
-                        {/* card footer */}
-                      </section>
-                    </section>
+                    //     {/* card footer */}
+                    //     {data.type != 1 ? (
+                    //       <>
+                    //         {data.marketable == 0 ? (
+                    //           <>
+                    //             {data.discount &&
+                    //             !Array.isArray(data.discount) &&
+                    //             date < new Date(data.discount.end_date) ? (
+                    //               <div className="col-span-2">
+                    //                 <div className="flex items-center justify-end sm:gap-4 gap-2">
+                    //                   {data.discount.type == 0 ? (
+                    //                     <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
+                    //                   ) : (
+                    //                     <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
+                    //                       Math.round(
+                    //                         (data.discount.percentage /
+                    //                           data.price) *
+                    //                           100
+                    //                       )
+                    //                     )} %`}</div>
+                    //                   )}
+                    //                   <div className="flex justify-end">
+                    //                     <span className="text-[#DE1616] sm:text-base text-sm">
+                    //                       {data.discount.type == 0 ? (
+                    //                         <span className="font-semibold tracking-widest">{`${Number(
+                    //                           data.discount.final_price
+                    //                         ).toLocaleString()}`}</span>
+                    //                       ) : (
+                    //                         <span className="font-bold tracking-widest">{`${Number(
+                    //                           data.discount.final_price
+                    //                         ).toLocaleString()}`}</span>
+                    //                       )}
+                    //                       <span className="text-xs mr-1">
+                    //                         تومان
+                    //                       </span>
+                    //                     </span>
+                    //                   </div>
+                    //                 </div>
+                    //                 <div className="flex justify-end sm:text-sm text-xs text-[#C4C3C3] line-through">
+                    //                   <span>
+                    //                     <span className="font-bold tracking-widest">{`${Number(
+                    //                       data.price
+                    //                     ).toLocaleString()}`}</span>
+                    //                     <span className="text-xs mr-1">
+                    //                       تومان
+                    //                     </span>
+                    //                   </span>
+                    //                 </div>
+                    //               </div>
+                    //             ) : (
+                    //               <div className="col-span-2 flex justify-end h-12 items-center">
+                    //                 <span>
+                    //                   <span className="font-bold tracking-widest">{`${Number(
+                    //                     data.price
+                    //                   ).toLocaleString()}`}</span>
+                    //                   <span className="text-xs mr-1">
+                    //                     تومان
+                    //                   </span>
+                    //                 </span>
+                    //               </div>
+                    //             )}
+                    //           </>
+                    //         ) : data.marketable == 1 ? (
+                    //           <div className=" col-span-2 flex justify-end items-center h-12 gap-4">
+                    //             <div className="text-[#009688] font-bold">
+                    //               تماس بگیرید
+                    //             </div>
+                    //             <PhoneIcon
+                    //               fontSize="medium"
+                    //               sx={{ color: "#009688" }}
+                    //             />
+                    //           </div>
+                    //         ) : data.marketable == 2 ? (
+                    //           <div className="col-span-2 flex justify-end items-center h-12 gap-4">
+                    //             <div className="text-[#555555] font-bold">
+                    //               ناموجود
+                    //             </div>
+                    //             <NotificationsIcon
+                    //               fontSize="medium"
+                    //               sx={{ color: "#555555" }}
+                    //             />
+                    //           </div>
+                    //         ) : data.marketable == 3 ? (
+                    //           <div className="col-span-2 flex justify-end items-center h-12 gap-4">
+                    //             <div className="text-[#555555] font-bold">
+                    //               توقف تولید
+                    //             </div>
+                    //             <CancelIcon
+                    //               fontSize="medium"
+                    //               sx={{ color: "#555555" }}
+                    //             />
+                    //           </div>
+                    //         ) : null}
+                    //       </>
+                    //     ) : data.price ? (
+                    //       <>
+                    //         {data.discount &&
+                    //         !Array.isArray(data.discount) &&
+                    //         date < new Date(data.discount.end_date) ? (
+                    //           <div className="h-12">
+                    //             <div className="flex items-center justify-between">
+                    //               {data.discount.type == 0 ? (
+                    //                 <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
+                    //               ) : (
+                    //                 <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
+                    //                   Math.round(
+                    //                     (data.discount.percentage /
+                    //                       data.price) *
+                    //                       100
+                    //                   )
+                    //                 )} %`}</div>
+                    //               )}
+                    //               <div className="flex justify-end">
+                    //                 <span className="text-[#DE1616] sm:text-base text-sm">
+                    //                   {data.discount.type == 0 ? (
+                    //                     <span className="font-semibold tracking-widest">{`${Number(
+                    //                       data.discount.final_price
+                    //                     ).toLocaleString()}`}</span>
+                    //                   ) : (
+                    //                     <span className="font-bold tracking-widest">{`${Number(
+                    //                       data.discount.final_price
+                    //                     ).toLocaleString()}`}</span>
+                    //                   )}
+                    //                   <span className="text-xs mr-1">
+                    //                     تومان
+                    //                   </span>
+                    //                 </span>
+                    //               </div>
+                    //             </div>
+                    //             <div className="flex justify-end text-sm text-[#C4C3C3] line-through">
+                    //               <span>
+                    //                 <span className="font-bold tracking-widest">{`${Number(
+                    //                   data.price
+                    //                 ).toLocaleString()}`}</span>
+                    //                 <span className="text-xs mr-1">تومان</span>
+                    //               </span>
+                    //             </div>
+                    //           </div>
+                    //         ) : (
+                    //           <div className="flex justify-end h-12 items-center">
+                    //             <span>
+                    //               <span className="font-bold tracking-widest">{`${Number(
+                    //                 data.price
+                    //               ).toLocaleString()}`}</span>
+                    //               <span className="text-xs mr-1">تومان</span>
+                    //             </span>
+                    //           </div>
+                    //         )}
+                    //       </>
+                    //     ) : (
+                    //       <div className="flex justify-between items-center h-12">
+                    //         <div className="text-[#DE1616] lg:text-base text-sm font-bold">
+                    //           مشاهده همه پکیج ها
+                    //         </div>
+                    //         <InventoryIcon
+                    //           fontSize="medium"
+                    //           sx={{ color: "#DE1616" }}
+                    //         />
+                    //       </div>
+                    //     )}
+                    //     {/* card footer */}
+                    //   </section>
+                    // </section>
+                    <></>
                   ) : (
                     <section className="grid grid-cols-7 gap-4 items-center">
                       {/* card image */}
@@ -1464,7 +1476,10 @@ const Card = ({
                         {data.attributes && data.attributes.length > 0 && (
                           <div className="h-[45px] mb-4 grid grid-cols-8 gap-1 place-items-center">
                             {data.attributes.map((attribute) => (
-                              <div key={attribute.id} className="flex items-center flex-col gap-1 justify-center">
+                              <div
+                                key={attribute.id}
+                                className="flex items-center flex-col gap-1 justify-center"
+                              >
                                 <ImageCustom
                                   data={JSON.parse(attribute.icon)}
                                   alt={attribute.icon_alt}
@@ -1475,7 +1490,7 @@ const Card = ({
                                   height={19}
                                   fullWidth={false}
                                 />
-                                <div className="text-xs text-center text-[#8a8a8a] font-medium">
+                                <div className="text-[10px] text-center text-[#8a8a8a] font-medium">
                                   {attribute.attribute_value}
                                 </div>
                               </div>
@@ -1665,17 +1680,12 @@ const Card = ({
             )}
           </>
         ) : (
-          <div className={`${mobile ? "p-0" : "p-2"}`}>
+          <div>
             <Link
               {...props}
-              //target="_blank"
               href={`/${data.slug}`}
               title={data.name}
-              className={` block ${
-                mobile
-                  ? "rounded-none border-b odd:border-l even:border-r"
-                  : "rounded-lg border"
-              }  overflow-hidden sm:p-4 p-2 bg-white hover:shadow-md`}
+              className={` block sm:rounded-lg sm:border border-b overflow-hidden sm:p-4 p-2 bg-white sm:hover:shadow-md`}
             >
               {/* card head */}
               {timerVisible && (
@@ -1714,111 +1724,258 @@ const Card = ({
               )}
               {/* card head */}
 
-              {/* card image */}
-              {data.image ? (
+              <div
+                className={
+                  type == "products"
+                    ? styleListMobile == "module"
+                      ? ""
+                      : styleList == "module"
+                      ? styles.main_card
+                      : `${styles.list_card}`
+                    : ""
+                }
+              >
+                <div className="body">
+                  {/* card image */}
+                  {data.image ? (
+                    <div
+                      className="mb-4 relative overflow-hidden"
+                      onMouseEnter={() => setShowVideo(true)}
+                      onMouseLeave={() => setShowVideo(false)}
+                    >
+                      {showVideo && (
+                        <>
+                          {data.video ? (
+                            <div className="w-full h-full absolute top-0 bg-black">
+                              <video
+                                width="1900"
+                                height="500"
+                                controls={false}
+                                className="w-full h-full"
+                                autoPlay
+                                muted
+                              >
+                                <source src={data.video} type="video/mp4" />
+                              </video>
+                            </div>
+                          ) : null}
+                        </>
+                      )}
+                      <ImageCustom
+                        data={data.image}
+                        alt={data.image_alt}
+                        title={data.image_alt}
+                        // props
+                        loading={"eager"}
+                        fullWidth={false}
+                        className="block"
+                        height={height ? height : responsive("height")}
+                        width={width ? width : responsive("width")}
+                      />
+                    </div>
+                  ) : (
+                    <Image src={noImage} alt="عکس پیشفرض" className="mb-4" />
+                  )}
+                  {colorVisible && (
+                    <div className="h-4 sm:hidden flex gap-2 mb-2">
+                      {data.colors
+                        ? data.colors.length > 1 &&
+                          data.colors.map((color) => (
+                            <div
+                              key={color.id}
+                              className="w-4 h-4 border rounded-sm"
+                              style={{ backgroundColor: color.color_code }}
+                            ></div>
+                          ))
+                        : null}
+                    </div>
+                  )}
+                </div>
+
                 <div
-                  className="mb-4 relative overflow-hidden"
-                  onMouseEnter={() => setShowVideo(true)}
-                  onMouseLeave={() => setShowVideo(false)}
+                  className={
+                    type == "products"
+                      ? styleList == "module"
+                        ? ""
+                        : styles.list_content_items
+                      : ""
+                  }
                 >
-                  {showVideo && (
+                  <div
+                    className={type == "products" ? styles.content_items : ""}
+                  >
+                    {/* card feature */}
+                    {attributeValue && (
+                      <div className={`${styleList == "list" ? "h-auto mt-4 flex gap-4" : "h-[45px] mb-4 grid gap-1"} grid-cols-4  place-items-center`}>
+                        {data.attributes &&
+                          data.attributes.length > 0 &&
+                          data.attributes.map((attribute) => (
+                            <div key={attribute.id} className="grid gap-1">
+                              <ImageCustom
+                                data={JSON.parse(attribute.icon)}
+                                alt={attribute.icon_alt}
+                                title={attribute.icon_alt}
+                                // props
+                                size={"original"}
+                                width={25}
+                                height={25}
+                                fullWidth={false}
+                              />
+                              <div className="text-[10px] text-center text-[#8a8a8a] font-medium">
+                                {attribute.attribute_value}
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                    {/* card feature */}
+
+                    <div className={`${styleList == "list"  ? "sm:block h-auto" : "sm:flex h-12"} hidden justify-between items-center`}>
+                      {colorVisible && (
+                        <div className={`h-4 flex gap-2 ${styleList == "list"  ? "mb-4" : "mb-0"}`}>
+                          {data.colors
+                            ? data.colors.length > 1 &&
+                              data.colors.map((color) => (
+                                <div
+                                  key={color.id}
+                                  className="w-4 h-4 border rounded-sm"
+                                  style={{ backgroundColor: color.color_code }}
+                                ></div>
+                              ))
+                            : null}
+                        </div>
+                      )}
+
+                      {shipperVisible && (
+                        <div>
+                          {data.shipper && (
+                            <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
+                              <RocketLaunchIcon
+                                fontSize="small"
+                                sx={{ mr: 0.5, color: "#fff" }}
+                              />
+                              <div className="text-sm text-white">
+                                ارسال سریع
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* shipper */}
+                    {shipperVisible && (
+                      <div className="h-12 sm:hidden block">
+                        {data.shipper && (
+                          <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
+                            <RocketLaunchIcon
+                              fontSize="small"
+                              sx={{ mr: 0.5, color: "#fff" }}
+                            />
+                            <div className="text-sm text-white">ارسال سریع</div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {/* shipper */}
+
+                    {/* card name */}
+                    <div
+                      className={`sm:text-sm text-xs mb-4 min-h-[40px] leading-5 ${styles.truncate}`}
+                    >
+                      {altName ? data.alt_name : data.name}
+                    </div>
+                    {/* card name */}
+                  </div>
+
+                  {/* card footer */}
+                  {data.type != 1 ? (
                     <>
-                      {data.video ? (
-                        <div className="w-full h-full absolute top-0 bg-black">
-                          <video
-                            width="1900"
-                            height="500"
-                            controls={false}
-                            className="w-full h-full"
-                            autoPlay
-                            muted
-                          >
-                            <source src={data.video} type="video/mp4" />
-                          </video>
+                      {data.marketable == 0 && data.price != 0 ? (
+                        <>
+                          {data.discount &&
+                          !Array.isArray(data.discount) &&
+                          date < new Date(data.discount.end_date) ? (
+                            <div className="h-12">
+                              <div className="flex items-center justify-between">
+                                {data.discount.type == 0 ? (
+                                  <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
+                                ) : (
+                                  <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
+                                    Math.round(
+                                      (data.discount.percentage / data.price) *
+                                        100
+                                    )
+                                  )} %`}</div>
+                                )}
+                                <div className="flex justify-end">
+                                  <span className="text-[#DE1616] sm:text-base text-sm">
+                                    {data.discount.type == 0 ? (
+                                      <span className="font-semibold tracking-widest">{`${Number(
+                                        data.discount.final_price
+                                      ).toLocaleString()}`}</span>
+                                    ) : (
+                                      <span className="font-bold tracking-widest">{`${Number(
+                                        data.discount.final_price
+                                      ).toLocaleString()}`}</span>
+                                    )}
+                                    <span className="text-xs mr-1">تومان</span>
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex justify-end sm:text-sm text-xs text-[#C4C3C3] line-through">
+                                <span>
+                                  <span className="font-bold tracking-widest">{`${Number(
+                                    data.price
+                                  ).toLocaleString()}`}</span>
+                                  <span className="text-xs mr-1">تومان</span>
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex justify-end h-12 items-center">
+                              <span>
+                                <span className="font-bold tracking-widest">{`${Number(
+                                  data.price
+                                ).toLocaleString()}`}</span>
+                                <span className="text-xs mr-1">تومان</span>
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      ) : data.marketable == 1 || data.price == 0 ? (
+                        <div className="flex justify-between items-center h-12">
+                          <div className="text-[#009688] font-bold">
+                            تماس بگیرید
+                          </div>
+                          <PhoneIcon
+                            fontSize="medium"
+                            sx={{ color: "#009688" }}
+                          />
+                        </div>
+                      ) : data.marketable == 2 ? (
+                        <div className="flex justify-between items-center h-12">
+                          <div className="text-[#555555] font-bold">
+                            ناموجود
+                          </div>
+                          <NotificationsIcon
+                            fontSize="medium"
+                            sx={{ color: "#555555" }}
+                          />
+                        </div>
+                      ) : data.marketable == 3 ? (
+                        <div className="flex justify-between items-center h-12">
+                          <div className="text-[#555555] font-bold">
+                            توقف تولید
+                          </div>
+                          <CancelIcon
+                            fontSize="medium"
+                            sx={{ color: "#555555" }}
+                          />
                         </div>
                       ) : null}
                     </>
-                  )}
-                  <ImageCustom
-                    data={data.image}
-                    alt={data.image_alt}
-                    title={data.image_alt}
-                    // props
-                    loading={"lazy"}
-                    height={height ? height : responsive("height")}
-                    width={width ? width : responsive("width")}
-                  />
-                </div>
-              ) : (
-                <Image src={noImage} alt="عکس پیشفرض" className="mb-4" />
-              )}
-              {colorVisible && (
-                <div className="h-4 flex gap-2 mb-2">
-                  {data.colors
-                    ? data.colors.length > 1 &&
-                      data.colors.map((color) => (
-                        <div
-                          key={color.id}
-                          className="w-4 h-4 border rounded-sm"
-                          style={{ backgroundColor: color.color_code }}
-                        ></div>
-                      ))
-                    : null}
-                </div>
-              )}
-
-              {/* card feature */}
-              <div className="h-[45px] mb-4 grid grid-cols-4 gap-1 place-items-center">
-                {data.attributes &&
-                  data.attributes.length > 0 &&
-                  data.attributes.map((attribute) => (
-                    <div key={attribute.id} className="grid gap-1">
-                      <ImageCustom
-                        data={JSON.parse(attribute.icon)}
-                        alt={attribute.icon_alt}
-                        title={attribute.icon_alt}
-                        // props
-                        size={"original"}
-                        width={25}
-                        height={25}
-                        fullWidth={false}
-                      />
-                      <div className="text-xs text-center text-[#8a8a8a] font-medium">
-                        {attribute.attribute_value}
-                      </div>
-                    </div>
-                  ))}
-              </div>
-              {/* card feature */}
-
-              {/* shipper */}
-              {shipperVisible && (
-                <div className="h-12">
-                  {data.shipper && (
-                    <div className="flex items-center w-fit bg-[#009688] px-2 py-1 rounded-lg">
-                      <RocketLaunchIcon
-                        fontSize="small"
-                        sx={{ mr: 0.5, color: "#fff" }}
-                      />
-                      <div className="text-sm text-white">ارسال سریع</div>
-                    </div>
-                  )}
-                </div>
-              )}
-              {/* shipper */}
-
-              {/* card name */}
-              <div
-                className={`sm:text-sm text-xs mb-4 min-h-[40px] leading-5 ${styles.truncate}`}
-              >
-                {altName ? data.alt_name : data.name}
-              </div>
-              {/* card name */}
-
-              {/* card footer */}
-              {data.type != 1 ? (
-                <>
-                  {data.marketable == 0 && data.price != 0 ? (
+                  ) : data.price ? (
                     <>
                       {data.discount &&
                       !Array.isArray(data.discount) &&
@@ -1849,7 +2006,7 @@ const Card = ({
                               </span>
                             </div>
                           </div>
-                          <div className="flex justify-end sm:text-sm text-xs text-[#C4C3C3] line-through">
+                          <div className="flex justify-end text-sm text-[#C4C3C3] line-through">
                             <span>
                               <span className="font-bold tracking-widest">{`${Number(
                                 data.price
@@ -1869,88 +2026,20 @@ const Card = ({
                         </div>
                       )}
                     </>
-                  ) : data.marketable == 1 || data.price == 0 ? (
+                  ) : (
                     <div className="flex justify-between items-center h-12">
-                      <div className="text-[#009688] font-bold">
-                        تماس بگیرید
+                      <div className="text-[#DE1616] lg:text-base text-sm font-bold">
+                        مشاهده همه پکیج ها
                       </div>
-                      <PhoneIcon fontSize="medium" sx={{ color: "#009688" }} />
-                    </div>
-                  ) : data.marketable == 2 ? (
-                    <div className="flex justify-between items-center h-12">
-                      <div className="text-[#555555] font-bold">ناموجود</div>
-                      <NotificationsIcon
+                      <InventoryIcon
                         fontSize="medium"
-                        sx={{ color: "#555555" }}
+                        sx={{ color: "#DE1616" }}
                       />
                     </div>
-                  ) : data.marketable == 3 ? (
-                    <div className="flex justify-between items-center h-12">
-                      <div className="text-[#555555] font-bold">توقف تولید</div>
-                      <CancelIcon fontSize="medium" sx={{ color: "#555555" }} />
-                    </div>
-                  ) : null}
-                </>
-              ) : data.price ? (
-                <>
-                  {data.discount &&
-                  !Array.isArray(data.discount) &&
-                  date < new Date(data.discount.end_date) ? (
-                    <div className="h-12">
-                      <div className="flex items-center justify-between">
-                        {data.discount.type == 0 ? (
-                          <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${data.discount.percentage} %`}</div>
-                        ) : (
-                          <div className="sm:text-sm text-xs bg-[#DE1616] px-1 text-white rounded-md">{`${Number(
-                            Math.round(
-                              (data.discount.percentage / data.price) * 100
-                            )
-                          )} %`}</div>
-                        )}
-                        <div className="flex justify-end">
-                          <span className="text-[#DE1616] sm:text-base text-sm">
-                            {data.discount.type == 0 ? (
-                              <span className="font-semibold tracking-widest">{`${Number(
-                                data.discount.final_price
-                              ).toLocaleString()}`}</span>
-                            ) : (
-                              <span className="font-bold tracking-widest">{`${Number(
-                                data.discount.final_price
-                              ).toLocaleString()}`}</span>
-                            )}
-                            <span className="text-xs mr-1">تومان</span>
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex justify-end text-sm text-[#C4C3C3] line-through">
-                        <span>
-                          <span className="font-bold tracking-widest">{`${Number(
-                            data.price
-                          ).toLocaleString()}`}</span>
-                          <span className="text-xs mr-1">تومان</span>
-                        </span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex justify-end h-12 items-center">
-                      <span>
-                        <span className="font-bold tracking-widest">{`${Number(
-                          data.price
-                        ).toLocaleString()}`}</span>
-                        <span className="text-xs mr-1">تومان</span>
-                      </span>
-                    </div>
                   )}
-                </>
-              ) : (
-                <div className="flex justify-between items-center h-12">
-                  <div className="text-[#DE1616] lg:text-base text-sm font-bold">
-                    مشاهده همه پکیج ها
-                  </div>
-                  <InventoryIcon fontSize="medium" sx={{ color: "#DE1616" }} />
+                  {/* card footer */}
                 </div>
-              )}
-              {/* card footer */}
+              </div>
             </Link>
           </div>
         ))

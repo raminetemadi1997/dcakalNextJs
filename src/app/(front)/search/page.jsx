@@ -55,7 +55,7 @@ export default async function Page({ params, searchParams }) {
       <section
         className={`grid grid-flow-row grid-cols-9 sm:px-4 px-2 py-4 gap-4 w-full  max-with-unique`}
       >
-        <section className="sm:col-span-9 col-span-9 grid sm:grid-cols-5 grid-cols-2">
+        <section className="sm:col-span-9 col-span-9 grid sm:grid-cols-5 grid-cols-2 gap-2">
           {searchData.data.data.products.data.length > 0 ? (
             <>
               {searchData.data.data.products.data.map((card) => (

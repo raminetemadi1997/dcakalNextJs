@@ -209,7 +209,7 @@ const PackageItem = ({ apiData, slug, pages, scrollTo }) => {
                         }
                         {/* filters */}
                         <div
-                            className={`card-container grid gap-0 ${view === "module" ? "sm:grid-cols-4 grid-cols-2" : "grid-cols-1"
+                            className={`card-container grid gap-2 ${view === "module" ? "sm:grid-cols-4 grid-cols-2" : "grid-cols-1"
                                 } w-full h-fit mb-16`}
                         >
                             {apiData.parent_id == null ? (

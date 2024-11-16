@@ -178,7 +178,7 @@ const Package = ({ apiData = null, pages, scrollTo }) => {
                                 </div>
                                 {/* filters */}
                                 <div
-                                    className={`card-container grid ${view === "module" ? "xl:grid-cols-4 sm:grid-cols-3 grid-cols-2" : "grid-cols-1"
+                                    className={`card-container grid gap-2 ${view === "module" ? "xl:grid-cols-4 sm:grid-cols-3 grid-cols-2" : "grid-cols-1"
                                         } w-full h-fit mb-16`}
                                 >
                                     {apiData.products.data.length > 0

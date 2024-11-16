@@ -5,7 +5,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 //context
 
 const ProductSpecifications = ({ attributes, attributeImage, alt }) => {
-  console.log(attributes);
 
   const mobile = useMediaQuery("(max-width:540px)");
   const specificationScroll = useRef();
